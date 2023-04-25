@@ -1,0 +1,63 @@
+@import "../../../scss/variables";
+
+table.dataTable {
+  tr.dtrg-group {
+    td {
+      background-color: #e0e0e0;
+    }
+
+    &.dtrg-level-0 td {
+      font-weight: bold;
+    }
+
+    &.dtrg-level-1 td,
+    &.dtrg-level-2 td,
+    &.dtrg-level-3 td,
+    &.dtrg-level-4 td,
+    &.dtrg-level-5 td {
+      background-color: #f0f0f0;
+      padding-top: 0.25em;
+      padding-bottom: 0.25em;
+      padding-left: 2em;
+      font-size: 0.9em;
+    }
+
+    &.dtrg-level-2 td {
+      background-color: #f3f3f3;
+      padding-left: 2.5em;
+    }
+
+    &.dtrg-level-3 td {
+      background-color: #f3f3f3;
+      padding-left: 3em;
+    }
+
+    &.dtrg-level-4 td {
+      background-color: #f3f3f3;
+      padding-left: 3.5em;
+    }
+
+    &.dtrg-level-5 td {
+      background-color: #f3f3f3;
+      padding-left: 4em;
+    }
+  }
+
+  &.table-striped tr {
+    &.dtrg-level-0 td {
+      background-color: #e0e0e0 !important;
+    }
+
+    &.dtrg-level-1 td {
+      background-color: #f0f0f0 !important;
+    }
+
+    &.odd {
+      background-color: #f9f9f9 !important;
+    }
+  }
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  --bs-table-accent-bg: none !important;
+}

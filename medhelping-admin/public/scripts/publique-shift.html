@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <link
+            href="http://fonts.googleapis.com/css?family=Lato:400,700"
+            rel="stylesheet"
+            type="text/css"
+        />
+        <link rel="stylesheet" href="./style.css" type="text/css" />
+        <script
+            src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+            crossorigin="anonymous"
+        ></script>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+            integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+            crossorigin="anonymous"
+        />
+        <script src="./GBJSTK.js"></script>
+        <script src="./requests.js"></script>
+    </head>
+    <body>
+        <div
+            id="loader"
+            class="d-none align-items-center justify-content-center position-fixed top-0 start-0 end-0 bottom-0"
+            style="background-color: rgba(0, 0, 0, 0.5)"
+        >
+            <div class="spinner-border" role="status">
+                <span class="sr-only"></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div
+                        class="alert bg-dark text-light pb-2 mt-3"
+                        role="alert"
+                    >
+                        <p style="font-size: 15px">
+                            <b>Publique seu plantão.</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="offset-1 col-10 mt-3">
+                    <form enctype="multipart/form-data" method="POST">
+                        <input type="hidden" name="user_email" value="" />
+                        <div class="form-group mb-3">
+                            <label>Unidade *</label>
+                            <select name="unit" class="form-control" required>
+                                <option>Selecione...</option>
+                                <option value="PSF">PSF</option>
+                                <option value="PS / UBS">PS / UBS</option>
+                                <option value="UPA">UPA</option>
+                                <option value="Hospital">Hospital</option>
+                                <option value="Santa Casa">Santa Casa</option>
+                                <option value="UTI"></option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Cidade *</label>
+                            <input
+                                type="text"
+                                name="city"
+                                placeholder="Cidade"
+                                class="form-control"
+                                required
+                            />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Data *</label>
+                            <input
+                                type="date"
+                                name="date"
+                                placeholder="Data"
+                                class="form-control"
+                                required
+                            />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Hora de entrada *</label>
+                            <input
+                                type="time"
+                                name="entry_time"
+                                placeholder="Hora de entrada"
+                                class="form-control"
+                                required
+                            />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Hora de saída *</label>
+                            <input
+                                type="time"
+                                name="out_time"
+                                placeholder="Hora de saída"
+                                class="form-control"
+                                required
+                            />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Valor</label>
+                            <input
+                                type="text"
+                                name="value"
+                                placeholder="Valor"
+                                class="form-control"
+                            />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Método de pagamento</label>
+                            <input
+                                type="text"
+                                name="payment_method"
+                                placeholder="Método de pagamento"
+                                class="form-control"
+                            />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Descrição</label>
+                            <textarea
+                                name="content"
+                                placeholder="Descrição"
+                                class="form-control"
+                            ></textarea>
+                        </div>
+                        <div class="form-group text-end mb-5">
+                            <button class="btn btn-dark" type="submit">
+                                Enviar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script>
+            function gbPluginDidLoad() {
+                gbGetUser();
+
+                $("form").submit(function (event) {
+                    $("#loader").addClass("d-flex").removeClass("d-none");
+                    event.preventDefault();
+                    var data = {};
+                    $.each($(this).serializeArray(), function (_, kv) {
+                        if (data[kv.name] != "" && data[kv.name] != null) {
+                            if (kv.value != "")
+                                data[kv.name] = data[kv.name] += "," + kv.value;
+                        } else {
+                            data[kv.name] = kv.value;
+                        }
+                    });
+
+                    gbRequest(
+                        "https://agenciamoraes.com/sites/medhelping/api/shift/store",
+                        11,
+                        "NO",
+                        "POST",
+                        data
+                    );
+                });
+            };
+        </script>
+    </body>
+</html>

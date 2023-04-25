@@ -1,0 +1,141 @@
+/******************** Boxed Styles start********************/
+
+@media (min-width: 1400px) {
+  body.layout-boxed {
+    background: $white;
+    &.dark-theme {
+      background: $dark-theme;
+    }
+  }
+
+  .layout-boxed {
+    &.dark-theme {
+      .page {
+        background: $dark-body;
+      }
+    }
+    .page {
+      width: 85%;
+      margin: 0 auto;
+      background: $background;
+      position: relative;
+      display: -ms-flexbox;
+      display: -webkit-box;
+      display: flex;
+      -ms-flex-direction: column;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      flex-direction: column;
+      -ms-flex-pack: center;
+      -webkit-box-pack: center;
+      box-shadow: rgba(104, 113, 123, 0.3) 0px 5px 0px 0px, rgba(104, 113, 123, 0.3) 0px 5px 25px 0px;
+    }
+
+    .main-header.side-header {
+      width: 85% !important;
+      margin: 0 auto;
+    }
+
+    .main-header.hor-header {
+      width: 100% !important;
+      margin: 0 auto;
+    }
+
+    .main-sidebar {
+      left: auto !important;
+    }
+
+    .main-sidebar-header {
+      left: auto !important;
+      right: auto !important;
+    }
+
+    h3.number-font {
+      font-size: 1.8rem;
+    }
+
+    .sticky-pin .main-navbar.hor-menu {
+      width: 85% !important;
+    }
+
+    .hor-content .container,
+    .hor-header .container,
+    .main-navbar.hor-menu .container {
+      max-width: 95%;
+    }
+
+    &.horizontalmenu .hor-header.sticky-pin {
+      position: relative !important;
+    }
+
+    &.main-body .side-header {
+      left: auto;
+    }
+
+    &.rtl {
+      .main-sidebar {
+        right: auto !important;
+      }
+
+      &.main-body .side-header {
+        right: auto;
+        left: auto;
+      }
+    }
+  }
+  
+}
+
+/******************** Boxed Styles End********************/
+
+/******************** Scrollable Styles start********************/
+.scrollable-layout {
+  .main-header.side-header.sticky {
+    position: absolute !important;
+    width: 100% !important;
+  }
+
+  .main-sidebar,
+  &.main-body.leftmenu .sidemenu-logo {
+    position: absolute;
+  }
+
+  .page {
+    position: relative;
+  }
+
+  &.horizontalmenu .sticky.sticky-pin {
+    position: absolute !important;
+  }
+  &.horizontalmenu {
+    .hor-header{
+      &.sticky-pin {
+        position: relative !important;
+      }
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .scrollable-layout.horizontalmenu {
+
+    .main-header.hor-header.sticky-pin,
+    .main-menu.hor-menu {
+      position: absolute !important;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .scrollable-layout.main-sidebar-open.main-sidebar-hide {
+    .side-menu {
+      top: 0;
+    }
+
+    .main-sidebar-body {
+      margin-top: 65px !important;
+    }
+  }
+}
+
+/******************** Scrollable Styles End********************/

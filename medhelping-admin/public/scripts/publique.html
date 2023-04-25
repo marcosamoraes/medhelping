@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <link
+            href="http://fonts.googleapis.com/css?family=Lato:400,700"
+            rel="stylesheet"
+            type="text/css"
+        />
+        <link rel="stylesheet" href="./style.css" type="text/css" />
+        <script
+            src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+            crossorigin="anonymous"
+        ></script>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+            integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+            crossorigin="anonymous"
+        />
+        <script src="./GBJSTK.js"></script>
+        <script src="./requests.js"></script>
+    </head>
+    <body>
+        <div
+            id="loader"
+            class="d-none align-items-center justify-content-center position-fixed top-0 start-0 end-0 bottom-0"
+            style="background-color: rgba(0, 0, 0, 0.5)"
+        >
+            <div class="spinner-border" role="status">
+                <span class="sr-only"></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div
+                        class="alert bg-dark text-light pb-2 mt-3"
+                        role="alert"
+                    >
+                        <p style="font-size: 15px">
+                            <b>Publique seu caso clínico.</b>
+                        </p>
+                        <p style="font-size: 13px">
+                            Pergunte a comunidade MedHelping!
+                        </p>
+                    </div>
+                </div>
+                <div class="offset-1 col-10 mt-3">
+                    <form enctype="multipart/form-data" method="POST">
+                        <input type="hidden" name="user_email" value="" />
+                        <div class="form-group mb-3">
+                            <label>Título *</label>
+                            <input
+                                type="text"
+                                name="title"
+                                placeholder="Título"
+                                class="form-control"
+                                required
+                            />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Descrição *</label>
+                            <textarea
+                                name="content"
+                                placeholder="Caso Clínico"
+                                class="form-control"
+                                required
+                            ></textarea>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Imagem ou Vídeo</label>
+                            <input type="file" class="form-control" />
+                            <input type="hidden" name="image" />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Categoria 1 *</label>
+                            <select name="type" class="form-control" required>
+                                <option>Selecione...</option>
+                                <option value="Emergência">Emergência</option>
+                                <option value="Cardiologia">Cardiologia</option>
+                                <option value="Clín Médica">Clín Médica</option>
+                                <option value="Pediatria">Pediatria</option>
+                                <option value="Cirurgia">Cirurgia</option>
+                                <option value="G.O">G.O</option>
+                                <option value="Ortopedia">Ortopedia</option>
+                                <option value="Neurologia">Neurologia</option>
+                                <option value="Endócrino">Endócrino</option>
+                                <option value="Anestesia">Anestesia</option>
+                                <option value="Pneumologia">Pneumologia</option>
+                                <option value="Ambulatorial">
+                                    Ambulatorial
+                                </option>
+                                <option value="Enfermaria">Enfermaria</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Categoria 2</label>
+                            <select name="type" class="form-control">
+                                <option value="">Selecione...</option>
+                                <option value="Emergência">Emergência</option>
+                                <option value="Cardiologia">Cardiologia</option>
+                                <option value="Clín Médica">Clín Médica</option>
+                                <option value="Pediatria">Pediatria</option>
+                                <option value="Cirurgia">Cirurgia</option>
+                                <option value="G.O">G.O</option>
+                                <option value="Ortopedia">Ortopedia</option>
+                                <option value="Neurologia">Neurologia</option>
+                                <option value="Endócrino">Endócrino</option>
+                                <option value="Anestesia">Anestesia</option>
+                                <option value="Pneumologia">Pneumologia</option>
+                                <option value="Ambulatorial">
+                                    Ambulatorial
+                                </option>
+                                <option value="Enfermaria">Enfermaria</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Categoria 3</label>
+                            <select name="type" class="form-control">
+                                <option value="">Selecione...</option>
+                                <option>Emergência</option>
+                                <option>Clin Médica</option>
+                                <option>Cirurgia</option>
+                                <option>Cardiologia</option>
+                                <option>Pediatria</option>
+                                <option>Ortopedia</option>
+                                <option>Neurologia</option>
+                                <option>G.O</option>
+                                <option>Ambulatorial</option>
+                                <option>Outros</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label
+                                >Publicar de modo anônimo.
+                                <span style="color: #888"
+                                    >(Não quero me identificar)</span
+                                ></label
+                            >
+                            <select
+                                name="anonymous"
+                                class="form-control"
+                                required
+                            >
+                                <option value="">Escolha sua opção</option>
+                                <option value="0">Não</option>
+                                <option value="1">Sim</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <div class="alert alert-warning" role="alert">
+                                <p style="font-size: 13px">
+                                    Certifique-se de que os post nao contenham
+                                    dados/fotos ou vídeos que possam identificar
+                                    o paciente, mantendo sua privacidade.
+                                    Conteúdos fora dessa normativa, após
+                                    devidamente analisados e identificados,
+                                    serão excluídos.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group text-end mb-5">
+                            <button class="btn btn-dark" type="submit">
+                                Enviar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script>
+            function gbPluginDidLoad() {
+                gbGetUser();
+
+                function encodeImageFileAsURL(element) {
+                    var file = element.files[0];
+                    var reader = new FileReader();
+                    reader.onloadend = function () {
+                        $('[name="image"]').val(reader.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+                $('[type="file"]').change(function () {
+                    encodeImageFileAsURL(this);
+                });
+
+                $("form").submit(function (event) {
+                    $("#loader").addClass("d-flex").removeClass("d-none");
+                    event.preventDefault();
+                    var data = {};
+                    $.each($(this).serializeArray(), function (_, kv) {
+                        if (data[kv.name] != "" && data[kv.name] != null) {
+                            if (kv.value != "")
+                                data[kv.name] = data[kv.name] += "," + kv.value;
+                        } else {
+                            data[kv.name] = kv.value;
+                        }
+                    });
+
+                    gbRequest(
+                        "https://agenciamoraes.com/sites/medhelping/api/article/store",
+                        8,
+                        "NO",
+                        "POST",
+                        data
+                    );
+                });
+            };
+        </script>
+    </body>
+</html>

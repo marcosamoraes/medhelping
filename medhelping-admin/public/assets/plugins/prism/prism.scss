@@ -1,0 +1,94 @@
+@import "../../scss/variables";
+
+/* PrismJS 1.17.1
+https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javascript */
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+.token {
+	color: #062ec1;
+
+	&.comment,
+	&.prolog,
+	&.doctype,
+	&.cdata {
+		color: #4cb350;
+	}
+
+	&.punctuation {
+		color: #5010b7;
+	}
+}
+
+.namespace {
+	opacity: 0.7;
+}
+
+.token {
+	&.property,
+	&.tag,
+	&.boolean,
+	&.number,
+	&.constant,
+	&.symbol,
+	&.deleted {
+		color: #905;
+	}
+
+	&.selector,
+	&.attr-name,
+	&.string,
+	&.char,
+	&.builtin,
+	&.inserted {
+		color: #e4063a;
+	}
+
+	&.operator,
+	&.entity,
+	&.url {
+		color: #4baefd;
+		background: hsla(0, 0%, 100%, 0.1);
+	}
+}
+
+.language-css .token.string,
+.style .token.string {
+	color: #4baefd;
+	background: hsla(0, 0%, 100%, 0.1);
+}
+
+.token {
+	&.atrule,
+	&.attr-value,
+	&.keyword {
+		color: #5010b7;
+	}
+
+	&.function,
+	&.class-name {
+		color: #dd4a68;
+	}
+
+	&.regex,
+	&.important,
+	&.variable {
+		color: #e90;
+	}
+
+	&.important,
+	&.bold {
+		font-weight: bold;
+	}
+
+	&.italic {
+		font-style: italic;
+	}
+
+	&.entity {
+		cursor: help;
+	}
+}

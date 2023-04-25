@@ -1,0 +1,45 @@
+/*Color variables*/
+/*gray variables*/
+/*white variables*/
+/*black variables*/
+/*Dark Theme*/
+/*Dark Theme*/
+/* Container */
+.sp-dark.sp-container {
+    background-color: #333;
+    border: solid 1px #555;
+}
+
+.sp-dark.sp-replacer {
+    border: solid 1px #ffffff;
+    background: #333;
+    color: #eee;
+    vertical-align: middle;
+}
+
+/* Replacer (the little preview div that shows up instead of the <input>) */
+.sp-replacer:hover,
+.sp-replacer.sp-active {
+    border-color: #f0c49b;
+    color: #ffffff;
+}
+
+.sp-replacer.sp-disabled {
+    border-color: silver;
+    color: silver;
+}
+
+.sp-dark .sp-preview {
+    border: solid 1px #999;
+}
+
+.sp-dark .sp-cancel {
+    color: #f99f9f !important;
+}
+
+.sp-dark.sp-replacer:hover,
+.sp-dark.sp-replacer.sp-active {
+    border-color: #f0c49b;
+    color: #111;
+}
+/*# sourceMappingURL=sp-dark.css.map */

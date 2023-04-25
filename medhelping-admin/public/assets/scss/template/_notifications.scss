@@ -1,0 +1,141 @@
+/* ###### Notification List ###### */
+.notify-time {
+  position: absolute;
+  top: auto;
+  bottom: auto;
+  left: auto;
+  right: 25px;
+}
+
+@media (max-width: 767px) {
+  .notify-time {
+    display: none;
+  }
+}
+
+.notification {
+  list-style-type: none;
+  padding: 0;
+  position: relative;
+}
+
+.notification:before {
+  content: "";
+  position: absolute;
+  top: 15px;
+  bottom: 15px;
+  width: 3px;
+  background: $primary-02;
+  left: 20%;
+  margin-left: -1px;
+}
+
+.notification > li {
+  position: relative;
+  min-height: 50px;
+  padding: 15px 0;
+}
+
+.notification .notification-time {
+  position: absolute;
+  left: 0;
+  width: 18%;
+  text-align: right;
+  top: 30px;
+}
+
+.notification .notification-time .date,
+.notification .notification-time .time {
+  display: block;
+  font-weight: 500;
+}
+
+.notification .notification-time .date {
+  line-height: 16px;
+  font-size: 13px;
+  margin-bottom: 4px;
+  color: $color;
+}
+
+.notification .notification-time .time {
+  line-height: 24px;
+  font-size: 21px;
+  color: $color;
+}
+
+.notification .notification-icon {
+  left: 15%;
+  position: absolute;
+  width: 10%;
+  text-align: center;
+  top: 41px;
+}
+
+.notification .notification-icon a {
+  text-decoration: none;
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  border-radius: 50%;
+  background: $white;
+  line-height: 10px;
+  color: $white;
+  font-size: 14px;
+  border: 3px solid $primary;
+  transition: border-color 0.2s linear;
+}
+
+.notification .notification-body {
+  box-shadow: 0px 8px 16px $black-05;
+  margin-left: 24%;
+  margin-right: 18%;
+  background: $white;
+  position: relative;
+  padding: 14px 20px;
+  border-radius: 6px;
+}
+
+.notification .notification-body:before {
+  content: "";
+  display: block;
+  position: absolute;
+  border: 10px solid transparent;
+  border-right-color: $white;
+  left: -20px;
+  top: 25px;
+}
+
+.notification .notification-body > div + div {
+  margin-top: 15px;
+}
+
+@media (max-width: 767px) {
+  .notification:before {
+    display: none;
+  }
+
+  .notification .notification-time .date {
+    display: none;
+  }
+
+  .notification .notification-time .time {
+    display: none;
+  }
+
+  .notification .notification-icon {
+    display: none;
+  }
+
+  .notification .notification-body {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+.notification-time-date {
+  color: $color;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* ###### Notification List ###### */

@@ -1,0 +1,201 @@
+/* ###### Tags  ###### */
+
+.tag {
+  font-size: 0.75rem;
+  color: $white !important; 
+  background-color: #e9edfb;
+  border-radius: 0px;
+  padding: 0 .5rem;
+  line-height: 2em;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  cursor: default;
+  font-weight: 400;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.tag-pill {
+  padding-right: 0.6em;
+  padding-left: 0.6em;
+  border-radius: 50px;
+}
+a.tag {
+  text-decoration: none;
+  cursor: pointer;
+  transition: .3s color, .3s background;
+
+  &:hover {
+    background-color: rgba(110, 118, 135, 0.2);
+    color: inherit;
+  }
+}
+
+.tag-addon {
+  display: inline-block;
+  padding: 0 .5rem;
+  color: inherit;
+  text-decoration: none;
+  margin: 0 -.5rem 0 .5rem;
+  text-align: center;
+  min-width: 1.5rem;
+  background: #e1e1ff;
+
+  &:last-child {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+  }
+
+  i {
+    vertical-align: middle;
+    margin: 0 -.25rem;
+  }
+}
+
+a.tag-addon {
+  text-decoration: none;
+  cursor: pointer;
+  transition: .3s color, .3s background;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.16);
+    color: inherit;
+  }
+}
+
+.tag-avatar {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 3px 0 0 3px;
+  margin: 0 .5rem 0 -.5rem;
+}
+
+.tag-blue {
+  background-color: #467fcf !important; 
+  color: $white !important; 
+}
+
+.tag-indigo {
+  background-color: $primary !important;
+  color: $white !important; 
+}
+
+.tag-purple {
+  background-color: #8500ff !important;
+  color: $white !important; 
+}
+
+.tag-pink {
+  background-color: #ec82ef !important;
+  color: $white !important; 
+}
+
+.tag-red {
+  background-color: #ec2d38 !important;
+  color: $white !important; 
+}
+
+.tag-yellow {
+  background-color: #fdb901 !important;
+  color: $white !important; 
+}
+
+.tag-green {
+  background-color: #0fa751 !important;
+  color: $white !important; 
+}
+
+.tag-cyan {
+  background-color: #00b9ff !important;
+  color: $white !important; 
+}
+
+.tag-white {
+  background-color: $white !important; 
+  color: $white !important; 
+}
+
+.tag-gray {
+  background-color: #868e96 !important;
+  color: $white !important; 
+}
+
+.tag-gray-dark {
+  background-color: #343a40 !important;
+  color: $white !important; 
+}
+
+.tag-azure {
+  background-color: #17c1f4 !important;
+  color: $white !important; 
+}
+
+.tag-lime {
+  background-color: #7bd235 !important;
+  color: $white !important; 
+}
+
+.tag-secondary {
+  background-color: $secondary !important;
+  color: $white !important; 
+}
+
+.tag-success {
+  background-color: $success !important;
+  color: $white !important; 
+}
+
+.tag-info {
+   background-color: $info !important;
+  color: $white !important; 
+}
+
+.tag-default {
+  background-color: $background;
+  color: #828db1;
+}
+
+.tag-warning {
+  background-color:$warning !important;
+  color: $white !important; 
+}
+
+.tag-danger {
+  background-color: #f16d75 !important;
+  color: $white !important; 
+}
+
+.tag-light {
+  background-color: #f8f9fa !important;
+  color: $white !important; 
+}
+
+.tag-dark {
+  background-color: #8f9cc0 !important;
+  color: $white !important; 
+}
+
+.tag-rounded {
+  border-radius: 50px;
+
+  .tag-avatar {
+    border-radius: 50px;
+  }
+}
+
+.tags {
+  margin-bottom: -.5rem;
+  font-size: 0;
+
+  > .tag {
+    margin-bottom: .5rem;
+
+    &:not(:last-child) {
+      margin-right: .5rem;
+    }
+  }
+}
+
+/* ###### Tags  ###### */

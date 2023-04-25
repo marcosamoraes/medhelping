@@ -1,0 +1,385 @@
+/**********************Light Header Start********************************/
+.header-light {
+    &.main-body {
+        @media (min-width: 992px) {
+            .side-header {
+                border-bottom-color: $border;
+                box-shadow: -7.829px 11.607px 20px 0px $black-2;
+            }
+        }
+    }
+
+    @media (min-width: 992px) {
+        &.horizontalmenu .main-header .main-header-left .main-logo {
+            .desktop-logo {
+                display: block;
+            }
+
+            .desktop-logo-dark {
+                display: none;
+            }
+        }
+    }
+
+    @media (max-width: 991px) {
+
+        &.main-body .mobile-logo-dark,
+        &.horizontalmenu .mobile-logo-dark {
+            display: none;
+        }
+
+        &.main-body .mobile-logo,
+        &.horizontalmenu .mobile-logo {
+            display: block;
+        }
+    }
+
+    @media (max-width: 991px) {
+
+        .main-header.side-header {
+            border-bottom-color: $border;
+        }
+
+        .responsive-navbar.navbar .navbar-collapse {
+            background: $white;
+            border-bottom-color: $border;
+            border-top-color: $border;
+        }
+    }
+
+    .main-header-right .dropdown-menu .select2-container--default .select2-selection--single {
+        background-color: $white;
+        border-color: $border;
+    }
+
+    .main-header {
+        background-color: $white;
+        border-bottom-color: $border;
+
+        .form-control {
+            color: $black;
+            background-color: $white;
+            border-color: $border;
+        }
+
+        .select2-container--default .select2-selection--single {
+            background-color: $white;
+            border-color: $border  !important;
+        }
+
+        .responsive-navbar.navbar .navbar-collapse {
+            box-shadow: none;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__placeholder {
+            color: #a8afc7;
+        }
+
+        .navbar-toggler {
+            color: #4a4d51;
+        }
+    }
+
+    .navbar-toggler .header-icons:hover,
+    .option-dots:hover {
+        background-color: $background;
+    }
+
+    .main-form-search .form-control:focus {
+        background-color: $white;
+        border-color: $border;
+    }
+
+    .main-header-menu-icon span {
+        background-color: #2f395f;
+    }
+
+    .main-header-menu-icon span::before,
+    .main-header-menu-icon span::after {
+        background-color: #2f395f;
+    }
+
+    .main-header-right .nav-link.icon {
+        color: #4a4d51;
+    }
+
+    .main-header-right .nav-link.icon:hover {
+        background: $background;
+    }
+
+    .main-header-center .form-control {
+        border-color: $border;
+
+        &:focus {
+            border-color: $border  !important;
+        }
+    }
+}
+
+/**********************Light Header End********************************/
+
+/**********************Dark Header Start********************************/
+.header-dark {
+    &.main-body {
+        @media (min-width: 992px) {
+            .side-header {
+                border-bottom-color: $dark-border;
+                box-shadow: -7.829px 11.607px 20px 0px $white-2;
+            }
+        }
+    }
+
+    @media (min-width: 992px) {
+        &.horizontalmenu .main-header .main-header-left .main-logo {
+            .desktop-logo {
+                display: none;
+            }
+
+            .desktop-logo-dark {
+                display: block;
+            }
+        }
+    }
+
+    @media (max-width: 991px) {
+
+        &.main-body .mobile-logo-dark,
+        &.horizontalmenu .mobile-logo-dark {
+            display: block;
+        }
+
+        &.main-body .mobile-logo,
+        &.horizontalmenu .mobile-logo {
+            display: none;
+        }
+    }
+
+    @media (max-width: 991px) {
+
+        .main-header.side-header {
+            border-bottom-color: $dark-border;
+        }
+
+        .responsive-navbar.navbar .navbar-collapse {
+            background: $dark-theme;
+            border-bottom-color: $dark-border;
+            border-top-color: $dark-border;
+        }
+    }
+
+    .main-header-right .dropdown-menu .select2-container--default .select2-selection--single {
+        background-color: $dark-theme;
+        border-color: $dark-border  !important;
+    }
+
+    .main-header {
+        background-color: $dark-theme;
+        border-bottom-color: $dark-border;
+
+        .form-control {
+            color: $dark-color;
+            background-color: $dark-theme;
+            border-color: $dark-border;
+        }
+
+        .select2-container--default .select2-selection--single {
+            background-color: $dark-theme;
+            border-color: $dark-border  !important;
+        }
+
+        .responsive-navbar.navbar .navbar-collapse {
+            box-shadow: none;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__placeholder {
+            color: $dark-color;
+        }
+
+        .navbar-toggler {
+            color: $dark-color;
+        }
+    }
+
+    .navbar-toggler .header-icons:hover,
+    .option-dots:hover {
+        background-color: $dark-body;
+    }
+
+    .main-form-search .form-control:focus {
+        background-color: $dark-theme;
+        border-color: $dark-border;
+    }
+
+    .main-header-menu-icon span {
+        background-color: $dark-color;
+    }
+
+    .main-header-menu-icon span::before,
+    .main-header-menu-icon span::after {
+        background-color: $dark-color;
+    }
+
+    .main-header-right .nav-link.icon {
+        color: $dark-color;
+    }
+
+    .main-header-right .nav-link.icon:hover {
+        background: $dark-body;
+    }
+
+    .main-header-center .form-control {
+        border-color: $dark-border;
+
+        &:focus {
+            border-color: $dark-border  !important;
+        }
+    }
+}
+
+/**********************Dark Header End********************************/
+
+/**********************Color Header Start********************************/
+.color-header {
+    &.main-body {
+        @media (min-width: 992px) {
+            .side-header {
+                border-bottom-color: $white-2;
+                box-shadow: -7.829px 11.607px 20px 0px $white-2;
+            }
+        }
+    }
+
+    @media (min-width: 992px) {
+        &.horizontalmenu .main-header .main-header-left .main-logo {
+            .desktop-logo {
+                display: none;
+            }
+
+            .desktop-logo-dark {
+                display: block;
+            }
+        }
+    }
+
+    @media (max-width: 991px) {
+
+        &.main-body .mobile-logo-dark,
+        &.horizontalmenu .mobile-logo-dark {
+            display: block;
+        }
+
+        &.main-body .mobile-logo,
+        &.horizontalmenu .mobile-logo {
+            display: none;
+        }
+    }
+
+    @media (max-width: 991px) {
+
+        .main-header.side-header {
+            border-bottom-color: $white-2;
+        }
+
+        .responsive-navbar.navbar .navbar-collapse {
+            background: $primary;
+            border-bottom-color: $white-2;
+            border-top-color: $white-2;
+        }
+    }
+
+    .main-header-right .dropdown-menu .select2-container--default .select2-selection--single {
+        background-color: $primary;
+        border-color: $white-2  !important;
+    }
+
+    .main-header {
+        background-color: $primary;
+        border-bottom-color: $white-2;
+
+        .form-control {
+            color: $white;
+            background-color: $primary;
+            border-color: $white-2;
+        }
+
+        .select2-container--default .select2-selection--single {
+            background-color: $primary;
+            border-color: $white-2  !important;
+        }
+
+        .responsive-navbar.navbar .navbar-collapse {
+            box-shadow: none;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__placeholder {
+            color: $white;
+        }
+
+        .navbar-toggler {
+            color: $white;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: $white;
+        }
+
+        .form-control {
+
+            &::placeholder {
+                color: $white-8;
+            }
+        }
+
+        .main-form-search .btn,
+        .main-form-search .sp-container button {
+            background-color: $background;
+            color: $primary;
+        }
+    }
+
+    .main-header-center .form-control:focus+.btn {
+        color: $primary;
+    }
+
+    .navbar-toggler .header-icons:hover,
+    .option-dots:hover {
+        background-color: $black-2;
+    }
+
+    .main-form-search .form-control:focus {
+        background-color: $primary;
+        border-color: $white-2;
+    }
+
+    .main-header-menu-icon span {
+        background-color: $white;
+    }
+
+    .main-header-menu-icon span::before,
+    .main-header-menu-icon span::after {
+        background-color: $white;
+    }
+
+    .main-header-right .nav-link.icon {
+        color: $white;
+    }
+
+    .main-header-right .nav-link.icon:hover {
+        background: $black-2;
+    }
+
+    .main-header-center .form-control {
+        border-color: $white-2;
+
+        &:focus {
+            border-color: $white-2  !important;
+        }
+    }
+
+    .main-header-center .search-btn {
+        background-color: $white;
+        color: $primary;
+    }
+}
+
+/**********************Color Header End********************************/
