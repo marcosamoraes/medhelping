@@ -1,0 +1,51 @@
+{
+    "env": {
+        "es2021": true,
+        "node": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended",
+        "xo"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "overrides": [
+        {
+            "extends": [
+                "xo-typescript"
+            ],
+            "files": [
+                "*.ts",
+                "*.tsx"
+            ]
+        }
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "react-native",
+        "eslint-plugin-import-helpers",
+        "prettier",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "lines-between-class-members": ["error", "always"],
+        "no-use-before-define": "off",
+        "prettier/prettier": "error",
+        "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],
+        "react/react-in-jsx-scope": "off",
+        "react/prop-types": ["error", { "ignore": ["navigation", "navitation.navigate"] }],
+        "@typescript-eslint/no-use-before-define": ["error"],
+        "@typescript-eslint/object-curly-spacing": ["error", "always"]
+    },
+    "settings": {
+        "import/parsers": {
+            "@typescript-eslint/parser": [".ts", ".tsx"]
+        },
+        "import/resolver": { "typescript": {} }
+    }
+}
