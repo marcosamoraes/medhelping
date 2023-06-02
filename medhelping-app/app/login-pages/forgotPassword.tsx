@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Image, StyleSheet, TextInput, TouchableOpacity, Text, TouchableHighlight } from 'react-native';
+import { View, Image, StyleSheet, TextInput, Text } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-
+import { Link } from "expo-router";
 
 export default function Forgot(){
 
@@ -43,7 +43,7 @@ export default function Forgot(){
       colors={['#03DADBB3', '#07ACF7B3']}
       className='w-4/5 bg-[#348CA9] my-12 h-11 justify-center items-center rounded-2xl'
       ><Text className='font-bold text-white text-lg'>Enviar link de recuperação</Text></LinearGradient>
-      <TouchableHighlight><Text className='font-bold text-white text-base my-5'> Fazer Login </Text></TouchableHighlight>
+      <Link href='/login'><Text className='font-bold text-white text-base my-5'> Fazer Login </Text></Link>
       </View>
     </>)
 }
