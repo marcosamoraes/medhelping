@@ -49,8 +49,8 @@ export default function Login(){
       colors={['#03DADBB3', '#07ACF7B3']}
       className='w-4/5 bg-[#348CA9] my-5 h-11 justify-center items-center rounded-2xl'
       ><Text className='font-bold text-white text-lg'>Entrar</Text></LinearGradient>
-      <Link href='/forgotPassword'><Text className='font-bold text-white text-base my-5'> Esqueci minha senha </Text></Link>
-      <Link href='/cadastro'><Text className='font-bold text-[#03DADB] text-base mt-5 mb-3'> Novo no app? Criar conta! </Text></Link>
+      <Link href='./forgotPassword'><Text className='font-bold text-white text-base my-5'> Esqueci minha senha </Text></Link>
+      <Link href='./cadastro'><Text className='font-bold text-[#03DADB] text-base mt-5 mb-3'> Novo no app? Criar conta! </Text></Link>
     </View>
     </>)
 }
