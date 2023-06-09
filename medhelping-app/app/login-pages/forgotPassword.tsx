@@ -36,14 +36,14 @@ export default function Forgot(){
       <TextInput
       style={styles.input}
       placeholder='Email de recuperação'
-      className='h-10 w-4/5 rounded-xl my-5 px-4'
+      className='h-10 w-4/5 rounded-xl text-sm font-400 my-5 px-4'
       placeholderTextColor={'white'}
       />
       <LinearGradient
       colors={['#03DADBB3', '#07ACF7B3']}
       className='w-4/5 bg-[#348CA9] my-12 h-11 justify-center items-center rounded-2xl'
-      ><Text className='font-bold text-white text-lg'>Enviar link de recuperação</Text></LinearGradient>
-      <Link href='./login'><Text className='font-bold text-white text-base my-5'> Fazer Login </Text></Link>
+      ><Text className='font-900 text-white text-base'>Enviar link de recuperação</Text></LinearGradient>
+      <Link href='../login-pages/login'><Text className='font-900 text-white text-base my-5'> Fazer Login </Text></Link>
       </View>
     </>)
 }
