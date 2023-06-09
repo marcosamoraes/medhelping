@@ -12,7 +12,7 @@ module.exports = {
         800:'Catamaran_800ExtraBold',
         900:'Catamaran_900Black',
       }
-    },
+    }
   },
   plugins: [],
 }

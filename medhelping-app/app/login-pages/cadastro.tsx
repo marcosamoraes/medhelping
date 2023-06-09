@@ -23,9 +23,9 @@ export default function Cadastro(){
         }
     });
     return (<>
-    <View className="bg-[#01061C] flex-1 justify-center items-center">
+    <View className="bg-[#01061C] flex-1 items-center">
       <Image style={styles.logo}
-        className="w-28 h-28 z-10 border-2 rounded-3xl my-16"
+        className="w-28 h-28 z-10 border-2 rounded-3xl mt-24 mb-16"
         source={require('../../assets/images/medhelping_logo.png')}
       />
       <LinearGradient
@@ -36,32 +36,32 @@ export default function Cadastro(){
       <TextInput
       style={styles.input}
       placeholder='Nome'
-      className='h-10 w-4/5 rounded-xl my-3 px-4'
+      className='h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
       placeholderTextColor={'white'}
       />
       <TextInput
       style={styles.input}
       placeholder='Email'
-      className='h-10 w-4/5 rounded-xl my-3 px-4'
+      className='h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
       placeholderTextColor={'white'}
       />
       <TextInput
       style={styles.input}
       placeholder='Senha'
-      className='h-10 w-4/5 rounded-xl my-3 px-4'
+      className='h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
       placeholderTextColor={'white'}
       />
       <TextInput
       style={styles.input}
       placeholder='Confirmar senha'
-      className='h-10 w-4/5 rounded-xl my-3 px-4'
+      className='h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
       placeholderTextColor={'white'}
       />
       <LinearGradient
       colors={['#03DADBB3', '#07ACF7B3']}
       className='w-4/5 bg-[#348CA9] my-5 h-11 justify-center items-center rounded-2xl'
-      ><Text className='font-bold text-white text-lg'>Cadastrar</Text></LinearGradient>
-      <Link href='./login'><Text className='font-bold text-white text-base my-5'> Fazer Login </Text></Link >
+      ><Text className='font-900 text-white text-lg'>Cadastrar</Text></LinearGradient>
+      <Link className='my-5' href='../login-pages/login'><Text className='font-900 text-white text-base my-5'> Fazer Login </Text></Link >
       </View>
     </>)
 }
