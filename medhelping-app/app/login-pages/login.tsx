@@ -48,9 +48,10 @@ export default function Login(){
       <LinearGradient
       colors={['rgba(3, 218, 219, 0.7)', 'rgba(7, 172, 247, 0.7)']}
       className='w-4/5 bg-[#348CA9] my-5 h-11 justify-center items-center rounded-2xl'
-      ><Text className='font-900 text-white text-base'>Entrar</Text></LinearGradient>
+      ><Link href='../main-pages/home'><Text className='font-900 text-white text-base'>Entrar</Text></Link></LinearGradient>
       <Link className='my-5' href='../login-pages/forgotPassword'><Text className='font-900 text-white text-base my-5'> Esqueci minha senha </Text></Link>
       <Link className='mt-5' href='../login-pages/cadastro'><Text className='font-900 text-[#03DADB] text-base mt-5 mb-3'> Novo no app? Criar conta! </Text></Link>
     </View>
+    
     </>)
 }
