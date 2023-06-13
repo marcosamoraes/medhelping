@@ -3,6 +3,7 @@ import Login from './login-pages/login';
 import { useFonts, Catamaran_300Light, Catamaran_400Regular, Catamaran_500Medium, Catamaran_600SemiBold, Catamaran_700Bold, Catamaran_800ExtraBold, Catamaran_900Black } from '@expo-google-fonts/catamaran';
 
 import FaleConosco from './main-pages/faleConosco';
+import VerPublicacao from './main-pages/verPublicacao';
 
 export default function App() {
   const [hasLoadedFonts] = useFonts({ Catamaran_300Light, Catamaran_400Regular, Catamaran_500Medium, Catamaran_600SemiBold, Catamaran_700Bold, Catamaran_800ExtraBold, Catamaran_900Black })
@@ -13,7 +14,7 @@ export default function App() {
 
   return (
   <>
-    <FaleConosco />
+    <VerPublicacao />
   </>
   );
 }
