@@ -1,11 +1,12 @@
-import { Image, ScrollView, StyleSheet, TextInput, Text, TouchableOpacity, View } from "react-native";
-import Footer from "../../sources/components/footer";
+import { Image, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import Header from "../../sources/components/header";
 import { useRouter } from "expo-router";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import Footer from "../../sources/components/footer";
 
-export default function EditarPerfil() {
+export default function Configuracoes(){
     const router = useRouter();
-    function handleEditProfile(){
+    function handleEditConfig(){
         router.push('./verPerfil')
     }
     const styles = StyleSheet.create({
@@ -21,73 +22,75 @@ export default function EditarPerfil() {
             textAlignVertical: 'top'
         }
     });
+
     return (<>
-        <Header />
+    <Header />
         <ScrollView className="w-screen px-6 bg-[#00021C]">
-            <Image className="w-28 mx-auto h-28 my-6 object-cover rounded-full" source={require("../../assets/images/avatar-template.jpg")} />
             <TextInput
                 style={styles.input}
-                placeholder='Nome'
-                className='h-10 w-full rounded-xl text-sm font-400 mb-3 px-4'
+                placeholder='Idade'
+                className='h-10 w-full rounded-xl text-sm font-400 mt-5 mb-3 px-4'
                 placeholderTextColor={'white'}
             />
-            <TextInput
-                style={styles.input}
-                placeholder='Email'
-                className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
-                placeholderTextColor={'white'}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder='WhatsApp'
-                className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
-                placeholderTextColor={'white'}
-            />
-            <TouchableOpacity onPress={()=> router.push('./alterarSenha')} activeOpacity={0.8} className="flex-row w-full bg-[#03dadbb2] justify-center pt-2 pb-1 rounded-xl my-3 items-center"><Text className="text-white font-700 text-sm ml-2">Alterar senha</Text></TouchableOpacity>
-            <View className="px-2 pt-2 mt-3 border-t border-t-[#1F2935]">
-                <Text className="font-700 mt-2 text-base text-white">Localização</Text>
-                <TextInput
-                style={styles.input}
-                placeholder='CEP'
-                className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
-                placeholderTextColor={'white'}
-            />
-            <View className="flex-row justify-between">
-            <TextInput
-                style={styles.input}
-                placeholder='Endereço'
-                className='h-10 w-8/12 rounded-xl text-sm font-400 my-3 px-4'
-                placeholderTextColor={'white'}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder='Nº'
-                className='h-10 w-3/12 rounded-xl text-sm font-400 my-3 px-4'
-                placeholderTextColor={'white'}
-            /></View>
-            <TextInput
-                style={styles.input}
-                placeholder='Bairro'
-                className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
-                placeholderTextColor={'white'}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder='Cidade'
-                className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
-                placeholderTextColor={'white'}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder='Estado'
-                className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
-                placeholderTextColor={'white'}
-            />
-            </View>
             
-            <TouchableOpacity onPress={()=> handleEditProfile()} activeOpacity={0.8} className="flex-row w-full bg-[#03dadbb2] justify-center pt-2 pb-1 rounded-xl my-3 items-center"><Text className="text-white font-700 text-sm ml-2">Atualizar perfil</Text></TouchableOpacity>
-        <View className="h-5"></View>
+            <TextInput
+                style={styles.input}
+                placeholder='Faculdade'
+                className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
+                placeholderTextColor={'white'}
+            />
+            <TextInput
+                style={styles.input}
+                placeholder='Ano de conclusão'
+                className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
+                placeholderTextColor={'white'}
+            />
+            <TextInput
+                style={styles.input}
+                placeholder='CRM'
+                className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
+                placeholderTextColor={'white'}
+            />
+            <TextInput
+                style={styles.input}
+                placeholder='Área de atuação'
+                className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
+                placeholderTextColor={'white'}
+            />
+            <TextInput
+                style={styles.input}
+                placeholder='Especialidades'
+                className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
+                placeholderTextColor={'white'}
+            />
+            <TextInput
+                style={styles.input}
+                placeholder='Link do Facebook'
+                className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
+                placeholderTextColor={'white'}
+            />
+            <TextInput
+                style={styles.input}
+                placeholder='Link do Instagram'
+                className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
+                placeholderTextColor={'white'}
+            />
+            <TextInput
+                style={styles.input}
+                placeholder='Link do Twitter'
+                className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
+                placeholderTextColor={'white'}
+            />
+            <TextInput
+                style={styles.input}
+                placeholder='Link do Doctoralia'
+                className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
+                placeholderTextColor={'white'}
+            />
+            <TouchableOpacity onPress={()=> handleEditConfig()} activeOpacity={0.8} className="flex-row w-full bg-[#03dadbb2] justify-center pt-2 pb-1 rounded-xl my-3 items-center"><Text className="text-white font-700 text-sm ml-2">Atualizar</Text></TouchableOpacity>
+        <View className="h-4"></View>
         </ScrollView>
         <Footer />
+    
     </>)
 }

@@ -32,16 +32,11 @@ export default function FaleConosco(){
         <Text className="text-white font-500 text-center text-base">Para dúvidas, sugestões ou informações diversas, entre em contato conosco pelo formulário abaixo:</Text>
         </View>
         
-        <TextInput
-      style={styles.input}
-      placeholder='Nome'
-      className='h-10 w-full rounded-xl text-sm font-400 mb-3 mt-5 px-4'
-      placeholderTextColor={'white'}
-      />
+        
       <TextInput
       style={styles.input}
-      placeholder='Email'
-      className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
+      placeholder='Título'
+      className='h-10 w-full rounded-xl text-sm font-400 mb-3 mt-5 px-4'
       placeholderTextColor={'white'}
       />
       <TextInput
