@@ -13,7 +13,7 @@ export default function Footer(){
         <Link href='./home'><FontAwesome name="home" size={24} color="white" /></Link>
         <Link href='./listaCategorias'><FontAwesome name="list-ul" size={24} color="white" /></Link>
         <TouchableOpacity onPress={() => router.push('./publicarDiagnostico')} activeOpacity={0.9} className="rounded-full w-14 h-14 shadow-md items-center justify-center mt-[-34] bg-white"><Text className="text-[#03DADB] text-4xl">+</Text></TouchableOpacity>
-        <FontAwesome name="gear" size={24} color="white" />
+        <Link href='./configuracoes'><FontAwesome name="gear" size={24} color="white" /></Link>
         <Link href='./verPerfil'><Ionicons name="person" size={24} color="white" /></Link>
         </View>
     </View>

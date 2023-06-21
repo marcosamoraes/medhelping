@@ -51,6 +51,7 @@ export default function Login() {
                 placeholder='Senha'
                 className='h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
                 placeholderTextColor={'white'}
+                secureTextEntry={true}
             />
             <TouchableOpacity onPress={() => handleLogin()} activeOpacity={0.8} className='w-4/5 overflow-hidden bg-[#348CA9] my-5 h-11 justify-center items-center rounded-2xl'>
                 <LinearGradient
