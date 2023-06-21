@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('complement')->nullable();
             $table->string('district')->nullable();
             $table->string('city')->nullable();
-            $table->string('uf')->nullable();
+            $table->string('state')->nullable();
             $table->timestamps();
         });
     }
