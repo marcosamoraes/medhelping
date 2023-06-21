@@ -2,52 +2,21 @@
 
 namespace Database\Seeders;
 
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
-use \App\Models\Admin;
-use \App\Models\Article;
 
 class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
-        // Create admin user
-        $admin = Admin::where('email', 'admin@admin.com')->first();
-        if (!$admin) {
-            Admin::create([
-                'name' => 'Admin',
-                'email' => 'admin@admin.com',
-                'password' => Hash::make('123456'),
-            ]);
-        }
+        // \App\Models\User::factory(10)->create();
 
-        Article::create([
-            'user_name' => 'Marcos Moraes',
-            'title' => 'Análise Cardiologia',
-            'image' => "https://agenciamoraes.com/sites/medhelping/public/images/articles/eu4-1665082284.jpg",
-            'content' => 'Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum',
-            'type' => 'Cardiologia,Emergência,Neurologia,Endócrino'
-        ]);
-
-        Article::create([
-            'user_name' => 'Marcos 2',
-            'title' => 'Testes de coração',
-            'image' => "https://agenciamoraes.com/sites/medhelping/public/images/articles/eu4-1665082284.jpg",
-            'content' => 'Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum',
-            'type' => 'Cardiologia,Emergência,Neurologia,Endócrino'
-        ]);
-
-        Article::create([
-            'user_name' => 'Marcos 3',
-            'title' => 'Exames gerais',
-            'image' => "https://agenciamoraes.com/sites/medhelping/public/images/articles/eu4-1665082284.jpg",
-            'content' => 'Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum',
-            'type' => 'Cardiologia,Emergência,Neurologia,Endócrino'
-        ]);
+        // \App\Models\User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
     }
 }

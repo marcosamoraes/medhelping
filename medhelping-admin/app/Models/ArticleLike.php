@@ -8,9 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class ArticleLike extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'article_id',
-        'user_id',
-    ];
 }
