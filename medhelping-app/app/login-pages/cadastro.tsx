@@ -50,12 +50,14 @@ export default function Cadastro(){
       placeholder='Senha'
       className='h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
       placeholderTextColor={'white'}
+      secureTextEntry={true}
       />
       <TextInput
       style={styles.input}
       placeholder='Confirmar senha'
       className='h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
       placeholderTextColor={'white'}
+      secureTextEntry={true}
       />
       <LinearGradient
       colors={['#03DADBB3', '#07ACF7B3']}

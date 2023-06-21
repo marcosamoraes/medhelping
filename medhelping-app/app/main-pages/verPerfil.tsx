@@ -27,25 +27,54 @@ export default function VerPerfil() {
                 <Text className="font-900 text-white text-center text-xl">Roland de Gilead</Text>
                 <Text className="font-500 text-white text-center text-base">Breve descrição e tal</Text>
                 <TouchableOpacity onPress={()=>handleEditProfile()} activeOpacity={0.8} className="w-1/2 mx-auto bg-[#07acf7] justify-center pt-2 pb-1 rounded-xl mt-3 mb-5 items-center"><Text className="text-white font-600 text-sm ml-2">Editar Perfil</Text></TouchableOpacity>
-                <View className="flex-row mb-5 w-1/2 justify-between items-center mx-auto">
+                <View className="flex-row mb-5 w-2/3 justify-between items-center mx-auto">
                     <TouchableOpacity className="h-9 w-9 rounded-full justify-center items-center bg-[#3C5A99]"><FontAwesome name="facebook-f" size={20} color="white" /></TouchableOpacity>
                     <TouchableOpacity className="h-9 w-9 rounded-full justify-center items-center bg-[#E5535F]"><FontAwesome name="instagram" size={22} color="white" /></TouchableOpacity>
                     <TouchableOpacity className="h-9 w-9 rounded-full justify-center items-center bg-[#24A1F2]"><FontAwesome name="twitter" size={20} color="white" /></TouchableOpacity>
+                    <TouchableOpacity className="h-9 w-9 rounded-full justify-center items-center bg-[#5DC4A5]"><Image source={require('../../assets/images/doctoralia.png')} className="w-5 h-5 object-cover"/></TouchableOpacity>
                 </View>
                 </View>
             </ImageBackground>
-            <View className="px-6 py-3 border-b border-b-[#1F2935]">
+            <View className="px-6 flex-row justify-between py-3 border-b border-b-[#1F2935]">
+                <View>
                 <Text className="font-700 mb-1 text-white">Localização</Text>
                 <Text className="font-700 text-[#03DADB]">Brazil, Brazil</Text>
+                </View>
+                <View>
+                <Text className="font-700 mb-1 text-right text-white">CRM</Text>
+                <Text className="font-700 text-right text-[#03DADB]">123456-RJ</Text>
+                </View>
             </View>
-            <View className="px-6 py-3 border-b border-b-[#1F2935]">
-                <Text className="font-700 mb-1 text-white">Quantidade de publicações</Text>
-                <Text className="font-700 text-[#03DADB]">1 publicação</Text>
+            <View className="px-6 flex-row justify-between py-3 border-b border-b-[#1F2935]">
+                <View>
+                <Text className="font-700 mb-1 text-white">Área de ocupação</Text>
+                <Text className="font-700 text-[#03DADB]">Odontologia</Text>
+                </View>
+                <View>
+                <Text className="font-700 text-right mb-1 text-white">Especialidade</Text>
+                <Text className="font-700 text-right text-[#03DADB]">Hiperbárica</Text>
+                </View>
             </View>
-            <View className="px-6 py-3 border-b border-b-[#1F2935]">
-                <Text className="font-700 mb-1 text-white">Quantidade de curtidas</Text>
-                <Text className="font-700 text-[#03DADB]">5 curtidas</Text>
+            <View className="px-6 flex-row justify-between py-3 border-b border-b-[#1F2935]">
+                <View>
+                <Text className="font-700 mb-1 text-white">Faculdade</Text>
+                <Text className="font-700 text-[#03DADB]">USP</Text>
+                </View>
+                <View>
+                <Text className="font-700 text-right mb-1 text-white">Formado em</Text>
+                <Text className="font-700 text-right text-[#03DADB]">1975</Text>
+                </View>
             </View>
+            
+            <View className="px-6 mb-6 flex-row justify-between py-3 border-b border-b-[#1F2935]">
+                <View>
+                <Text className="font-700 my-1 text-sm text-white">2 publicações</Text>
+                </View>
+                <View>
+                <Text className="font-700 my-1 text-sm text-white">53 curtidas</Text>
+                </View>
+            </View>
+            
         </ScrollView>
         <Footer />
     </>)
