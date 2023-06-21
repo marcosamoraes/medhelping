@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Category;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class ArticleController extends Controller
 {
@@ -26,15 +29,17 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::pluck('name', 'id')->toArray();
+        return view('articles.create', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        //
+        Article::create($request->validated());
+        return Redirect::route('articles.create')->with('status', 'article-created');
     }
 
     /**
@@ -50,15 +55,17 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        //
+        $categories = Category::pluck('name', 'id')->toArray();
+        return view('articles.edit', compact('article', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Article $article)
+    public function update(Request $request, Article $article): RedirectResponse
     {
-        //
+        $article->update($request->validated());
+        return Redirect::route('articles.edit')->with('status', 'article-updated');
     }
 
     /**

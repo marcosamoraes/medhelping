@@ -3,7 +3,7 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Artigos
         </h2>
-        <x-primary-button><a href="articles/create">Cadastrar</a></x-primary-button>
+        <x-primary-button><a href="{{ route('articles.create') }}">Cadastrar</a></x-primary-button>
     </x-slot>
 
     <div class="py-12">
@@ -76,9 +76,11 @@
                                         {{ $article->created_at->format('d/m/Y H:i:s') }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900 flex gap-3">
-                                        <x-warning-button>
-                                            <i class="fas fa-edit"></i>
-                                        </x-warning-button>
+                                        <a href="{{ route('articles.edit', $article->id) }}">
+                                            <x-warning-button>
+                                                <i class="fas fa-edit"></i>
+                                            </x-warning-button>
+                                        </a>
                                         <x-danger-button href="#" data-confirm-delete="true">
                                             <i class="fas fa-trash"></i>
                                         </x-danger-button>

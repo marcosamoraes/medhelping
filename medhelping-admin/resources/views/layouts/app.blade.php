@@ -34,5 +34,9 @@
                 {{ $slot }}
             </main>
         </div>
+
+        @if (isset($script))
+            {{ $script }}
+        @endif
     </body>
 </html>

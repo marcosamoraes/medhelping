@@ -22,7 +22,7 @@ class Article extends Model
         'anonymous_publication',
         'title',
         'image',
-        'content',
+        'description',
         'active',
         'quantity_shared',
     ];
