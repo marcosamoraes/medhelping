@@ -1,9 +1,14 @@
 import { ScrollView, View, Text, TextInput, StyleSheet, TouchableOpacity, Image, ImageRequireSource } from "react-native";
 import Header from "../../sources/components/header";
 import Footer from "../../sources/components/footer";
+import { useRouter } from "expo-router";
 
 const mailIcon = require("../../assets/images/mailicon.png");
 export default function FaleConosco(){
+    const router = useRouter();
+    function handleClick(){
+        router.push('./home')
+    }
     const styles = StyleSheet.create({
         input:{
             borderColor: 'white',
@@ -46,7 +51,7 @@ export default function FaleConosco(){
       className='h-14 w-full align-text-top rounded-xl text-sm font-400 my-3 py-2 px-4'
       placeholderTextColor={'white'}
       />
-         <TouchableOpacity activeOpacity={0.8} className="flex-row w-full bg-[#03dadbb2] justify-center py-2 rounded-xl my-3 items-center"><Text className="text-white font-700 text-sm ml-2">Enviar</Text></TouchableOpacity>
+         <TouchableOpacity onPress={()=>handleClick()} activeOpacity={0.8} className="flex-row w-full bg-[#03dadbb2] justify-center py-2 rounded-xl my-3 items-center"><Text className="text-white font-700 text-sm ml-2">Enviar</Text></TouchableOpacity>
     <View className="h-10"></View>
 
     </ScrollView>

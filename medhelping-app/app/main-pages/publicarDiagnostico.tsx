@@ -3,7 +3,12 @@ import Header from "../../sources/components/header";
 import { Feather } from '@expo/vector-icons';
 import Checkbox from 'expo-checkbox';
 import { useState } from "react";
+import { useRouter } from "expo-router";
 export default function PublicarDiagnostico() {
+    const router = useRouter();
+    function postDiag(){
+        router.push('./home')
+    }
     const [toggleCheckBox, setToggleCheckBox] = useState(false)
     const styles = StyleSheet.create({
         input: {
@@ -65,7 +70,7 @@ export default function PublicarDiagnostico() {
                         onValueChange={(newValue) => setToggleCheckBox(newValue)} />
                     <Text className="font-400 ml-3 pt-1 text-sm text-white">Publicar de Forma Anônima</Text>
                 </View>
-                <TouchableOpacity activeOpacity={0.8} className="flex-row w-full bg-[#03dadbb2] justify-center py-2 rounded-xl my-3 items-center"><Text className="text-white font-700 text-sm ml-2">Publicar Diagnóstico</Text></TouchableOpacity>
+                <TouchableOpacity onPress={()=> postDiag()} activeOpacity={0.8} className="flex-row w-full bg-[#03dadbb2] justify-center py-2 rounded-xl my-3 items-center"><Text className="text-white font-700 text-sm ml-2">Publicar Diagnóstico</Text></TouchableOpacity>
                 <View className="h-10"></View>
             </View>
         </ScrollView>
