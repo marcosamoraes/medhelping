@@ -1,8 +1,13 @@
 import { Image, ScrollView, StyleSheet, TextInput, Text, TouchableOpacity, View } from "react-native";
 import Footer from "../../sources/components/footer";
 import Header from "../../sources/components/header";
+import { useRouter } from "expo-router";
 
 export default function EditarPerfil() {
+    const router = useRouter();
+    function handleEditProfile(){
+        router.push('./verPerfil')
+    }
     const styles = StyleSheet.create({
         input: {
             borderColor: 'white',
@@ -51,7 +56,7 @@ export default function EditarPerfil() {
                 className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
                 placeholderTextColor={'white'}
             />
-            <TouchableOpacity activeOpacity={0.8} className="flex-row w-full bg-[#03dadbb2] justify-center pt-2 pb-1 rounded-xl my-3 items-center"><Text className="text-white font-700 text-sm ml-2">Atualizar Perfil</Text></TouchableOpacity>
+            <TouchableOpacity onPress={()=> handleEditProfile()} activeOpacity={0.8} className="flex-row w-full bg-[#03dadbb2] justify-center pt-2 pb-1 rounded-xl my-3 items-center"><Text className="text-white font-700 text-sm ml-2">Atualizar Perfil</Text></TouchableOpacity>
         <View className="h-4"></View>
         </ScrollView>
         <Footer />

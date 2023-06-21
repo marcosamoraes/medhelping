@@ -2,8 +2,13 @@ import { Image, ImageBackground, ScrollView, View, StyleSheet, TouchableOpacity,
 import Footer from "../../sources/components/footer";
 import Header from "../../sources/components/header";
 import { FontAwesome } from '@expo/vector-icons';
+import { useRouter } from "expo-router";
 
 export default function VerPerfil() {
+    const router = useRouter();
+    function handleEditProfile(){
+        router.push('./editarPerfil')
+    }
     const styles = StyleSheet.create({
         imageBackground: {
             flex: 1,
@@ -21,7 +26,7 @@ export default function VerPerfil() {
                 </View>
                 <Text className="font-900 text-white text-center text-xl">Roland de Gilead</Text>
                 <Text className="font-500 text-white text-center text-base">Breve descrição e tal</Text>
-                <TouchableOpacity activeOpacity={0.8} className="w-1/2 mx-auto bg-[#07acf7] justify-center pt-2 pb-1 rounded-xl mt-3 mb-5 items-center"><Text className="text-white font-600 text-sm ml-2">Editar Perfil</Text></TouchableOpacity>
+                <TouchableOpacity onPress={()=>handleEditProfile()} activeOpacity={0.8} className="w-1/2 mx-auto bg-[#07acf7] justify-center pt-2 pb-1 rounded-xl mt-3 mb-5 items-center"><Text className="text-white font-600 text-sm ml-2">Editar Perfil</Text></TouchableOpacity>
                 <View className="flex-row mb-5 w-1/2 justify-between items-center mx-auto">
                     <TouchableOpacity className="h-9 w-9 rounded-full justify-center items-center bg-[#3C5A99]"><FontAwesome name="facebook-f" size={20} color="white" /></TouchableOpacity>
                     <TouchableOpacity className="h-9 w-9 rounded-full justify-center items-center bg-[#E5535F]"><FontAwesome name="instagram" size={22} color="white" /></TouchableOpacity>
