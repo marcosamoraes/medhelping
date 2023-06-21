@@ -32,12 +32,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('/articles', ArticleController::class);
-    Route::resource('/shifts', ShiftController::class);
-    Route::resource('/users', UserController::class);
-    Route::resource('/categories', CategoryController::class);
-    Route::resource('/care-units', CareUnitController::class);
-    Route::resource('/contacts', ContactController::class);
+    Route::resource('/articles', ArticleController::class)->except(['show']);
+    Route::resource('/shifts', ShiftController::class)->except(['show']);
+    Route::resource('/users', UserController::class)->only(['index', 'edit', 'update']);
+    Route::resource('/categories', CategoryController::class)->except(['show']);
+    Route::resource('/care-units', CareUnitController::class)->except(['show']);
+    Route::resource('/contacts', ContactController::class)->only(['index', 'destroy']);
 });
 
 require __DIR__.'/auth.php';

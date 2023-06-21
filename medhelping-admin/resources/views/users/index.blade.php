@@ -75,9 +75,11 @@
                                         {{ $user->created_at->format('d/m/Y H:i:s') }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900 flex gap-3">
-                                        <x-warning-button>
-                                            <i class="fas fa-edit"></i>
-                                        </x-warning-button>
+                                        <a href="{{ route('users.edit', $user->id) }}">
+                                            <x-warning-button>
+                                                <i class="fas fa-edit"></i>
+                                            </x-warning-button>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach

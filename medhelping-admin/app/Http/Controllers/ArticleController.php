@@ -38,16 +38,10 @@ class ArticleController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        Article::create($request->validated());
+        $data = $request->validated();
+        $data['anonymous_publication'] = true;
+        Article::create($data);
         return Redirect::route('articles.create')->with('status', 'article-created');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Article $article)
-    {
-        //
     }
 
     /**
@@ -73,6 +67,7 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        $article->delete();
+        return back()->with('status', 'article-deleted');
     }
 }

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\CareUnit;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class CareUnitController extends Controller
 {
@@ -26,23 +28,16 @@ class CareUnitController extends Controller
      */
     public function create()
     {
-        //
+        return view('care-units.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(CareUnit $careUnit)
-    {
-        //
+        CareUnit::create($request->validated());
+        return Redirect::route('care-units.create')->with('status', 'care-unit-created');
     }
 
     /**
@@ -50,15 +45,16 @@ class CareUnitController extends Controller
      */
     public function edit(CareUnit $careUnit)
     {
-        //
+        return view('care-units.edit', compact('careUnit'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CareUnit $careUnit)
+    public function update(Request $request, CareUnit $careUnit): RedirectResponse
     {
-        //
+        $careUnit->update($request->validated());
+        return Redirect::route('care-units.edit')->with('status', 'care-unit-updated');
     }
 
     /**
@@ -66,6 +62,7 @@ class CareUnitController extends Controller
      */
     public function destroy(CareUnit $careUnit)
     {
-        //
+        $careUnit->delete();
+        return back()->with('status', 'care-unit-deleted');
     }
 }
