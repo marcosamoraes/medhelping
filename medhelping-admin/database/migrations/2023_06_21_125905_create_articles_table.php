@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->text('content');
             $table->boolean('active')->default(true);
+            $table->integer('quantity_shared')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

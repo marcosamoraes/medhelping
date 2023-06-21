@@ -27,6 +27,6 @@ class Category extends Model
 
     public function articles(): HasManyThrough
     {
-        return $this->hasManyThrough(Article::class, ArticleCategory::class);
+        return $this->hasManyThrough(Article::class, ArticleCategory::class, 'category_id', 'id', 'id', 'article_id');
     }
 }

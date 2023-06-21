@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,7 +24,13 @@ class Article extends Model
         'image',
         'content',
         'active',
+        'quantity_shared',
     ];
+
+    protected function likes(): Attribute
+    {
+        return Attribute::make(get: fn () => $this->articleLikes()->count());
+    }
 
     /**
      * Get the user that owns the article.
@@ -46,7 +53,7 @@ class Article extends Model
      */
     public function categories(): HasManyThrough
     {
-        return $this->hasManyThrough(Category::class, ArticleCategory::class);
+        return $this->hasManyThrough(Category::class, ArticleCategory::class, 'article_id', 'id', 'id', 'category_id');
     }
 
     /**
