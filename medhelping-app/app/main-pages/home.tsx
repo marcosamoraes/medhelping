@@ -1,12 +1,23 @@
-import { ScrollView, View, Text } from "react-native";
+import { ScrollView, View, Text, Alert } from "react-native";
 import Footer from "../../sources/components/footer";
 import Header from "../../sources/components/header";
 import ExamCard from "../../sources/components/exam-card";
 import SideMenu from "../../sources/components/sideMenu";
 import SidebarProvider from "../../sources/config/Provider";
 import TouchableBlur from "../../sources/components/touchableBlur";
+import { useEffect, useState } from "react";
+import { api } from "../../sources/services/api";
 
 export default function Home(){
+    const [posts, setPosts] = useState([])
+
+    useEffect(()=>{
+        api.get('articles').then((i: any)=>{
+            setPosts(i)
+        }).catch(()=>{
+            Alert.alert('Erro', 'Ocorreu um erro, tente novamente', [{ text: 'OK' }])
+        })
+    },[])
     return(<>
     <SidebarProvider>
         <TouchableBlur/>
@@ -19,12 +30,7 @@ export default function Home(){
         <Text className="font-700 text-white">Publique seu caso clínico e encontre a melhor solução!</Text>
         </View>
         <View className="flex-row flex-wrap pt-6 pb-4 px-1 justify-between">
-            {/* Se date não vier como string, alterar para string antes de passar pro props ou mudar o typescript do card */}
-            <ExamCard category="Categoria 1" exam="Testes do coração" name="Clark" date="03/03/2003" />
-            <ExamCard category="Categoria 1" exam="Testes do coração" name="Ralf" date="03/03/2003" />
-            <ExamCard category="Categoria 1" exam="Testes do coração" name="Leona" date="03/03/2003" />
-            <ExamCard category="Categoria 1" exam="Testes do coração" name="Kyo" date="03/03/2003" />
-            <ExamCard category="Categoria 1" exam="Testes do coração" name="Iori" date="03/03/2003" />
+            {/* {posts.length? posts.map((i) => {<ExamCard category="" exam="" name="" date=""/>}) : ''} */}
         </View>
     </ScrollView>
     <Footer/></SidebarProvider>
