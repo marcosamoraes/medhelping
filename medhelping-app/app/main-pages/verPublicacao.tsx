@@ -4,9 +4,15 @@ import Header from "../../sources/components/header";
 import { FontAwesome5 } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import ComentarioPublicacao from "../../sources/components/comentarioPublicacao";
+import SidebarProvider from "../../sources/config/Provider";
+import SideMenu from "../../sources/components/sideMenu";
+import TouchableBlur from "../../sources/components/touchableBlur";
 export default function VerPublicacao(){
     return(<>
+    <SidebarProvider>
+    <TouchableBlur/>
     <Header/>
+    <SideMenu/></SidebarProvider>
     <ScrollView className="w-screen bg-[#00021C]">
        <Image className="w-full h-40 object-cover" source={require('../../assets/images/img-fundo-exame.png')}/>
         <View className="p-4 border-b mb-4 border-b-[#1F2935]">

@@ -2,6 +2,9 @@ import { Image, ScrollView, StyleSheet, TextInput, Text, TouchableOpacity, View 
 import Footer from "../../sources/components/footer";
 import Header from "../../sources/components/header";
 import { useRouter } from "expo-router";
+import SidebarProvider from "../../sources/config/Provider";
+import SideMenu from "../../sources/components/sideMenu";
+import TouchableBlur from "../../sources/components/touchableBlur";
 
 export default function EditarPerfil() {
     const router = useRouter();
@@ -22,7 +25,10 @@ export default function EditarPerfil() {
         }
     });
     return (<>
-        <Header />
+        <SidebarProvider>
+        <TouchableBlur/>
+    <Header/>
+    <SideMenu/></SidebarProvider>
         <ScrollView className="w-screen px-6 bg-[#00021C]">
             <Image className="w-28 mx-auto h-28 my-6 object-cover rounded-full" source={require("../../assets/images/avatar-template.jpg")} />
             <TextInput
