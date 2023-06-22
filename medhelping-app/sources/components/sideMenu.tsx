@@ -1,12 +1,13 @@
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View, Animated, StyleSheet, Platform, UIManager, LayoutAnimation } from "react-native";
 import { FontAwesome } from '@expo/vector-icons'; 
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Link, useRouter } from "expo-router";
-import { useContext } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { SidebarContext } from "../config/Provider";
 
 export default function SideMenu(){
+    const [leftDistance, setLeftDistance] = useState(0);
     const router = useRouter();
     function handleExit(){
         router.push('../login-pages/login')
@@ -14,7 +15,17 @@ export default function SideMenu(){
     const { isOpen, setIsOpen } = useContext(SidebarContext);
     const { top, bottom } = useSafeAreaInsets();
 
-    return(<View style={{paddingTop : top, paddingBottom: bottom}} className={`w-4/5 ${isOpen ? 'left-0' : '-left-full'} z-50 absolute px-5 bg-[#00021C] h-full`}>
+
+    const styles = StyleSheet.create({
+        sideMenu:{
+            paddingBottom: bottom,
+            paddingTop: top,
+        }
+    })
+
+    
+
+    return(<Animated.View style={styles.sideMenu} className={`w-4/5 z-50 ${isOpen? 'left-0' : '-left-full'} absolute px-5 bg-[#00021C] h-full`}>
     <View className="w-full border-b pb-5 border-b-[#1F2935]">
     <Image source={require("../../assets/images/avatar-template.jpg")} className="h-20 w-20 object-cover rounded-full mx-auto my-4" />
     <Text className="font-900 text-white text-center text-xl">Roland de Gilead</Text>
@@ -29,5 +40,5 @@ export default function SideMenu(){
         <Link href='./configuracoes'><View className="flex-row py-2"><FontAwesome name="gear" size={26} color="white" /><Text className="pt-1 pl-4 font-900 text-white text-xl">Configurações</Text></View></Link>
     </View>
     <TouchableOpacity onPress={handleExit} activeOpacity={0.8} className="w-full mt-auto mb-6 mx-auto bg-[#db0303b2] justify-center pt-2 pb-1 rounded-xl items-center"><Text className="font-700 text-white text-base">Encerrar Sessão</Text></TouchableOpacity>
-    </View>)
+    </Animated.View>)
 }
