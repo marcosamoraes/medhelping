@@ -11,7 +11,7 @@ export default function Home(){
     <SidebarProvider>
         <TouchableBlur/>
     <Header/>
-    <SideMenu/>
+ <SideMenu/>
     
     <ScrollView className="w-screen py-6 px-6 bg-[#00021C]">
         <View className="w-full p-4 rounded-xl bg-[#03dadbb2]">
