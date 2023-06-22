@@ -2,6 +2,9 @@ import { ScrollView, View, Text, TextInput, StyleSheet, TouchableOpacity, Image,
 import Header from "../../sources/components/header";
 import Footer from "../../sources/components/footer";
 import { useRouter } from "expo-router";
+import SideMenu from "../../sources/components/sideMenu";
+import SidebarProvider from "../../sources/config/Provider";
+import TouchableBlur from "../../sources/components/touchableBlur";
 
 const mailIcon = require("../../assets/images/mailicon.png");
 export default function FaleConosco(){
@@ -23,7 +26,10 @@ export default function FaleConosco(){
         }
     });
     return(<>
+    <SidebarProvider>
+    <TouchableBlur/>
     <Header/>
+    <SideMenu/></SidebarProvider>
     <ScrollView className="w-screen pt-6 px-6 bg-[#00021C]">
 
         <View className="w-full justify-center items-center">
