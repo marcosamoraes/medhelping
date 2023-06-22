@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CareUnitStoreRequest;
+use App\Http\Requests\CareUnitUpdateRequest;
 use App\Models\CareUnit;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CareUnitController extends Controller
 {
@@ -34,10 +39,18 @@ class CareUnitController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(CareUnitStoreRequest $request)
     {
-        CareUnit::create($request->validated());
-        return Redirect::route('care-units.create')->with('status', 'care-unit-created');
+        try {
+            CareUnit::create($request->validated());
+
+            Alert::toast('Unidade cadastrada com sucesso.', 'success');
+            return Redirect::route('care-units.index');
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            Alert::toast('Falha ao cadastrar unidade.', 'error');
+            return back()->withInput();
+        }
     }
 
     /**
@@ -51,10 +64,18 @@ class CareUnitController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CareUnit $careUnit): RedirectResponse
+    public function update(CareUnitUpdateRequest $request, CareUnit $careUnit)
     {
-        $careUnit->update($request->validated());
-        return Redirect::route('care-units.edit')->with('status', 'care-unit-updated');
+        try {
+            $careUnit->update($request->validated());
+
+            Alert::toast('Unidade editada com sucesso.', 'success');
+            return Redirect::route('care-units.index');
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            Alert::toast('Falha ao editar unidade.', 'error');
+            return back()->withInput();
+        }
     }
 
     /**
@@ -63,6 +84,7 @@ class CareUnitController extends Controller
     public function destroy(CareUnit $careUnit)
     {
         $careUnit->delete();
-        return back()->with('status', 'care-unit-deleted');
+        Alert::toast('Unidade deletada com sucesso.', 'success');
+        return back();
     }
 }

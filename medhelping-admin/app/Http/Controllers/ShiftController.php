@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ShiftStoreRequest;
+use App\Http\Requests\ShiftUpdateRequest;
 use App\Models\CareUnit;
 use App\Models\Category;
 use App\Models\Shift;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ShiftController extends Controller
 {
@@ -37,12 +42,20 @@ class ShiftController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(ShiftStoreRequest $request)
     {
-        $data = $request->validated();
-        $data['anonymous_publication'] = true;
-        Shift::create($data);
-        return Redirect::route('shifts.create')->with('status', 'shift-created');
+        try {
+            $data = $request->validated();
+            $data['anonymous_publication'] = true;
+            Shift::create($data);
+    
+            Alert::toast('Plantão cadastrado com sucesso.', 'success');
+            return Redirect::route('shifts.index');
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            Alert::toast('Erro ao cadastrar plantão.', 'error');
+            return back()->withInput();
+        }
     }
 
     /**
@@ -57,10 +70,17 @@ class ShiftController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Shift $shift): RedirectResponse
+    public function update(ShiftUpdateRequest $request, Shift $shift)
     {
-        $shift->update($request->validated());
-        return Redirect::route('shifts.edit')->with('status', 'shift-updated');
+        try {
+            $shift->update($request->validated());
+            Alert::toast('Plantão atualizado com sucesso.', 'success');
+            return Redirect::route('shifts.index');
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            Alert::toast('Erro ao atualizar plantão.', 'error');
+            return back()->withInput();
+        }
     }
 
     /**
@@ -69,6 +89,7 @@ class ShiftController extends Controller
     public function destroy(Shift $shift)
     {
         $shift->delete();
-        return back()->with('status', 'shift-deleted');
+        Alert::toast('Plantão deletado com sucesso.', 'success');
+        return back();
     }
 }

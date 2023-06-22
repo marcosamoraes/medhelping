@@ -20,14 +20,14 @@
                             </div>
 
                             <div class="w-full lg:w-[32%]">
-                                <x-input-label for="care_unit" value="Unidade" />
-                                <x-select-input id="care_unit" name="care_unit" type="text" class="mt-1 block w-full" required autofocus autocomplete="care_unit">
+                                <x-input-label for="care_unit_id" value="Unidade" />
+                                <x-select-input id="care_unit_id" name="care_unit_id" type="text" class="mt-1 block w-full" required autofocus autocomplete="care_unit_id">
                                     <option value="" readonly>Selecione uma unidade...</option>
                                     @foreach ($careUnits as $id => $careUnit)
-                                        <option value="{{ $id }}" {{ old('care_unit') === $id ? 'selected' : false }}>{{ $careUnit }}</option>
+                                        <option value="{{ $id }}" {{ old('care_unit_id') === $id ? 'selected' : false }}>{{ $careUnit }}</option>
                                     @endforeach
                                 </x-select-input>
-                                <x-input-error class="mt-2" :messages="$errors->get('care_unit')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('care_unit_id')" />
                             </div>
 
                             <div class="w-full lg:w-[32%]">
@@ -50,19 +50,19 @@
 
                             <div class="w-full lg:w-[32%]">
                                 <x-input-label for="value" value="Valor" />
-                                <x-text-input id="value" name="value" type="time" class="mt-1 block w-full" :value="old('value')" required autofocus autocomplete="value" />
+                                <x-text-input id="value" name="value" type="text" class="mt-1 block w-full" :value="old('value')" autofocus autocomplete="value" />
                                 <x-input-error class="mt-2" :messages="$errors->get('value')" />
                             </div>
 
                             <div class="w-full lg:w-[32%]">
                                 <x-input-label for="payment_method" value="Método de pagamento" />
-                                <x-text-input id="payment_method" name="payment_method" type="text" class="mt-1 block w-full" :value="old('payment_method')" required autofocus autocomplete="payment_method" />
+                                <x-text-input id="payment_method" name="payment_method" type="text" class="mt-1 block w-full" :value="old('payment_method')" autofocus autocomplete="payment_method" />
                                 <x-input-error class="mt-2" :messages="$errors->get('payment_method')" />
                             </div>
 
                             <div class="w-full">
                                 <x-input-label for="description" value="Descrição" />
-                                <x-text-area-input id="description" name="description" type="text" class="mt-1 block w-full" required autofocus autocomplete="description">
+                                <x-text-area-input id="description" name="description" type="text" class="mt-1 block w-full" autofocus autocomplete="description">
                                     {{ old('description') }}
                                 </x-text-area-input>
                                 <x-input-error class="mt-2" :messages="$errors->get('description')" />
@@ -70,16 +70,6 @@
 
                             <div class="flex items-center gap-4 w-full">
                                 <x-primary-button>{{ __('Save') }}</x-primary-button>
-
-                                @if (session('status') === 'shift-created')
-                                    <p
-                                        x-data="{ show: true }"
-                                        x-show="show"
-                                        x-transition
-                                        x-init="setTimeout(() => show = false, 2000)"
-                                        class="text-sm text-gray-600"
-                                    >{{ __('Saved.') }}</p>
-                                @endif
                             </div>
                         </form>
                     </section>

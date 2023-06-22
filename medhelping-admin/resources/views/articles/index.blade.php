@@ -81,7 +81,7 @@
                                                 <i class="fas fa-edit"></i>
                                             </x-warning-button>
                                         </a>
-                                        <x-danger-button href="#" data-confirm-delete="true">
+                                        <x-danger-button href="{{ route('articles.destroy', $article->id) }}" data-confirm-delete="true">
                                             <i class="fas fa-trash"></i>
                                         </x-danger-button>
                                     </td>

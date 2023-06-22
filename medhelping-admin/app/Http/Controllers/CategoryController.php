@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryStoreRequest;
+use App\Http\Requests\CategoryUpdateRequest;
 use App\Models\Category;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoryController extends Controller
 {
@@ -34,10 +40,24 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(CategoryStoreRequest $request)
     {
-        Category::create($request->validated());
-        return Redirect::route('categories.create')->with('status', 'categories-created');
+        try {
+            $data = $request->validated();
+
+            if (isset($data['image'])) {
+                $data['image'] = $request->file('image')->store('categories');
+            }
+            
+            Category::create($data);
+
+            Alert::toast('Categoria cadastrado com sucesso.', 'success');
+            return Redirect::route('categories.index');
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            Alert::toast('Falha ao cadastrar categoria.', 'error');
+            return back()->withInput();
+        }
     }
 
     /**
@@ -51,10 +71,27 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category): RedirectResponse
+    public function update(CategoryUpdateRequest $request, Category $category)
     {
-        $category->update($request->validated());
-        return Redirect::route('categories.edit')->with('status', 'category-updated');
+        try {
+            $data = $request->validated();
+
+            if (isset($data['image'])) {
+                if ($category->image) {
+                    Storage::delete($category->image);
+                }
+                $data['image'] = $request->file('image')->store('categories');
+            }
+            
+            $category->update($data);
+
+            Alert::toast('Categoria editada com sucesso.', 'success');
+            return Redirect::route('categories.index');
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            Alert::toast('Falha ao editar categoria.', 'error');
+            return back()->withInput();
+        }
     }
 
     /**
@@ -63,6 +100,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        return back()->with('status', 'category-deleted');
+        Alert::toast('Categoria deletada com sucesso.', 'success');
+        return back();
     }
 }

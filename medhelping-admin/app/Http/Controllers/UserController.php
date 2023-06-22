@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
@@ -29,9 +33,18 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user): RedirectResponse
+    public function update(UserUpdateRequest $request, User $user)
     {
-        $user->update($request->validated());
-        return Redirect::route('users.edit')->with('status', 'user-updated');
+        try {
+            $user->update($request->validated());
+            $user->address()->update($request->address);
+            $user->infos()->update($request->infos);
+            Alert::toast('Usuário atualizado com sucesso.', 'success');
+            return Redirect::route('users.index');
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            Alert::toast('Erro ao atualizar usuário.', 'error');
+            return back()->withInput();
+        }
     }
 }

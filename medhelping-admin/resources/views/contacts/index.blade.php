@@ -53,7 +53,7 @@
                                         {{ $contact->created_at->format('d/m/Y H:i:s') }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900 flex gap-3">
-                                        <x-danger-button href="#" data-confirm-delete="true">
+                                        <x-danger-button href="{{ route('contacts.destroy', $contact->id) }}" data-confirm-delete="true">
                                             <i class="fas fa-trash"></i>
                                         </x-danger-button>
                                     </td>

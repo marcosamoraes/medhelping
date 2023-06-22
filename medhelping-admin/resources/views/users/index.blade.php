@@ -32,6 +32,9 @@
                                     <span class="text-xs leading-4 font-medium text-center text-gray-500 uppercase tracking-wider">Likes</span>
                                 </th>
                                 <th class="px-6 py-3 bg-gray-50 text-left">
+                                    <span class="text-xs leading-4 font-medium text-center text-gray-500 uppercase tracking-wider">Status</span>
+                                </th>
+                                <th class="px-6 py-3 bg-gray-50 text-left">
                                     <span class="text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Data de criação</span>
                                 </th>
                                 <th class="px-6 py-3 bg-gray-50 text-left">
@@ -70,6 +73,9 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap text-center text-sm leading-5 text-gray-900">
                                         {{ $user->likes }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap text-center text-sm leading-5 {{ $user->active ? 'text-green-500' : 'text-red-500' }}">
+                                        {{ $user->active ? 'Ativo' : 'Inativo' }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                                         {{ $user->created_at->format('d/m/Y H:i:s') }}

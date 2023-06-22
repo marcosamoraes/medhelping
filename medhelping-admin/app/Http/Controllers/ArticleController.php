@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ArticleStoreRequest;
+use App\Http\Requests\ArticleUpdateRequest;
 use App\Models\Article;
 use App\Models\Category;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ArticleController extends Controller
 {
@@ -36,12 +42,35 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(ArticleStoreRequest $request)
     {
-        $data = $request->validated();
-        $data['anonymous_publication'] = true;
-        Article::create($data);
-        return Redirect::route('articles.create')->with('status', 'article-created');
+        try {
+            $data = $request->validated();
+            $data['anonymous_publication'] = true;
+
+            if (isset($data['image'])) {
+                $data['image'] = $request->file('image')->store('articles');
+            }
+            
+            $article = Article::create($data);
+
+            $article->articleCategories()->create(['category_id' => $request->category1]);
+            
+            if (isset($request->category2)) {
+                $article->articleCategories()->create(['category_id' => $request->category2]);
+            }
+
+            if (isset($request->category3)) {
+                $article->articleCategories()->create(['category_id' => $request->category3]);
+            }
+
+            Alert::toast('Artigo cadastrado com sucesso.', 'success');
+            return Redirect::route('articles.index');
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            Alert::toast('Falha ao cadastrar artigo.', 'error');
+            return back()->withInput();
+        }
     }
 
     /**
@@ -56,10 +85,39 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Article $article): RedirectResponse
+    public function update(ArticleUpdateRequest $request, Article $article)
     {
-        $article->update($request->validated());
-        return Redirect::route('articles.edit')->with('status', 'article-updated');
+        try {
+            $data = $request->validated();
+
+            if (isset($data['image'])) {
+                if ($article->image) {
+                    Storage::delete($article->image);
+                }
+                $data['image'] = $request->file('image')->store('articles');
+            }
+            
+            $article->update($data);
+
+            $article->articleCategories()->delete();
+
+            $article->articleCategories()->create(['category_id' => $request->category1]);
+            
+            if (isset($request->category2)) {
+                $article->articleCategories()->create(['category_id' => $request->category2]);
+            }
+
+            if (isset($request->category3)) {
+                $article->articleCategories()->create(['category_id' => $request->category3]);
+            }
+
+            Alert::toast('Artigo editado com sucesso.', 'success');
+            return Redirect::route('articles.index');
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            Alert::toast('Falha ao editar artigo.', 'error');
+            return back()->withInput();
+        }
     }
 
     /**
@@ -68,6 +126,7 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         $article->delete();
-        return back()->with('status', 'article-deleted');
+        Alert::toast('Artigo deletado com sucesso.', 'success');
+        return back();
     }
 }

@@ -10,7 +10,7 @@
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div>
                     <section>
-                        <form method="post" action="{{ route('categories.update', $category->id) }}" class="mt-6 space-y-6 flex flex-wrap gap-3">
+                        <form method="post" action="{{ route('categories.update', $category->id) }}" class="mt-6 space-y-6 flex flex-wrap gap-3" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -23,7 +23,7 @@
                             <div class="w-full lg:w-[64%] flex gap-3" x-data="imageViewer()">
                                 <div class="w-full lg:w-1/2">
                                     <x-input-label for="image" value="Imagem" />
-                                    <x-file-input id="image" name="image" :value="old('image')" required autofocus autocomplete="image" @change="fileChosen" />
+                                    <x-file-input id="image" name="image" :value="old('image')" autofocus autocomplete="image" @change="fileChosen" />
                                     <x-input-error class="mt-2" :messages="$errors->get('image')" />
                                 </div>
 
@@ -46,16 +46,6 @@
 
                             <div class="flex items-center gap-4 w-full">
                                 <x-primary-button>{{ __('Save') }}</x-primary-button>
-
-                                @if (session('status') === 'article-updated')
-                                    <p
-                                        x-data="{ show: true }"
-                                        x-show="show"
-                                        x-transition
-                                        x-init="setTimeout(() => show = false, 2000)"
-                                        class="text-sm text-gray-600"
-                                    >{{ __('Saved.') }}</p>
-                                @endif
                             </div>
                         </form>
                     </section>

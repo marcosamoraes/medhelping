@@ -12,6 +12,7 @@
                     <section>
                         <form method="post" action="{{ route('care-units.update', $careUnit->id) }}" class="mt-6 space-y-6 flex flex-wrap gap-3">
                             @csrf
+                            @method('PUT')
 
                             <div class="w-full lg:w-[32%]">
                                 <x-input-label for="name" value="Nome" />
@@ -21,16 +22,6 @@
 
                             <div class="flex items-center gap-4 w-full">
                                 <x-primary-button>{{ __('Save') }}</x-primary-button>
-
-                                @if (session('status') === 'article-created')
-                                    <p
-                                        x-data="{ show: true }"
-                                        x-show="show"
-                                        x-transition
-                                        x-init="setTimeout(() => show = false, 2000)"
-                                        class="text-sm text-gray-600"
-                                    >{{ __('Saved.') }}</p>
-                                @endif
                             </div>
                         </form>
                     </section>
