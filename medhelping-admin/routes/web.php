@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/dashboard', DashboardController::class)->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/artisan', function () {
+Route::get('/storage-migrations', function () {
     Artisan::call('storage:link');
     Artisan::call('migrate:fresh --seed');
 });
