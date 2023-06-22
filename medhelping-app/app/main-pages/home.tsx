@@ -12,7 +12,7 @@ export default function Home(){
     const [posts, setPosts] = useState([])
 
     useEffect(()=>{
-        api.get('articles').then((i)=>{
+        api.get('articles').then((i: any)=>{
             setPosts(i)
         }).catch(()=>{
             Alert.alert('Erro', 'Ocorreu um erro, tente novamente', [{ text: 'OK' }])
@@ -30,7 +30,7 @@ export default function Home(){
         <Text className="font-700 text-white">Publique seu caso clínico e encontre a melhor solução!</Text>
         </View>
         <View className="flex-row flex-wrap pt-6 pb-4 px-1 justify-between">
-            {posts.length? posts.map((i) => {<ExamCard category="" exam="" name="" date=""/>}) : ''}
+            {/* {posts.length? posts.map((i) => {<ExamCard category="" exam="" name="" date=""/>}) : ''} */}
         </View>
     </ScrollView>
     <Footer/></SidebarProvider>
