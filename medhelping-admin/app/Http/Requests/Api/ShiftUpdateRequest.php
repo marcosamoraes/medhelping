@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -14,9 +14,9 @@ class ShiftUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'city'              => ['string', 'max:255'],
-            'care_unit_id'      => ['nullable', 'int', 'exists:care_units,id'],
-            'date'              => ['date'],
+            'city'              => ['required', 'string', 'max:255'],
+            'care_unit_id'      => ['required', 'int', 'exists:care_units,id'],
+            'date'              => ['required', 'date'],
             'entry_time'        => ['required', 'date_format:H:i'],
             'out_time'          => ['required', 'date_format:H:i'],
             'value'             => ['nullable', 'string'],

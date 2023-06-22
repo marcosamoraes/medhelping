@@ -12,12 +12,12 @@ class CommentController extends Controller
     /**
      * Like the specified resource from storage.
      */
-    public function like(Comment $comment)
+    public function like(Request $request, Comment $comment)
     {
         try {
-            $userAlreadyLiked = $comment->commentLikes()->where('user_id', auth()->user()->id)->first();
+            $userAlreadyLiked = $comment->commentLikes()->where('user_id', $request->user()->id)->first();
             if ($userAlreadyLiked) {
-                $comment->articleLikes()->where('user_id', auth()->user()->id)->delete();
+                $comment->articleLikes()->where('user_id', $request->user()->id)->delete();
 
                 return response()->json([
                     'message'   => 'Comentário descurtido com sucesso',
@@ -25,7 +25,7 @@ class CommentController extends Controller
             }
             
             $comment->articleLikes()->create([
-                'user_id' => auth()->user()->id,
+                'user_id' => $request->user()->id,
             ]);
 
             return response()->json([

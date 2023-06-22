@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\ArticleStoreRequest;
+use App\Http\Requests\Api\ArticleUpdateRequest;
 use App\Models\Article;
 use Exception;
 use Illuminate\Http\Request;
@@ -41,23 +43,16 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ArticleStoreRequest $request)
     {
         try {
-            $validated = $request->validate([
-                'title'                 => 'required|string',
-                'anonymous_publication' => 'required|boolean',
-                'image'                 => 'nullable|file',
-                'description'           => 'required|string',
-                'categories'            => 'required|array|min:1|max:3',
-                'categories.*'          => 'required|integer|exists:categories,id',
-            ]);
+            $validated = $request->validated();
 
             if (isset($data['image'])) {
                 $data['image'] = $request->file('image')->store('articles');
             }
 
-            $validated['user_id'] = auth()->user()->id;
+            $validated['user_id'] = $request->user()->id;
             
             $article = Article::create($validated);
 
@@ -88,17 +83,10 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Article $article)
+    public function update(ArticleUpdateRequest $request, Article $article)
     {
         try {
-            $validated = $request->validate([
-                'title'                 => 'required|string',
-                'anonymous_publication' => 'required|boolean',
-                'image'                 => 'nullable|file',
-                'description'           => 'required|string',
-                'categories'            => 'required|array|min:1|max:3',
-                'categories.*'          => 'required|integer|exists:categories,id',
-            ]);
+            $validated = $request->validated();
 
             if (isset($data['image'])) {
                 if ($article->image) {
@@ -145,12 +133,12 @@ class ArticleController extends Controller
     /**
      * Like the specified resource from storage.
      */
-    public function like(Article $article)
+    public function like(Request $request, Article $article)
     {
         try {
-            $userAlreadyLiked = $article->articleLikes()->where('user_id', auth()->user()->id)->first();
+            $userAlreadyLiked = $article->articleLikes()->where('user_id', $request->user()->id)->first();
             if ($userAlreadyLiked) {
-                $article->articleLikes()->where('user_id', auth()->user()->id)->delete();
+                $article->articleLikes()->where('user_id', $request->user()->id)->delete();
 
                 return response()->json([
                     'message'   => 'Artigo descurtido com sucesso',
@@ -158,7 +146,7 @@ class ArticleController extends Controller
             }
             
             $article->articleLikes()->create([
-                'user_id' => auth()->user()->id,
+                'user_id' => $request->user()->id,
             ]);
 
             return response()->json([
@@ -179,11 +167,11 @@ class ArticleController extends Controller
     {
         try {
             $validated = $request->validate([
-                'comment' => 'required|string',
+                'comment' => ['required', 'string'],
             ]);
 
             $article->articleComments()->create([
-                'user_id' => auth()->user()->id,
+                'user_id' => $request->user()->id,
                 'comment' => $validated['comment'],
             ]);
 

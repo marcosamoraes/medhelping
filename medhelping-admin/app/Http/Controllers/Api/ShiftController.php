@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\ShiftStoreRequest;
+use App\Http\Requests\Api\ShiftUpdateRequest;
 use App\Models\Shift;
 use Exception;
 use Illuminate\Http\Request;
@@ -35,22 +37,12 @@ class ShiftController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ShiftStoreRequest $request)
     {
         try {
-            $validated = $request->validate([
-                'anonymous_publication' => 'required|boolean',
-                'care_unit_id'          => 'required|integer|exists:care_units,id',
-                'city'                  => 'required|string',
-                'date'                  => 'required|date',
-                'entry_time'            => 'required|date_format:H:i',
-                'out_time'              => 'required|date_format:H:i',
-                'value'                 => 'nullable|numeric',
-                'payment_method'        => 'nullable|string',
-                'description'           => 'nullable|string',
-            ]);
+            $validated = $request->validated();
 
-            $validated['user_id'] = auth()->user()->id;
+            $validated['user_id'] = $request->user()->id;
             
             $shift = Shift::create($validated);
 
@@ -79,20 +71,10 @@ class ShiftController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Shift $shift)
+    public function update(ShiftUpdateRequest $request, Shift $shift)
     {
         try {
-            $validated = $request->validate([
-                'anonymous_publication' => 'required|boolean',
-                'care_unit_id'          => 'required|integer|exists:care_units,id',
-                'city'                  => 'required|string',
-                'date'                  => 'required|date',
-                'entry_time'            => 'required|date_format:H:i',
-                'out_time'              => 'required|date_format:H:i',
-                'value'                 => 'nullable|numeric',
-                'payment_method'        => 'nullable|string',
-                'description'           => 'nullable|string',
-            ]);
+            $validated = $request->validated();
 
             $shift->update($validated);
 
