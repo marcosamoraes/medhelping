@@ -50,6 +50,18 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    /**
+     * Interact with the user's password.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function password(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value) => bcrypt($value),
+        );
+    }
+
     protected function likes(): Attribute
     {
         // return all articleLikes from articles that belongs to this user

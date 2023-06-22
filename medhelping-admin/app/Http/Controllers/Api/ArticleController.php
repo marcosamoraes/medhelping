@@ -1,0 +1,200 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Article;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+class ArticleController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
+    {
+        $articles = Article::when($request->search, function ($query, $search) {
+                $query->orWhere('title', 'REGEXP', $search);
+                $query->orWhereHas('users', function ($query) use ($search) {
+                    $query->where('name', 'REGEXP', $search);
+                });
+            })
+            ->when($request->category, function ($query, $category) {
+                $query->whereHas('articleCategories', function ($query) use ($category) {
+                    $query->where('category_id', $category);
+                });
+            })
+            ->latest()
+            ->paginate($request->per_page ?? 10);
+
+        return response()->json([
+            'data'          => $articles,
+            'per_page'      => $articles->perPage(),
+            'current_page'  => $articles->currentPage(),
+            'last_page'     => $articles->lastPage(),
+            'total'         => $articles->total(),
+        ], 200);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        try {
+            $validated = $request->validate([
+                'title'                 => 'required|string',
+                'anonymous_publication' => 'required|boolean',
+                'image'                 => 'nullable|file',
+                'description'           => 'required|string',
+                'categories'            => 'required|array|min:1|max:3',
+                'categories.*'          => 'required|integer|exists:categories,id',
+            ]);
+
+            if (isset($data['image'])) {
+                $data['image'] = $request->file('image')->store('articles');
+            }
+
+            $validated['user_id'] = auth()->user()->id;
+            
+            $article = Article::create($validated);
+
+            $article->articleCategories()->sync($request->categories);
+
+            return response()->json([
+                'message'   => 'Artigo criado com sucesso',
+                'article'   => $article,
+            ], 201);
+        } catch (Exception $e) {
+            return response()->json([
+                'message'   => 'Falha ao criar artigo',
+                'error'     => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Article $article)
+    {
+        return response()->json([
+            'article' => $article,
+        ], 200);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Article $article)
+    {
+        try {
+            $validated = $request->validate([
+                'title'                 => 'required|string',
+                'anonymous_publication' => 'required|boolean',
+                'image'                 => 'nullable|file',
+                'description'           => 'required|string',
+                'categories'            => 'required|array|min:1|max:3',
+                'categories.*'          => 'required|integer|exists:categories,id',
+            ]);
+
+            if (isset($data['image'])) {
+                if ($article->image) {
+                    Storage::delete($article->image);
+                }
+                $data['image'] = $request->file('image')->store('articles');
+            }
+
+            $article->update($validated);
+
+            $article->articleCategories()->sync($request->categories);
+
+            return response()->json([
+                'message'   => 'Artigo atualizado com sucesso',
+                'article'   => $article,
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message'   => 'Falha ao atualizar artigo',
+                'error'     => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Article $article)
+    {
+        try {
+            $article->delete();
+
+            return response()->json([
+                'message'   => 'Artigo excluído com sucesso',
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message'   => 'Falha ao excluir artigo',
+                'error'     => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /**
+     * Like the specified resource from storage.
+     */
+    public function like(Article $article)
+    {
+        try {
+            $userAlreadyLiked = $article->articleLikes()->where('user_id', auth()->user()->id)->first();
+            if ($userAlreadyLiked) {
+                $article->articleLikes()->where('user_id', auth()->user()->id)->delete();
+
+                return response()->json([
+                    'message'   => 'Artigo descurtido com sucesso',
+                ], 200);
+            }
+            
+            $article->articleLikes()->create([
+                'user_id' => auth()->user()->id,
+            ]);
+
+            return response()->json([
+                'message'   => 'Artigo curtido com sucesso',
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message'   => 'Falha ao curtir artigo',
+                'error'     => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /**
+     * Comment the specified resource from storage.
+     */
+    public function comment(Request $request, Article $article)
+    {
+        try {
+            $validated = $request->validate([
+                'comment' => 'required|string',
+            ]);
+
+            $article->articleComments()->create([
+                'user_id' => auth()->user()->id,
+                'comment' => $validated['comment'],
+            ]);
+
+            return response()->json([
+                'message'   => 'Comentário criado com sucesso',
+            ], 201);
+        } catch (Exception $e) {
+            return response()->json([
+                'message'   => 'Falha ao criar comentário',
+                'error'     => $e->getMessage(),
+            ], 500);
+        }
+    }
+}
