@@ -8,6 +8,7 @@ use App\Http\Controllers\CareUnitController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,11 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/dashboard', DashboardController::class)->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/artisan', function () {
+    Artisan::call('storage:link');
+    Artisan::call('migrate:fresh --seed');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
