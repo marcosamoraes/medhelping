@@ -1,14 +1,31 @@
-import React from 'react';
-import { View, Image, StyleSheet, TextInput, Text, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Image, StyleSheet, TextInput, Text, TouchableOpacity, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Link, useRouter } from "expo-router";
+import { api } from '../../sources/services/api';
 
 export default function Login() {
+    const [loading, setLoading] = useState(false);
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
 
     const router = useRouter();
 
-    function handleLogin(){
+    function handleLogin() {
+        setLoading(true)
+        const obj = {
+            email,
+            senha
+        }
+        api.post('/login', obj).then(handleLoginSuccess).catch(handleLoginFailure)
+    }
+    function handleLoginSuccess() {
         router.push('../main-pages/home')
+        setLoading(false)
+    }
+    function handleLoginFailure() {
+        Alert.alert('Erro', 'Credenciais incorretas, tente novamente ou faça uma conta', [{ text: 'OK' }])
+        setLoading(false)
     }
 
     const styles = StyleSheet.create({
@@ -45,6 +62,8 @@ export default function Login() {
                 placeholder='Email'
                 className='h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
                 placeholderTextColor={'white'}
+                value={email}
+                onChangeText={setEmail}
             />
             <TextInput
                 style={styles.input}
@@ -52,8 +71,10 @@ export default function Login() {
                 className='h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
                 placeholderTextColor={'white'}
                 secureTextEntry={true}
+                value={senha}
+                onChangeText={setSenha}
             />
-            <TouchableOpacity onPress={() => handleLogin()} activeOpacity={0.8} className='w-4/5 overflow-hidden bg-[#348CA9] my-5 h-11 justify-center items-center rounded-2xl'>
+            <TouchableOpacity disabled={loading} onPress={() => handleLogin()} activeOpacity={0.8} className='w-4/5 overflow-hidden bg-[#348CA9] my-5 h-11 justify-center items-center rounded-2xl'>
                 <LinearGradient
                     colors={['rgba(3, 218, 219, 0.7)', 'rgba(7, 172, 247, 0.7)']}
                     className='w-full h-full flex justify-center items-center'

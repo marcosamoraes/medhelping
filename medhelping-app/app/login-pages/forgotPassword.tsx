@@ -1,14 +1,34 @@
-import React from 'react';
-import { View, Image, StyleSheet, TextInput, Text, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Image, StyleSheet, TextInput, Text, TouchableOpacity, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Link, useRouter } from "expo-router";
+import { api } from '../../sources/services/api';
 
 export default function Forgot() {
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState('');
 
   const router = useRouter();
 
-  function handleRecover(){
-    return
+  function handleRecover() {
+    setLoading(true)
+    const obj = {
+      email
+    }
+    api.post('/forgot-password', obj).then(reqSuccess).catch(reqFailure)
+
+  }
+  function reqSuccess(e: any) {
+    setLoading(false)
+    Alert.alert('Sucesso', e.response.message, [{ text: 'OK' }])
+    router.push('./login')
+
+  }
+  function reqFailure() {
+    Alert.alert('Erro', 'Ocorreu um erro, tente novamente', [{ text: 'OK' }])
+    setLoading(false)
+
+
   }
 
   const styles = StyleSheet.create({
@@ -45,8 +65,10 @@ export default function Forgot() {
         placeholder='Email de recuperação'
         className='h-10 w-4/5 rounded-xl text-sm font-400 my-5 px-4'
         placeholderTextColor={'white'}
+        value={email}
+        onChangeText={setEmail}
       />
-      <TouchableOpacity onPress={() => handleRecover()} activeOpacity={0.8} className='w-4/5 overflow-hidden bg-[#348CA9] mt-7 mb-12 h-11 justify-center items-center rounded-2xl'>
+      <TouchableOpacity disabled={loading} onPress={() => handleRecover()} activeOpacity={0.8} className='w-4/5 overflow-hidden bg-[#348CA9] mt-7 mb-12 h-11 justify-center items-center rounded-2xl'>
         <LinearGradient
           colors={['rgba(3, 218, 219, 0.7)', 'rgba(7, 172, 247, 0.7)']}
           className='w-full h-full flex justify-center items-center'

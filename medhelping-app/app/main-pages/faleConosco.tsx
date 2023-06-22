@@ -1,17 +1,43 @@
-import { ScrollView, View, Text, TextInput, StyleSheet, TouchableOpacity, Image, ImageRequireSource } from "react-native";
+import { ScrollView, View, Text, TextInput, StyleSheet, TouchableOpacity, Image, ImageRequireSource, Alert } from "react-native";
 import Header from "../../sources/components/header";
 import Footer from "../../sources/components/footer";
 import { useRouter } from "expo-router";
 import SideMenu from "../../sources/components/sideMenu";
 import SidebarProvider from "../../sources/config/Provider";
 import TouchableBlur from "../../sources/components/touchableBlur";
+import { useState } from "react";
+import { api } from "../../sources/services/api";
 
 const mailIcon = require("../../assets/images/mailicon.png");
 export default function FaleConosco(){
-    const router = useRouter();
-    function handleClick(){
-        router.push('./home')
+
+    const [loading, setLoading] = useState(false);
+  const [titulo, setTitulo] = useState('');
+  const [mensagem, setMensagem] = useState('');
+
+  const router = useRouter();
+
+  function handleClick() {
+    setLoading(true)
+    const obj = {
+      titulo,
+      mensagem
     }
+    api.post('/', obj).then(reqSuccess).catch(reqFailure)
+
+  }
+  function reqSuccess() {
+    setLoading(false)
+    Alert.alert('Mensagem enviada', 'Enviaremos um retorno em breve', [{ text: 'OK' }])
+    router.push('./home')
+
+  }
+  function reqFailure() {
+    Alert.alert('Erro', 'Ocorreu um erro, tente novamente', [{ text: 'OK' }])
+    setLoading(false)
+
+  }
+
     const styles = StyleSheet.create({
         input:{
             borderColor: 'white',
@@ -44,6 +70,8 @@ export default function FaleConosco(){
       placeholder='Título'
       className='h-10 w-full rounded-xl text-sm font-400 mb-3 mt-5 px-4'
       placeholderTextColor={'white'}
+      value={titulo}
+      onChangeText={setTitulo}
       />
       <TextInput
       style={styles.inputD}
@@ -51,8 +79,10 @@ export default function FaleConosco(){
       multiline={true}
       className='h-14 w-full align-text-top rounded-xl text-sm font-400 my-3 py-2 px-4'
       placeholderTextColor={'white'}
+      value={mensagem}
+      onChangeText={setMensagem}
       />
-         <TouchableOpacity onPress={()=>handleClick()} activeOpacity={0.8} className="flex-row w-full bg-[#03dadbb2] justify-center py-2 rounded-xl my-3 items-center"><Text className="text-white font-700 text-sm ml-2">Enviar</Text></TouchableOpacity>
+         <TouchableOpacity disabled={loading} onPress={()=>handleClick()} activeOpacity={0.8} className="flex-row w-full bg-[#03dadbb2] justify-center py-2 rounded-xl my-3 items-center"><Text className="text-white font-700 text-sm ml-2">Enviar</Text></TouchableOpacity>
     <View className="h-10"></View>
 
     </ScrollView>
