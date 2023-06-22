@@ -1,5 +1,8 @@
 import { ScrollView, View, Text, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import Header from "../../sources/components/header";
+import SidebarProvider from "../../sources/config/Provider";
+import SideMenu from "../../sources/components/sideMenu";
+import TouchableBlur from "../../sources/components/touchableBlur";
 export default function PublicarPlantao(){
     const styles = StyleSheet.create({
         input:{
@@ -15,7 +18,10 @@ export default function PublicarPlantao(){
         }
     });
     return(<>
+    <SidebarProvider>
+    <TouchableBlur/>
     <Header/>
+    <SideMenu/></SidebarProvider>
     <ScrollView className="w-screen pt-6 px-6 bg-[#00021C]">
         
         <View className="w-full p-3 rounded-xl bg-[#03dadbb2]">

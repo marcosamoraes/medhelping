@@ -4,6 +4,9 @@ import { Feather } from '@expo/vector-icons';
 import Checkbox from 'expo-checkbox';
 import { useState } from "react";
 import { useRouter } from "expo-router";
+import SidebarProvider from "../../sources/config/Provider";
+import SideMenu from "../../sources/components/sideMenu";
+import TouchableBlur from "../../sources/components/touchableBlur";
 export default function PublicarDiagnostico() {
     const router = useRouter();
     function postDiag(){
@@ -24,7 +27,10 @@ export default function PublicarDiagnostico() {
         }
     });
     return (<>
-        <Header />
+        <SidebarProvider>
+        <TouchableBlur/>
+    <Header/>
+    <SideMenu/></SidebarProvider>
         <ScrollView className="w-screen pt-6 px-6 bg-[#00021C]">
 
             <View className="w-full p-4 rounded-xl bg-[#03dadbb2]">

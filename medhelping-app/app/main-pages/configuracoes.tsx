@@ -3,6 +3,9 @@ import Header from "../../sources/components/header";
 import { useRouter } from "expo-router";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Footer from "../../sources/components/footer";
+import SidebarProvider from "../../sources/config/Provider";
+import SideMenu from "../../sources/components/sideMenu";
+import TouchableBlur from "../../sources/components/touchableBlur";
 
 export default function Configuracoes(){
     const router = useRouter();
@@ -24,7 +27,10 @@ export default function Configuracoes(){
     });
 
     return (<>
-    <Header />
+    <SidebarProvider>
+    <TouchableBlur/>
+    <Header/>
+    <SideMenu/></SidebarProvider>
         <ScrollView className="w-screen px-6 bg-[#00021C]">
             <TextInput
                 style={styles.input}

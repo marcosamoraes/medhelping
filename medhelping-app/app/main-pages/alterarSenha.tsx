@@ -3,6 +3,9 @@ import Header from "../../sources/components/header";
 import { useRouter } from "expo-router";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Footer from "../../sources/components/footer";
+import SidebarProvider from "../../sources/config/Provider";
+import SideMenu from "../../sources/components/sideMenu";
+import TouchableBlur from "../../sources/components/touchableBlur";
 
 export default function AlterarSenha(){
     const router = useRouter();
@@ -24,7 +27,10 @@ export default function AlterarSenha(){
     });
 
     return (<>
-    <Header />
+    <SidebarProvider>
+    <TouchableBlur/>
+    <Header/>
+    <SideMenu/>
         <View className="w-full h-screen px-6 bg-[#00021C]">
             <TextInput
                 style={styles.input}
@@ -52,6 +58,6 @@ export default function AlterarSenha(){
         
         </View>
         <Footer />
-    
+        </SidebarProvider>
     </>)
 }

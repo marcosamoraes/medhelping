@@ -3,6 +3,9 @@ import Footer from "../../sources/components/footer";
 import Header from "../../sources/components/header";
 import { FontAwesome } from '@expo/vector-icons';
 import { useRouter } from "expo-router";
+import SidebarProvider from "../../sources/config/Provider";
+import SideMenu from "../../sources/components/sideMenu";
+import TouchableBlur from "../../sources/components/touchableBlur";
 
 export default function VerPerfil() {
     const router = useRouter();
@@ -16,7 +19,10 @@ export default function VerPerfil() {
         }
     });
     return (<>
-        <Header />
+        <SidebarProvider>
+        <TouchableBlur/>
+    <Header/>
+    <SideMenu/></SidebarProvider>
         <ScrollView className="bg-[#00021C]">
             <ImageBackground blurRadius={10} className="w-full" style={styles.imageBackground} source={require("../../assets/images/avatar-template.jpg")}>
             <View className="w-full bg-[#505050b1]">
@@ -25,7 +31,7 @@ export default function VerPerfil() {
                     <TouchableOpacity activeOpacity={0.7} className="bg-[#00021C] w-10 h-10 items-center justify-center rounded-full absolute z-10 right-0 bottom-0"><FontAwesome name="gear" size={20} color="white" /></TouchableOpacity>
                 </View>
                 <Text className="font-900 text-white text-center text-xl">Roland de Gilead</Text>
-                <Text className="font-500 text-white text-center text-base">Breve descrição e tal</Text>
+                <Text className="font-500 text-white text-center text-base">Breve descrição</Text>
                 <TouchableOpacity onPress={()=>handleEditProfile()} activeOpacity={0.8} className="w-1/2 mx-auto bg-[#07acf7] justify-center pt-2 pb-1 rounded-xl mt-3 mb-5 items-center"><Text className="text-white font-600 text-sm ml-2">Editar Perfil</Text></TouchableOpacity>
                 <View className="flex-row mb-5 w-2/3 justify-between items-center mx-auto">
                     <TouchableOpacity className="h-9 w-9 rounded-full justify-center items-center bg-[#3C5A99]"><FontAwesome name="facebook-f" size={20} color="white" /></TouchableOpacity>
