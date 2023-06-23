@@ -4,19 +4,21 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Link } from "expo-router";
 import { AuthContext } from '@contexts/Auth';
 
+const logo = require('../../assets/images/medhelping_logo.png');
+
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const { signIn, loading, setLoading } = useContext(AuthContext)
+    const { signIn, loading, activeLoading } = useContext(AuthContext)
 
-    function handleLogin() {
-        setLoading(true)
+    async function handleLogin() {
+        // activeLoading()
 
         try {
-            signIn(email, password)
-        } catch (e) {
-            Alert.alert('Erro', 'Credenciais inválidas.', [{ text: 'OK' }])
+            await signIn(email, password)
+        } catch (error: any) {
+            Alert.alert('Erro', error, [{ text: 'OK' }])
         }
     }
 
@@ -42,7 +44,7 @@ export default function Login() {
         <View className="bg-[#01061C] flex-1 items-center">
             <Image style={styles.logo}
                 className="w-28 h-28 z-10 border-2 rounded-3xl mt-24 mb-20"
-                source={require('../../assets/images/medhelping_logo.png')}
+                source={logo}
             />
             <LinearGradient
                 colors={['#03DADB', '#07ACF7']}

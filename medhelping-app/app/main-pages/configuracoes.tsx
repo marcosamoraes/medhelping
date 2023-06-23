@@ -1,16 +1,15 @@
-import { Alert, Image, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
-import Header from "../../sources/components/header";
+import { Alert, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import Header from "@components/header";
 import { useRouter } from "expo-router";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import Footer from "../../sources/components/footer";
-import SidebarProvider from "../../sources/config/Provider";
-import SideMenu from "../../sources/components/sideMenu";
-import TouchableBlur from "../../sources/components/touchableBlur";
+import Footer from "@components/footer";
+import SidebarProvider from "@contexts/Sidebar";
+import SideMenu from "@components/sideMenu";
+import TouchableBlur from "@components/touchableBlur";
 import { useState } from "react";
-import { api } from "../../sources/services/api";
+import { api } from "@services/api";
 
-export default function Configuracoes(){
-
+export default function Configuracoes() {
     const [loading, setLoading] = useState(false);
     const [idade, setIdade] = useState('');
     const [faculdade, setFaculdade] = useState('');
@@ -22,39 +21,37 @@ export default function Configuracoes(){
     const [instagram, setInstagram] = useState('');
     const [twitter, setTwitter] = useState('');
     const [doctoralia, setDoctoralia] = useState('');
-  
+
     const router = useRouter();
-  
+
     function handleEditConfig() {
-      setLoading(true)
-      const obj = {
-        idade,
-        faculdade,
-        ano,
-        CRM,
-        atuacao,
-        especialidade,
-        facebook,
-        instagram,
-        twitter,
-        doctoralia
-      }
-      api.post('/', obj).then(reqSuccess).catch(reqFailure)
-  
+        setLoading(true)
+        const obj = {
+            idade,
+            faculdade,
+            ano,
+            CRM,
+            atuacao,
+            especialidade,
+            facebook,
+            instagram,
+            twitter,
+            doctoralia
+        }
+        api.post('/', obj).then(reqSuccess).catch(reqFailure)
     }
+
     function reqSuccess() {
         Alert.alert('Sucesso', 'Informações alteradas com êxito', [{ text: 'OK' }])
-      setLoading(false)
-      router.push('./verPerfil')
-  
+        setLoading(false)
+        router.push('./verPerfil')
     }
+
     function reqFailure() {
-      Alert.alert('Erro', 'Ocorreu um erro, tente novamente', [{ text: 'OK' }])
-      setLoading(false)
-  
-  
+        Alert.alert('Erro', 'Ocorreu um erro, tente novamente', [{ text: 'OK' }])
+        setLoading(false)
     }
-  
+
     const styles = StyleSheet.create({
         input: {
             borderColor: 'white',
@@ -69,11 +66,13 @@ export default function Configuracoes(){
         }
     });
 
-    return (<>
-    <SidebarProvider>
-    <TouchableBlur/>
-    <Header/>
-    <SideMenu/></SidebarProvider>
+    return (
+    <>
+        <SidebarProvider>
+            <TouchableBlur/>
+            <Header/>
+            <SideMenu/>
+        </SidebarProvider>
         <ScrollView className="w-screen px-6 bg-[#00021C]">
             <TextInput
                 style={styles.input}
@@ -156,10 +155,16 @@ export default function Configuracoes(){
                 value={doctoralia}
                 onChangeText={setDoctoralia}
             />
-            <TouchableOpacity disabled={loading} onPress={()=> handleEditConfig()} activeOpacity={0.8} className="flex-row w-full bg-[#03dadbb2] justify-center pt-2 pb-1 rounded-xl my-3 items-center"><Text className="text-white font-700 text-sm ml-2">Atualizar</Text></TouchableOpacity>
-        <View className="h-4"></View>
+            <TouchableOpacity 
+                disabled={loading} 
+                onPress={()=> handleEditConfig()} 
+                activeOpacity={0.8} 
+                className="flex-row w-full bg-[#03dadbb2] justify-center pt-2 pb-1 rounded-xl my-3 items-center"
+            >
+                <Text className="text-white font-700 text-sm ml-2">Atualizar</Text>
+            </TouchableOpacity>
+            <View className="h-4"></View>
         </ScrollView>
         <Footer />
-    
     </>)
 }

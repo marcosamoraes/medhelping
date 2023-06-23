@@ -10,7 +10,7 @@ export default function Cadastro() {
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
-  const { register, loading, setLoading } = useContext(AuthContext)
+  const { register, loading, activeLoading } = useContext(AuthContext)
 
   function handleRegister() {
     if(passwordConfirmation !== password){
@@ -18,12 +18,12 @@ export default function Cadastro() {
       return
     }
 
-    setLoading(true)
+    activeLoading()
 
     try {
       register(name, email, password, passwordConfirmation)
-    } catch (e) {
-      Alert.alert('Erro', 'Não foi possível realizar o cadastro', [{ text: 'OK' }])
+    } catch (error: any) {
+      Alert.alert('Erro', error, [{ text: 'OK' }])
     }
   }
 

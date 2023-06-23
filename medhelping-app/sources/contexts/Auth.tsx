@@ -6,33 +6,36 @@ import { storageTokenGet, storageTokenSave } from "@storage/storageToken"
 import { useRouter } from "expo-router"
 import { Alert } from "react-native"
 
-export type AuthContextDataProps = {
+type AuthContextDataProps = {
   user: IUser
   register: (name: string, email: string, password: string, passwordConfirmation: string) => Promise<void>
   signIn: (email: string, password: string) => Promise<void>
   loadUserData: () => Promise<void>
   logout: () => void
   loading: boolean
-  setLoading: (loading: boolean) => void
+  activeLoading: () => void
 }
 
-export type AuthProviderProps = {
+type AuthProviderProps = {
   children: ReactNode
 }
 
 export const AuthContext = createContext<AuthContextDataProps>({} as AuthContextDataProps)
 
-export function AuthProvider({ children }: AuthProviderProps) {
+export function AuthProvider ({ children }: AuthProviderProps) {
   const [user, setUser] = useState<IUser>({} as IUser)
   const [token, setToken] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false);
 
   const router = useRouter();
 
+  const activeLoading = () => {
+    setLoading(true)
+  }
+
   const register = async (name: string, email: string, password: string, passwordConfirmation: string) => {
     try {
       const { data } = await api.post('/register', { name, email, password, password_confirmation: passwordConfirmation })
-      
       if (data.user) {
         setUser(data.user)
         storageUserSave(data.user)
@@ -41,8 +44,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
         Alert.alert('Sucesso', 'Cadastro criado com êxito', [{ text: 'OK' }])
         router.push('../main-pages/home')
       }
-    } catch (error) {
-      throw error
+    } catch (error: any) {
+      throw error.response.data.message ?? "Falha ao realizar cadastro."
     } finally {
       setLoading(false)
     }
@@ -59,8 +62,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
         storageTokenSave(data.token)
         router.push('../main-pages/home')
       }
-    } catch (error) {
-      throw error
+    } catch (error: any) {
+      throw error.response.data.message ?? "Falha ao realizar login."
     } finally {
       setLoading(false)
     }
@@ -99,7 +102,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       loadUserData, 
       logout, 
       loading, 
-      setLoading 
+      activeLoading 
     }}>
       {children}
     </AuthContext.Provider>

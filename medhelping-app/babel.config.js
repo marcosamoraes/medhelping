@@ -6,8 +6,7 @@ module.exports = function(api) {
       "nativewind/babel", 
       require.resolve("expo-router/babel"), 
       'module:react-native-dotenv',
-      "module-resolver", 
-      {
+      ["module-resolver", {
         "root": ["./"],
         "alias": {
           "@components": "./sources/components",
@@ -19,9 +18,9 @@ module.exports = function(api) {
           "@screens": "./sources/screens",
           "@services": "./sources/services",
           "@storage": "./sources/storage",
-          "@styles": "./sources/styles",
+          "@styles": "./sources/styles"
         }
-      }
+      }]
     ],
   };
 };
