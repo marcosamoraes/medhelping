@@ -12,7 +12,7 @@ class CareUnitController extends Controller
      */
     public function index()
     {
-        $careUnits = CareUnit::orderBy('name', 'ASC')->pluck('name')->get();
+        $careUnits = CareUnit::orderBy('name', 'ASC')->get()->pluck('name', 'id');
 
         return response()->json($careUnits, 200);
     }
