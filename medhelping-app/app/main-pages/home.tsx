@@ -6,6 +6,7 @@ import SidebarProvider from "@contexts/Sidebar";
 import TouchableBlur from "@components/touchableBlur";
 import { useEffect, useState } from "react";
 import { api } from "@services/api";
+import ExamCard from "@components/exam-card";
 
 export default function Home(){
     const [posts, setPosts] = useState([])
@@ -31,6 +32,8 @@ export default function Home(){
                 </View>
                 <View className="flex-row flex-wrap pt-6 pb-4 px-1 justify-between">
                     {/* {posts.length? posts.map((i) => {<ExamCard category="" exam="" name="" date=""/>}) : ''} */}
+                    <ExamCard category="" exam="" name="" date=""/>
+                    
                 </View>
             </ScrollView>
             <Footer/>
