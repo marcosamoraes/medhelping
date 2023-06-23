@@ -21,6 +21,7 @@ export default function Routes() {
 
   const screenOptions = {
     headerShown: false,
+    animation: 'none'
   }
 
   return (
