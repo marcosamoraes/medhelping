@@ -1,31 +1,23 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Image, StyleSheet, TextInput, Text, TouchableOpacity, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Link, useRouter } from "expo-router";
-import { api } from '../../sources/services/api';
+import { Link } from "expo-router";
+import { AuthContext } from '@contexts/Auth';
 
 export default function Login() {
-    const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
+    const [password, setPassword] = useState('');
 
-    const router = useRouter();
+    const { signIn, loading, setLoading } = useContext(AuthContext)
 
     function handleLogin() {
         setLoading(true)
-        const obj = {
-            email,
-            senha
+
+        try {
+            signIn(email, password)
+        } catch (e) {
+            Alert.alert('Erro', 'Credenciais inválidas.', [{ text: 'OK' }])
         }
-        api.post('/login', obj).then(handleLoginSuccess).catch(handleLoginFailure)
-    }
-    function handleLoginSuccess() {
-        router.push('../main-pages/home')
-        setLoading(false)
-    }
-    function handleLoginFailure() {
-        Alert.alert('Erro', 'Credenciais incorretas, tente novamente ou faça uma conta', [{ text: 'OK' }])
-        setLoading(false)
     }
 
     const styles = StyleSheet.create({
@@ -46,7 +38,7 @@ export default function Login() {
         }
     });
 
-    return (<>
+    return (
         <View className="bg-[#01061C] flex-1 items-center">
             <Image style={styles.logo}
                 className="w-28 h-28 z-10 border-2 rounded-3xl mt-24 mb-20"
@@ -71,17 +63,32 @@ export default function Login() {
                 className='h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
                 placeholderTextColor={'white'}
                 secureTextEntry={true}
-                value={senha}
-                onChangeText={setSenha}
+                value={password}
+                onChangeText={setPassword}
             />
-            <TouchableOpacity disabled={loading} onPress={() => handleLogin()} activeOpacity={0.8} className='w-4/5 overflow-hidden bg-[#348CA9] my-5 h-11 justify-center items-center rounded-2xl'>
+            <TouchableOpacity 
+                disabled={loading} 
+                onPress={() => handleLogin()} 
+                activeOpacity={0.8} 
+                className='w-4/5 overflow-hidden bg-[#348CA9] my-5 h-11 justify-center items-center rounded-2xl'
+            >
                 <LinearGradient
                     colors={['rgba(3, 218, 219, 0.7)', 'rgba(7, 172, 247, 0.7)']}
                     className='w-full h-full flex justify-center items-center'
-                ><Text className='font-900 text-white text-base'>Entrar</Text></LinearGradient></TouchableOpacity>
-            <Link className='my-5' href='../login-pages/forgotPassword'><Text className='font-900 text-white text-base my-5'> Esqueci minha senha </Text></Link>
-            <Link className='mt-5' href='../login-pages/cadastro'><Text className='font-900 text-[#03DADB] text-base mt-5 mb-3'> Novo no app? Criar conta! </Text></Link>
+                >
+                    <Text className='font-900 text-white text-base'>Entrar</Text>
+                </LinearGradient>
+            </TouchableOpacity>
+            <Link className='my-5' href='../login-pages/forgotPassword'>
+                <Text className='font-900 text-white text-base my-5'>
+                    Esqueci minha senha
+                </Text>
+            </Link>
+            <Link className='mt-5' href='../login-pages/cadastro'>
+                <Text className='font-900 text-[#03DADB] text-base mt-5 mb-3'>
+                    Novo no app? Criar conta!
+                </Text>
+            </Link>
         </View>
-
-    </>)
+    )
 }

@@ -3,5 +3,38 @@
   "compilerOptions": {
     "strict": true,
     "types": ["nativewind/types"],
+    "baseUrl": "./",
+    "paths": {
+      "@components/*": [
+        "./sources/components/*"
+      ],
+      "@constants/*": [
+        "./sources/constants/*"
+      ],
+      "@contexts/*": [
+        "./sources/contexts/*"
+      ],
+      "@interfaces/*": [
+        "./sources/interfaces/*"
+      ],
+      "@navigation/*": [
+        "./sources/navigation/*"
+      ],
+      "@schemas/*": [
+        "./sources/schemas/*"
+      ],
+      "@screens/*": [
+        "./sources/screens/*"
+      ],
+      "@services/*": [
+        "./sources/services/*"
+      ],
+      "@storage/*": [
+        "./sources/storage/*"
+      ],
+      "@styles/*": [
+        "./sources/styles/*"
+      ],
+    }
   }
 }

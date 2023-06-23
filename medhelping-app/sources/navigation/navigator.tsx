@@ -1,13 +1,13 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-import SplashScreenScreen from '../screens/splash_screen_screen';
+import SplashScreenScreen from '@screens/splash_screen_screen'
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator()
 
 const screenOptions = {
   headerShown: false,
-};
+}
 
 export default function Navigator() {
   return (
@@ -16,5 +16,5 @@ export default function Navigator() {
         <Stack.Screen name='SplashScreen' component={SplashScreenScreen} options={screenOptions} />
       </Stack.Navigator>
     </NavigationContainer>
-  );
-};
+  )
+}
