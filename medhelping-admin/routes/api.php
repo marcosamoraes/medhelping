@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PasswordController;
 use App\Http\Controllers\Api\ArticleController;
+use App\Http\Controllers\Api\CareUnitController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\ShiftController;
@@ -28,10 +29,11 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
 Route::post('forgot-password', [PasswordController::class, 'forgot']);
 
+Route::get('categories', [CategoryController::class, 'index']);
+Route::get('care-units', [CareUnitController::class, 'index']);
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('me', [AuthController::class, 'me']);
-
-    Route::get('categories', [CategoryController::class, 'index']);
 
     Route::post('articles/{article}/like', [ArticleController::class, 'like']);
     Route::post('articles/{article}/comment', [ArticleController::class, 'comment']);
