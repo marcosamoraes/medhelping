@@ -1,6 +1,6 @@
 import { Alert, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import Header from "@components/header";
-import { useRouter } from "expo-router";
+import { useNavigation } from "expo-router";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Footer from "@components/footer";
 import SidebarProvider from "@contexts/Sidebar";
@@ -22,7 +22,7 @@ export default function Configuracoes() {
     const [twitter, setTwitter] = useState('');
     const [doctoralia, setDoctoralia] = useState('');
 
-    const router = useRouter();
+    const navigation = useNavigation();
 
     function handleEditConfig() {
         setLoading(true)
@@ -44,7 +44,7 @@ export default function Configuracoes() {
     function reqSuccess() {
         Alert.alert('Sucesso', 'Informações alteradas com êxito', [{ text: 'OK' }])
         setLoading(false)
-        router.push('./verPerfil')
+        navigation.navigate("viewProfile", { id: 1 })
     }
 
     function reqFailure() {

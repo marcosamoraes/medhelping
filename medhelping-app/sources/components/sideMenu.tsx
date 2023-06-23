@@ -2,20 +2,24 @@ import { Image, Text, TouchableOpacity, View, Animated, StyleSheet } from "react
 import { FontAwesome } from '@expo/vector-icons'; 
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Link, useRouter } from "expo-router";
+import { Link, useNavigation } from "expo-router";
 import { useContext } from "react";
 import { SidebarContext } from "@contexts/Sidebar";
+import { AuthContext } from "@contexts/Auth";
 
 const avatarTemplate = require("../../assets/images/avatar-template.jpg")
 
-export default function SideMenu(){
-    const router = useRouter();
-    function handleExit(){
-        router.push('../login-pages/login')
+export default function SideMenu() {
+    const { logout } = useContext(AuthContext);
+
+    const navigation = useNavigation();
+    
+    function handleExit() {
+        logout()
     }
+    
     const { isOpen } = useContext(SidebarContext);
     const { top, bottom } = useSafeAreaInsets();
-
 
     const styles = StyleSheet.create({
         sideMenu:{
@@ -34,54 +38,54 @@ export default function SideMenu(){
             <Text className="font-500 text-white text-center text-base">Breve descrição</Text>            
         </View>
         <View className=" py-3">
-            <Link href='./home'>
+            <TouchableOpacity onPress={() => navigation.navigate('home')}>
                 <View className="flex-row py-2">
                     <FontAwesome name="home" size={26} color="white" />
                     <Text className="pt-1 pl-4 font-900 text-white text-xl">
                         Início
                     </Text>
                 </View>
-            </Link>
-            <Link href='./verPerfil'>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('viewProfile', {id: 1})}>
                 <View className="flex-row py-2">
                     <Ionicons name="person" size={26} color="white" />
                     <Text className="pt-1 pl-4 font-900 text-white text-xl">
                         Perfil
                     </Text>
                 </View>
-            </Link>
-            <Link href='./publicarDiagnostico'>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('publishArticle')}>
                 <View className="flex-row py-2">
                     <FontAwesome name="plus" size={26} color="white" />
                     <Text className="pt-1 pl-4 font-900 text-white text-xl">
                         Publicar Diagnóstico
                     </Text>
                 </View>
-            </Link>
-            <Link href='./publicarPlantao'>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('publishShift')}>
                 <View className="flex-row py-2">
                     <FontAwesome name="plus" size={26} color="white" />
                     <Text className="pt-1 pl-4 font-900 text-white text-xl">
                         Publicar Plantão
                     </Text>
                 </View>
-            </Link>
-            <Link href='./listaCategorias'>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('listCategories')}>
                 <View className="flex-row py-2">
                     <FontAwesome name="list-ul" size={26} color="white" />
                     <Text className="pt-1 pl-4 font-900 text-white text-xl">
                         Categorias
                     </Text>
                 </View>
-            </Link>
-            <Link href='./configuracoes'>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('settings')}>
                 <View className="flex-row py-2">
                     <FontAwesome name="gear" size={26} color="white" />
                     <Text className="pt-1 pl-4 font-900 text-white text-xl">
                         Configurações
                     </Text>
                 </View>
-            </Link>
+            </TouchableOpacity>
         </View>
         <TouchableOpacity 
             onPress={handleExit} 

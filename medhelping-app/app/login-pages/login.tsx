@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
-import { View, Image, StyleSheet, TextInput, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, Image, StyleSheet, TextInput, Text, TouchableOpacity, Alert, Button } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Link } from "expo-router";
+import { Link, useNavigation } from "expo-router";
 import { AuthContext } from '@contexts/Auth';
 
 const logo = require('../../assets/images/medhelping_logo.png');
@@ -12,8 +12,10 @@ export default function Login() {
 
     const { signIn, loading, activeLoading } = useContext(AuthContext)
 
+    const navigation = useNavigation();
+
     async function handleLogin() {
-        // activeLoading()
+        activeLoading()
 
         try {
             await signIn(email, password)
@@ -81,16 +83,16 @@ export default function Login() {
                     <Text className='font-900 text-white text-base'>Entrar</Text>
                 </LinearGradient>
             </TouchableOpacity>
-            <Link className='my-5' href='../login-pages/forgotPassword'>
+            <TouchableOpacity className='my-5' onPress={() => navigation.navigate('register')}>
                 <Text className='font-900 text-white text-base my-5'>
                     Esqueci minha senha
                 </Text>
-            </Link>
-            <Link className='mt-5' href='../login-pages/cadastro'>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('register')}>
                 <Text className='font-900 text-[#03DADB] text-base mt-5 mb-3'>
                     Novo no app? Criar conta!
                 </Text>
-            </Link>
+            </TouchableOpacity>
         </View>
     )
 }

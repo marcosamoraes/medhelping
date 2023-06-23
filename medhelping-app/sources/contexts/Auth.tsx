@@ -3,7 +3,7 @@ import IUser from "@interfaces/IUser"
 import { api } from '@services/api'
 import { storageUserGet, storageUserSave } from "@storage/storageUser"
 import { storageTokenGet, storageTokenSave } from "@storage/storageToken"
-import { useRouter } from "expo-router"
+import { useNavigation } from "expo-router"
 import { Alert } from "react-native"
 
 type AuthContextDataProps = {
@@ -27,7 +27,7 @@ export function AuthProvider ({ children }: AuthProviderProps) {
   const [token, setToken] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false);
 
-  const router = useRouter();
+  const navigation = useNavigation();
 
   const activeLoading = () => {
     setLoading(true)
@@ -36,13 +36,14 @@ export function AuthProvider ({ children }: AuthProviderProps) {
   const register = async (name: string, email: string, password: string, passwordConfirmation: string) => {
     try {
       const { data } = await api.post('/register', { name, email, password, password_confirmation: passwordConfirmation })
+      
       if (data.user) {
         setUser(data.user)
         storageUserSave(data.user)
         setToken(data.token)
         storageTokenSave(data.token)
         Alert.alert('Sucesso', 'Cadastro criado com êxito', [{ text: 'OK' }])
-        router.push('../main-pages/home')
+        navigation.navigate("home")
       }
     } catch (error: any) {
       throw error.response.data.message ?? "Falha ao realizar cadastro."
@@ -60,7 +61,7 @@ export function AuthProvider ({ children }: AuthProviderProps) {
         storageUserSave(data.user)
         setToken(data.token)
         storageTokenSave(data.token)
-        router.push('../main-pages/home')
+        navigation.navigate("home")
       }
     } catch (error: any) {
       throw error.response.data.message ?? "Falha ao realizar login."
@@ -87,7 +88,7 @@ export function AuthProvider ({ children }: AuthProviderProps) {
     storageUserSave({} as IUser)
     setToken('')
     storageTokenSave('')
-    router.push('/login');
+    navigation.navigate("login")
   }, [])
 
   useEffect(() => {

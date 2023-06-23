@@ -3,7 +3,7 @@ import Header from "@components/header";
 import { Feather } from '@expo/vector-icons';
 import Checkbox from 'expo-checkbox';
 import { useState } from "react";
-import { useRouter } from "expo-router";
+import { useNavigation } from "expo-router";
 import SidebarProvider from "@contexts/Sidebar";
 import SideMenu from "@components/sideMenu";
 import TouchableBlur from "@components/touchableBlur";
@@ -18,7 +18,7 @@ export default function PublicarDiagnostico() {
     const [category_three, setCategoryThree] = useState('');
     const [toggleCheckBox, setToggleCheckBox] = useState(false)
 
-    const router = useRouter();
+    const navigation = useNavigation();
 
     function postDiag() {
         setLoading(true)
@@ -30,7 +30,7 @@ export default function PublicarDiagnostico() {
 
     function reqSuccess() {
         setLoading(false)
-        router.push('./home')
+        navigation.navigate("home")
     }
 
     function reqFailure() {

@@ -1,4 +1,4 @@
-import { useRouter } from "expo-router";
+import { useNavigation } from "expo-router";
 import { ImageBackground, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 interface ExamCardProps {
@@ -17,9 +17,9 @@ const styles = StyleSheet.create({
 const backgroundImage = require('../../assets/images/img-fundo-exame.png')
 
 export default function ExamCard(props: ExamCardProps) {
-    const router = useRouter();
+    const navigation = useNavigation();
     function handleClick(){
-        router.push('./verPublicacao')
+        navigation.navigate("viewPublication", {id: 1})
     }
     const { category, exam, name, date } = props;
     return (<>

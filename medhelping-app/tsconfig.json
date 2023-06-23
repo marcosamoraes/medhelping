@@ -17,8 +17,8 @@
       "@interfaces/*": [
         "./sources/interfaces/*"
       ],
-      "@navigation/*": [
-        "./sources/navigation/*"
+      "@routes/*": [
+        "sources/routes/*"
       ],
       "@schemas/*": [
         "./sources/schemas/*"

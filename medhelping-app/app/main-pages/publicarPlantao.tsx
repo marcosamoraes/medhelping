@@ -3,7 +3,7 @@ import Header from "@components/header";
 import SidebarProvider from "@contexts/Sidebar";
 import SideMenu from "@components/sideMenu";
 import TouchableBlur from "@components/touchableBlur";
-import { useRouter } from "expo-router";
+import { useNavigation } from "expo-router";
 import { useState } from "react";
 import { api } from "@services/api";
 
@@ -17,7 +17,7 @@ export default function PublicarPlantao() {
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
 
-  const router = useRouter();
+  const navigation = useNavigation();
 
   function postPlant() {
     setLoading(true)
@@ -28,7 +28,7 @@ export default function PublicarPlantao() {
 
   function reqSuccess() {
     setLoading(false)
-    router.push('./home')
+    navigation.navigate("home")
   }
 
   function reqFailure() {

@@ -1,8 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { View, Image, StyleSheet, TextInput, Text, Alert, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Link } from "expo-router";
+import { Link, useNavigation } from "expo-router";
 import { AuthContext } from '@contexts/Auth';
+
+const logo = require('../../assets/images/medhelping_logo.png');
 
 export default function Cadastro() {
   const [name, setName] = useState('');
@@ -12,7 +14,9 @@ export default function Cadastro() {
 
   const { register, loading, activeLoading } = useContext(AuthContext)
 
-  function handleRegister() {
+  const navigation = useNavigation();
+
+  async function handleRegister() {
     if(passwordConfirmation !== password){
       Alert.alert('Erro', 'Senhas diferentes', [{ text: 'OK' }])
       return
@@ -21,7 +25,7 @@ export default function Cadastro() {
     activeLoading()
 
     try {
-      register(name, email, password, passwordConfirmation)
+      await register(name, email, password, passwordConfirmation)
     } catch (error: any) {
       Alert.alert('Erro', error, [{ text: 'OK' }])
     }
@@ -49,7 +53,7 @@ export default function Cadastro() {
     <View className="bg-[#01061C] flex-1 items-center">
       <Image style={styles.logo}
         className="w-28 h-28 z-10 border-2 rounded-3xl mt-24 mb-16"
-        source={require('../../assets/images/medhelping_logo.png')}
+        source={logo}
       />
       <LinearGradient
         colors={['#03DADB', '#07ACF7']}
@@ -104,9 +108,9 @@ export default function Cadastro() {
         </LinearGradient>
       </TouchableOpacity>
 
-      <Link className='my-5' href='../login-pages/login'>
+      <TouchableOpacity className='my-5' onPress={() => navigation.navigate('login')}>
         <Text className='font-900 text-white text-base my-5'>Fazer Login</Text>
-      </Link>
+      </TouchableOpacity>
     </View>
   )
 }

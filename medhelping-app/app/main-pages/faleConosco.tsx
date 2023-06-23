@@ -1,7 +1,7 @@
 import { ScrollView, View, Text, TextInput, StyleSheet, TouchableOpacity, Image, Alert } from "react-native";
 import Header from "@components/header";
 import Footer from "@components/footer";
-import { useRouter } from "expo-router";
+import { useNavigation } from "expo-router";
 import SideMenu from "@components/sideMenu";
 import SidebarProvider from "@contexts/Sidebar";
 import TouchableBlur from "@components/touchableBlur";
@@ -15,7 +15,7 @@ export default function FaleConosco() {
   const [titulo, setTitulo] = useState('');
   const [mensagem, setMensagem] = useState('');
 
-  const router = useRouter();
+  const navigation = useNavigation();
 
   function handleClick() {
     setLoading(true)
@@ -29,7 +29,7 @@ export default function FaleConosco() {
   function reqSuccess() {
     setLoading(false)
     Alert.alert('Mensagem enviada', 'Enviaremos um retorno em breve', [{ text: 'OK' }])
-    router.push('./home')
+    navigation.navigate("home")
   }
 
   function reqFailure() {

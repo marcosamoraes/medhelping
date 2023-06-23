@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { View, Image, StyleSheet, TextInput, Text, TouchableOpacity, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Link, useRouter } from "expo-router";
+import { Link, useNavigation } from "expo-router";
 import { api } from '../../sources/services/api';
 
 export default function Forgot() {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
 
-  const router = useRouter();
+  const navigation = useNavigation();
 
   function handleRecover() {
     setLoading(true)
@@ -21,7 +21,7 @@ export default function Forgot() {
   function reqSuccess(e: any) {
     setLoading(false)
     Alert.alert('Sucesso', e.response.message, [{ text: 'OK' }])
-    router.push('./login')
+    navigation.navigate("login")
 
   }
   function reqFailure() {
@@ -72,9 +72,14 @@ export default function Forgot() {
         <LinearGradient
           colors={['rgba(3, 218, 219, 0.7)', 'rgba(7, 172, 247, 0.7)']}
           className='w-full h-full flex justify-center items-center'
-        ><Text className='font-900 text-white text-base'>Enviar link de recuperação</Text></LinearGradient></TouchableOpacity>
+        >
+          <Text className='font-900 text-white text-base'>Enviar link de recuperação</Text>
+        </LinearGradient>
+      </TouchableOpacity>
 
-      <Link href='../login-pages/login'><Text className='font-900 text-white text-base my-5'> Fazer Login </Text></Link>
+      <TouchableOpacity className='my-5' onPress={() => navigation.navigate('login')}>
+        <Text className='font-900 text-white text-base my-5'> Fazer Login </Text>
+      </TouchableOpacity>
     </View>
   </>)
 }

@@ -1,6 +1,6 @@
 import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
 import Header from "@components/header";
-import { useRouter } from "expo-router";
+import { useNavigation } from "expo-router";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Footer from "@components/footer";
 import SidebarProvider from "@contexts/Sidebar";
@@ -15,7 +15,7 @@ export default function AlterarSenha(){
   const [senha, setSenha] = useState('');
   const [senhaConfirmada, setSenhaConfirmada] = useState('');
 
-  const router = useRouter();
+  const navigation = useNavigation();
 
   function handleEditPassword() {
     if(senha !== senhaConfirmada){
@@ -34,7 +34,7 @@ export default function AlterarSenha(){
     Alert.alert('Sucesso', 'Sua senha foi alterada com êxito', [{ text: 'OK' }])
     
     setLoading(false)
-    router.push('./verPerfil')
+    navigation.navigate("viewProfile", {id: 1})
   }
 
   function reqFailure() {

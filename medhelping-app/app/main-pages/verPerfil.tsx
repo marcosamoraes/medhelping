@@ -2,7 +2,7 @@ import { Image, ImageBackground, ScrollView, View, StyleSheet, TouchableOpacity,
 import Footer from "@components/footer";
 import Header from "@components/header";
 import { FontAwesome } from '@expo/vector-icons';
-import { useRouter } from "expo-router";
+import { useNavigation } from "expo-router";
 import SidebarProvider from "@contexts/Sidebar";
 import SideMenu from "@components/sideMenu";
 import TouchableBlur from "@components/touchableBlur";
@@ -10,10 +10,10 @@ import TouchableBlur from "@components/touchableBlur";
 const doctoraliaImg = require('../../assets/images/doctoralia.png');
 
 export default function VerPerfil() {
-    const router = useRouter();
+    const navigation = useNavigation();
 
     function handleEditProfile(){
-        router.push('./editarPerfil')
+        navigation.navigate("editProfile")
     }
 
     const styles = StyleSheet.create({
