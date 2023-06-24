@@ -1,18 +1,31 @@
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
 import { Feather } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
+import { api } from "@services/api";
 
 const avatarTemplate = require("../../assets/images/avatar-template.jpg")
 
 interface ComentarioProps {
+    id: number;
     username: string;
     content: string;
     isResponse: boolean;
+    is_the_owner: boolean;
     setResponseId: (id: number) => void;
 }
 
 //Adicionar imagem como props
-export default function ComentarioPublicacao({ username, content, isResponse, setResponseId }: ComentarioProps) {
+export default function ComentarioPublicacao({ id, username, content, isResponse, setResponseId, is_the_owner }: ComentarioProps) {
+    //funcao de deletar o comentario
+    function handleDelete() {
+        api.delete(`/comments/${id}`).then(() => {
+            //fazer atualizar o componente pai?
+            //pedir confirmacao?
+        }).catch(() => {
+            Alert.alert('Erro', 'Ocorreu um erro, tente novamente', [{ text: 'OK' }])
+        })
+    }
+    
     return (<>
 
         <View className="flex-row justify-evenly w-full px-6 my-3">
@@ -22,8 +35,9 @@ export default function ComentarioPublicacao({ username, content, isResponse, se
                 <Text className="text-white font-500 text-sn">{content}</Text>
             </View>
             <TouchableOpacity className="items-center my-auto">
-                <AntDesign name="like1" size={20} color="white" />
-                {/* <Feather name="trash-2" size={20} color="red" /> */}
+                {is_the_owner? <TouchableOpacity onPress={handleDelete}><Feather name="trash-2" size={20} color="red" /></TouchableOpacity> : <AntDesign name="like1" size={20} color="white" />}
+                
+                
                 <Text className="text-white pt-2">2</Text>
             </TouchableOpacity>
         </View>
