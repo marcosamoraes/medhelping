@@ -2,6 +2,7 @@ import { useNavigation } from "expo-router";
 import { ImageBackground, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 interface ExamCardProps {
+    id: number;
     categories: string[];
     exam: string;
     name: string;
@@ -18,12 +19,11 @@ const styles = StyleSheet.create({
 
 const backgroundImage = require('../../assets/images/img-fundo-exame.png')
 
-export default function ExamCard(props: ExamCardProps) {
+export default function ExamCard({ id, categories, exam, name, date, image }: ExamCardProps) {
     const navigation = useNavigation();
     function handleClick(){
-        navigation.navigate("viewPublication", {id: 1})
+        navigation.navigate("viewPublication", { id })
     }
-    const { categories, exam, name, date, image } = props;
     return (<>
         <TouchableOpacity onPress={() => handleClick()} activeOpacity={0.8} style={{width: '45%'}} className="mb-6 aspect-square">
             <ImageBackground style={styles.imageBackground} className="w-full relative cover items-center justify-center" source={image? image : backgroundImage}>

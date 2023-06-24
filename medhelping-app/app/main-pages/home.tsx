@@ -32,8 +32,8 @@ export default function Home(){
                     <Text className="font-700 text-white">Publique seu caso clínico e encontre a melhor solução!</Text>
                 </View>
                 <View className="flex-row flex-wrap pt-6 pb-4 px-1 justify-between">
-                    {/* {posts.length? posts.map((i) => {<ExamCard key={i.id} categories={i.categories} image={i.image} exam={i.name} name="autor" date="data"/>}) : ''} */}
-                    <ExamCard categories={['a']} image="" exam="" name="" date=""/>
+                    {/* {posts.length? posts.map((i) => {<ExamCard key={i.id} id={i.id} categories={i.categories} image={i.image} exam={i.name} name="autor" date="data"/>}) : ''} */}
+                    <ExamCard categories={['a']} id={1} image="" exam="" name="" date=""/>
                     
                 </View>
             </ScrollView>
