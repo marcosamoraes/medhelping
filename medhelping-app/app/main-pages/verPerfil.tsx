@@ -1,4 +1,4 @@
-import { Image, ImageBackground, ScrollView, View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { Image, ImageBackground, ScrollView, View, StyleSheet, TouchableOpacity, Text, Alert } from "react-native";
 import Footer from "@components/footer";
 import Header from "@components/header";
 import { FontAwesome } from '@expo/vector-icons';
@@ -6,11 +6,23 @@ import { useNavigation } from "expo-router";
 import SidebarProvider from "@contexts/Sidebar";
 import SideMenu from "@components/sideMenu";
 import TouchableBlur from "@components/touchableBlur";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "@contexts/Auth";
+import { api } from "@services/api";
 
 const doctoraliaImg = require('../../assets/images/doctoralia.png');
 
 export default function VerPerfil() {
     const navigation = useNavigation();
+    const {user} = useContext(AuthContext)
+    const [userInfo, setUserInfo] = useState(null)
+    useEffect(()=>{
+        api.get(`/users/${user.id}`).then((i:any)=>{
+            setUserInfo(i)
+        }).catch(()=>{
+            Alert.alert('Erro', 'Ocorreu um erro, tente novamente', [{ text: 'OK' }])
+        })
+    },[])
 
     function handleEditProfile(){
         navigation.navigate("editProfile")
@@ -34,7 +46,7 @@ export default function VerPerfil() {
                 <ImageBackground blurRadius={10} className="w-full" style={styles.imageBackground} source={require("../../assets/images/avatar-template.jpg")}>
                 <View className="w-full bg-[#505050b1]">
                     <View className="my-4 relative mx-auto">
-                        <Image source={require("../../assets/images/avatar-template.jpg")} className="h-28 w-28 object-cover rounded-full" />
+                        <Image source={user.image? user.image : require("../../assets/images/avatar-template.jpg")} className="h-28 w-28 object-cover rounded-full" />
                         <TouchableOpacity
                             activeOpacity={0.7} 
                             className="bg-[#00021C] w-10 h-10 items-center justify-center rounded-full absolute z-10 right-0 bottom-0"
@@ -42,8 +54,8 @@ export default function VerPerfil() {
                             <FontAwesome name="gear" size={20} color="white" />
                         </TouchableOpacity>
                     </View>
-                    <Text className="font-900 text-white text-center text-xl">Roland de Gilead</Text>
-                    <Text className="font-500 text-white text-center text-base">Breve descrição</Text>
+                    <Text className="font-900 text-white text-center text-xl">{user.name}</Text>
+                    {/* <Text className="font-500 text-white text-center text-base">Breve descrição</Text> */}
                     <TouchableOpacity
                         onPress={()=>handleEditProfile()} 
                         activeOpacity={0.8} 

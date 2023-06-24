@@ -12,18 +12,18 @@ const mailIcon = require("../../assets/images/mailicon.png");
 
 export default function FaleConosco() {
   const [loading, setLoading] = useState(false);
-  const [titulo, setTitulo] = useState('');
-  const [mensagem, setMensagem] = useState('');
+  const [title, setTitle] = useState('');
+  const [message, setMessage] = useState('');
 
   const navigation = useNavigation();
 
   function handleClick() {
     setLoading(true)
     const obj = {
-      titulo,
-      mensagem
+      title,
+      message
     }
-    api.post('/', obj).then(reqSuccess).catch(reqFailure)
+    api.put('/', obj).then(reqSuccess).catch(reqFailure)
   }
 
   function reqSuccess() {
@@ -69,8 +69,8 @@ export default function FaleConosco() {
           placeholder='Título'
           className='h-10 w-full rounded-xl text-sm font-400 mb-3 mt-5 px-4'
           placeholderTextColor={'white'}
-          value={titulo}
-          onChangeText={setTitulo}
+          value={title}
+          onChangeText={setTitle}
         />
         <TextInput
           style={styles.inputD}
@@ -78,8 +78,8 @@ export default function FaleConosco() {
           multiline={true}
           className='h-14 w-full align-text-top rounded-xl text-sm font-400 my-3 py-2 px-4'
           placeholderTextColor={'white'}
-          value={mensagem}
-          onChangeText={setMensagem}
+          value={message}
+          onChangeText={setMessage}
         />
         <TouchableOpacity 
           disabled={loading} 

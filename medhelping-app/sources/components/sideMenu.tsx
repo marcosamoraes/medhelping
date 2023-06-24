@@ -10,7 +10,7 @@ import { AuthContext } from "@contexts/Auth";
 const avatarTemplate = require("../../assets/images/avatar-template.jpg")
 
 export default function SideMenu() {
-    const { logout } = useContext(AuthContext);
+    const { logout, user } = useContext(AuthContext);
 
     const navigation = useNavigation();
     
@@ -33,9 +33,9 @@ export default function SideMenu() {
     return(
     <Animated.View style={styles.sideMenu} className={`w-4/5 z-50 ${isOpen ? 'left-0' : '-left-full'} absolute px-5 bg-[#00021C] h-full`}>
         <View className="w-full border-b pb-5 border-b-[#1F2935]">
-            <Image source={avatarTemplate} className="h-20 w-20 object-cover rounded-full mx-auto my-4" />
-            <Text className="font-900 text-white text-center text-xl">Roland de Gilead</Text>
-            <Text className="font-500 text-white text-center text-base">Breve descrição</Text>            
+            <Image source={user.image? user.image : avatarTemplate} className="h-20 w-20 object-cover rounded-full mx-auto my-4" />
+            <Text className="font-900 text-white text-center text-xl">{user.name}</Text>
+            {/* <Text className="font-500 text-white text-center text-base">Breve descrição</Text>             */}
         </View>
         <View className=" py-3">
             <TouchableOpacity onPress={() => navigation.navigate('home')}>

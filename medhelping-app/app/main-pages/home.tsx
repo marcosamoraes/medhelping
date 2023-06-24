@@ -12,7 +12,7 @@ export default function Home(){
     const [posts, setPosts] = useState([])
 
     useEffect(()=>{
-        api.get('articles').then((i: any)=>{
+        api.get('/articles').then((i: any)=>{
             setPosts(i)
         }).catch(()=>{
             Alert.alert('Erro', 'Ocorreu um erro, tente novamente', [{ text: 'OK' }])

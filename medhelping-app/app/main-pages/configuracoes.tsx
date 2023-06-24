@@ -6,39 +6,43 @@ import Footer from "@components/footer";
 import SidebarProvider from "@contexts/Sidebar";
 import SideMenu from "@components/sideMenu";
 import TouchableBlur from "@components/touchableBlur";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { api } from "@services/api";
+import { AuthContext } from "@contexts/Auth";
 
 export default function Configuracoes() {
     const [loading, setLoading] = useState(false);
-    const [idade, setIdade] = useState('');
-    const [faculdade, setFaculdade] = useState('');
-    const [ano, setAno] = useState('');
-    const [CRM, setCRM] = useState('');
-    const [atuacao, setAtuacao] = useState('');
-    const [especialidade, setEspecialidade] = useState('');
-    const [facebook, setFacebook] = useState('');
-    const [instagram, setInstagram] = useState('');
-    const [twitter, setTwitter] = useState('');
-    const [doctoralia, setDoctoralia] = useState('');
+    const [age, setAge] = useState('');
+    const [faculty, setFaculty] = useState('');
+    const [faculty_year, setFacultyYear] = useState('');
+    const [crm, setCRM] = useState('');
+    const [occupation_area, setOccupationArea] = useState('');
+    const [specialties, setSpecialties] = useState('');
+    const [link_facebook, setFacebook] = useState('');
+    const [link_instagram, setInstagram] = useState('');
+    const [link_twitter, setTwitter] = useState('');
+    const [link_doctoralia, setDoctoralia] = useState('');
+    const {user} = useContext(AuthContext)
+    const id = user.id
 
     const navigation = useNavigation();
 
     function handleEditConfig() {
         setLoading(true)
         const obj = {
-            idade,
-            faculdade,
-            ano,
-            CRM,
-            atuacao,
-            especialidade,
-            facebook,
-            instagram,
-            twitter,
-            doctoralia
+            age,
+            faculty,
+            faculty_year,
+            crm,
+            occupation_area,
+            specialties,
+            link_facebook,
+            link_instagram,
+            link_twitter,
+            link_doctoralia
         }
-        api.post('/', obj).then(reqSuccess).catch(reqFailure)
+        
+        api.put(`/users/${id}/profile`, obj).then(reqSuccess).catch(reqFailure)
     }
 
     function reqSuccess() {
@@ -47,8 +51,9 @@ export default function Configuracoes() {
         navigation.navigate("viewProfile", { id: 1 })
     }
 
-    function reqFailure() {
+    function reqFailure(e: any) {
         Alert.alert('Erro', 'Ocorreu um erro, tente novamente', [{ text: 'OK' }])
+        console.log(e)
         setLoading(false)
     }
 
@@ -79,8 +84,8 @@ export default function Configuracoes() {
                 placeholder='Idade'
                 className='h-10 w-full rounded-xl text-sm font-400 mt-5 mb-3 px-4'
                 placeholderTextColor={'white'}
-                value={idade}
-                onChangeText={setIdade}
+                value={age}
+                onChangeText={setAge}
             />
             
             <TextInput
@@ -88,23 +93,23 @@ export default function Configuracoes() {
                 placeholder='Faculdade'
                 className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
                 placeholderTextColor={'white'}
-                value={faculdade}
-                onChangeText={setFaculdade}
+                value={faculty}
+                onChangeText={setFaculty}
             />
             <TextInput
                 style={styles.input}
                 placeholder='Ano de conclusão'
                 className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
                 placeholderTextColor={'white'}
-                value={ano}
-                onChangeText={setAno}
+                value={faculty_year}
+                onChangeText={setFacultyYear}
             />
             <TextInput
                 style={styles.input}
                 placeholder='CRM'
                 className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
                 placeholderTextColor={'white'}
-                value={CRM}
+                value={crm}
                 onChangeText={setCRM}
             />
             <TextInput
@@ -112,23 +117,23 @@ export default function Configuracoes() {
                 placeholder='Área de atuação'
                 className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
                 placeholderTextColor={'white'}
-                value={atuacao}
-                onChangeText={setAtuacao}
+                value={occupation_area}
+                onChangeText={setOccupationArea}
             />
             <TextInput
                 style={styles.input}
                 placeholder='Especialidades'
                 className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
                 placeholderTextColor={'white'}
-                value={especialidade}
-                onChangeText={setEspecialidade}
+                value={specialties}
+                onChangeText={setSpecialties}
             />
             <TextInput
                 style={styles.input}
                 placeholder='Link do Facebook'
                 className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
                 placeholderTextColor={'white'}
-                value={facebook}
+                value={link_facebook}
                 onChangeText={setFacebook}
             />
             <TextInput
@@ -136,7 +141,7 @@ export default function Configuracoes() {
                 placeholder='Link do Instagram'
                 className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
                 placeholderTextColor={'white'}
-                value={instagram}
+                value={link_instagram}
                 onChangeText={setInstagram}
             />
             <TextInput
@@ -144,7 +149,7 @@ export default function Configuracoes() {
                 placeholder='Link do Twitter'
                 className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
                 placeholderTextColor={'white'}
-                value={twitter}
+                value={link_twitter}
                 onChangeText={setTwitter}
             />
             <TextInput
@@ -152,7 +157,7 @@ export default function Configuracoes() {
                 placeholder='Link do Doctoralia'
                 className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
                 placeholderTextColor={'white'}
-                value={doctoralia}
+                value={link_doctoralia}
                 onChangeText={setDoctoralia}
             />
             <TouchableOpacity 
