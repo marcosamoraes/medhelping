@@ -90,7 +90,7 @@ export function AuthProvider ({ children }: AuthProviderProps) {
 
   useEffect(() => {
     loadUserData()
-  }, [])
+  }, [token])
 
   return (
     <AuthContext.Provider value={{ 
