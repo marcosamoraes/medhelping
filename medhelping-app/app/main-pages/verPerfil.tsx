@@ -43,14 +43,14 @@ export default function VerPerfil() {
                 <Header/>
                 <SideMenu/>
             </SidebarProvider>
-            <ScrollView className="bg-[#00021C]">
+            <ScrollView className="bg-background">
                 <ImageBackground blurRadius={10} className="w-full" style={styles.imageBackground} source={require("../../assets/images/avatar-template.jpg")}>
                 <View className="w-full bg-[#505050b1]">
                     <View className="my-4 relative mx-auto">
                         <Image source={user.image? user.image : require("../../assets/images/avatar-template.jpg")} className="h-28 w-28 object-cover rounded-full" />
                         <TouchableOpacity
                             activeOpacity={0.7} 
-                            className="bg-[#00021C] w-10 h-10 items-center justify-center rounded-full absolute z-10 right-0 bottom-0"
+                            className="bg-background w-10 h-10 items-center justify-center rounded-full absolute z-10 right-0 bottom-0"
                         >
                             <FontAwesome name="gear" size={20} color="white" />
                         </TouchableOpacity>

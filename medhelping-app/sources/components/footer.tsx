@@ -8,7 +8,7 @@ export default function Footer(){
     const navigation = useNavigation()
     const { bottom } = useSafeAreaInsets()
     return (
-        <View style={{paddingBottom : bottom}} className='bg-[#01061C] mt-auto border-t-2 border-t-[#1F2935] w-screen'>
+        <View style={{paddingBottom : bottom}} className='bg-background mt-auto border-t-2 border-t-[#1F2935] w-screen'>
             <View className='flex-row px-4 justify-between pt-3 pb-4 w-screen'>
                 <TouchableOpacity onPress={() => navigation.navigate('home')}>
                     <FontAwesome name="home" size={24} color="white" />

@@ -59,7 +59,7 @@ export default function EditarPerfil() {
                 <Header/>
                 <SideMenu/>
             </SidebarProvider>
-            <ScrollView className="w-screen px-6 bg-[#00021C]">
+            <ScrollView className="w-screen px-6 bg-background">
                 <Image className="w-28 mx-auto h-28 my-6 object-cover rounded-full" source={require("../../assets/images/avatar-template.jpg")} />
                 <TextInput
                     style={styles.input}
@@ -85,7 +85,7 @@ export default function EditarPerfil() {
                     value={whatsapp}
                     onChangeText={setWhatsapp}
                 />
-                <TouchableOpacity onPress={()=> navigation.navigate("updatePassword")} activeOpacity={0.8} className="flex-row w-full bg-[#03dadbb2] justify-center pt-2 pb-1 rounded-xl my-3 items-center"><Text className="text-white font-700 text-sm ml-2">Alterar senha</Text></TouchableOpacity>
+                <TouchableOpacity onPress={()=> navigation.navigate("updatePassword")} activeOpacity={0.8} className="flex-row w-full bg-primary justify-center pt-2 pb-1 rounded-xl my-3 items-center"><Text className="text-white font-700 text-sm ml-2">Alterar senha</Text></TouchableOpacity>
                 <View className="px-2 pt-2 mt-3 border-t border-t-[#1F2935]">
                     <Text className="font-700 mt-2 text-base text-white">Localização</Text>
                     <TextInput
@@ -143,7 +143,7 @@ export default function EditarPerfil() {
                     disabled={loading} 
                     onPress={()=> handleEditProfile()} 
                     activeOpacity={0.8} 
-                    className="flex-row w-full bg-[#03dadbb2] justify-center pt-2 pb-1 rounded-xl my-3 items-center"
+                    className="flex-row w-full bg-primary justify-center pt-2 pb-1 rounded-xl my-3 items-center"
                 >
                     <Text className="text-white font-700 text-sm ml-2">Atualizar perfil</Text>
                 </TouchableOpacity>

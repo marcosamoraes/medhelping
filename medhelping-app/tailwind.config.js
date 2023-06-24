@@ -11,6 +11,10 @@ module.exports = {
         700:'Catamaran_700Bold',
         800:'Catamaran_800ExtraBold',
         900:'Catamaran_900Black',
+      },
+      colors:{
+        background: '#01061C',
+        primary: '#03dadbb2',
       }
     }
   },

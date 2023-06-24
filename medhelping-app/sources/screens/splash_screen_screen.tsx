@@ -6,7 +6,7 @@ import SplashScreenStyles from "@styles/splash_screen_style";
 
 export default function SplashScreen() {
   return (
-    <View style={ SplashScreenStyles.container }>
+    <View>
       <Image source={ app_logo } style={ SplashScreenStyles.logoImage }></Image>
     </View>
   );

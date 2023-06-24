@@ -43,7 +43,6 @@ export function AuthProvider ({ children }: AuthProviderProps) {
         setToken(data.token)
         storageTokenSave(data.token)
         Alert.alert('Sucesso', 'Cadastro criado com êxito', [{ text: 'OK' }])
-        navigation.navigate("home")
       }
     } catch (error: any) {
       throw error.response.data.message ?? "Falha ao realizar cadastro."
@@ -61,7 +60,6 @@ export function AuthProvider ({ children }: AuthProviderProps) {
         storageUserSave(data.user)
         setToken(data.token)
         storageTokenSave(data.token)
-        navigation.navigate("home")
       }
     } catch (error: any) {
       throw error.response.data.message ?? "Falha ao realizar login."
@@ -88,7 +86,6 @@ export function AuthProvider ({ children }: AuthProviderProps) {
     storageUserSave({} as IUser)
     setToken('')
     storageTokenSave('')
-    navigation.navigate("login")
   }, [])
 
   useEffect(() => {

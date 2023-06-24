@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\ArticleStoreRequest;
 use App\Http\Requests\Api\ArticleUpdateRequest;
+use App\Http\Resources\Api\ArticleResource;
 use App\Models\Article;
 use Exception;
 use Illuminate\Http\Request;
@@ -32,7 +33,7 @@ class ArticleController extends Controller
             ->paginate($request->per_page ?? 10);
 
         return response()->json([
-            'data'          => $articles,
+            'data'          => ArticleResource::collection($articles),
             'per_page'      => $articles->perPage(),
             'current_page'  => $articles->currentPage(),
             'last_page'     => $articles->lastPage(),
@@ -53,14 +54,14 @@ class ArticleController extends Controller
             }
 
             $validated['user_id'] = $request->user()->id;
-            
+
             $article = Article::create($validated);
 
             $article->articleCategories()->sync($request->categories);
 
             return response()->json([
                 'message'   => 'Artigo criado com sucesso',
-                'article'   => $article,
+                'article'   => new ArticleResource($article),
             ], 201);
         } catch (Exception $e) {
             return response()->json([
@@ -76,7 +77,7 @@ class ArticleController extends Controller
     public function show(Article $article)
     {
         return response()->json([
-            'article' => $article,
+            'article' => new ArticleResource($article),
         ], 200);
     }
 
@@ -101,7 +102,7 @@ class ArticleController extends Controller
 
             return response()->json([
                 'message'   => 'Artigo atualizado com sucesso',
-                'article'   => $article,
+                'article'   => new ArticleResource($article),
             ], 200);
         } catch (Exception $e) {
             return response()->json([
@@ -144,7 +145,7 @@ class ArticleController extends Controller
                     'message'   => 'Artigo descurtido com sucesso',
                 ], 200);
             }
-            
+
             $article->articleLikes()->create([
                 'user_id' => $request->user()->id,
             ]);
