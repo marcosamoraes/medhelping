@@ -6,13 +6,13 @@ import SideMenu from "@components/sideMenu";
 import TouchableBlur from "@components/touchableBlur";
 import { useState, useEffect } from "react";
 import { api } from "@services/api";
+import CategoriaCard from "@components/categoriaCard";
 
 export default function ListaCategorias(){
-    const [categories, setCategories] = useState([])
-
+    const [categories, setCategories] = useState<Array<{ id: number; name: string; image: string }>>([]);
     useEffect(()=>{
-        api.get('articles').then((i:any)=>{
-            setCategories(i)
+        api.get('/categories').then((i:any)=>{
+            setCategories(i.data)
         }).catch(()=>{
             Alert.alert('Erro', 'Ocorreu um erro, tente novamente', [{ text: 'OK' }])
         })
@@ -27,7 +27,7 @@ export default function ListaCategorias(){
             </SidebarProvider>
             <ScrollView className="h-full bg-[#00021C]">
                 <View className="px-6 py-6 h-full flex-row flex-wrap bg-[#00021C] w-screen">
-                    {/* {categories.length? posts.map(() => {<CategoriaCard categoryname=""/>}) : ''} */}
+                    {categories.length? categories.map((i) => { return <CategoriaCard image={i.image} key={i.id} categoryname={i.name}/>}) : ''}
                 </View>
             </ScrollView>
             <Footer/>
