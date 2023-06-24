@@ -43,7 +43,7 @@ export default function Login() {
     });
 
     return (
-        <View className="bg-[#01061C] flex-1 items-center">
+        <View className="bg-background flex-1 items-center">
             <Image style={styles.logo}
                 className="w-28 h-28 z-10 border-2 rounded-3xl mt-24 mb-20"
                 source={logo}

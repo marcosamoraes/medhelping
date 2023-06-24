@@ -10,14 +10,21 @@ export default function Forgot() {
 
   const navigation = useNavigation();
 
-  function handleRecover() {
+  async function handleRecover() {
     setLoading(true)
-    const obj = {
-      email
+    
+    try {
+      const { data } = await api.post('/forgot-password', {email})
+      Alert.alert('Sucesso', data.message ?? 'Um e-mail foi enviado com instruções para alterar a senha.', [{ text: 'OK' }])
+      navigation.navigate("login")
+    } catch (error: any) {
+      const message = error.response.data.message ?? "Falha ao recuperar senha."
+      Alert.alert('Erro', message, [{ text: 'OK' }])
+    } finally {
+      setLoading(false)
     }
-    api.post('/forgot-password', obj).then(reqSuccess).catch(reqFailure)
-
   }
+
   function reqSuccess(e: any) {
     setLoading(false)
     Alert.alert('Sucesso', e.response.message, [{ text: 'OK' }])
@@ -50,7 +57,7 @@ export default function Forgot() {
   });
 
   return (<>
-    <View className="bg-[#01061C] flex-1 items-center">
+    <View className="bg-background flex-1 items-center">
       <Image style={styles.logo}
         className="w-28 h-28 z-10 border-2 rounded-3xl my-24"
         source={require('../../assets/images/medhelping_logo.png')}

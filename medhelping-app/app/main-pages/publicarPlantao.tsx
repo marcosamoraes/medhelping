@@ -56,8 +56,8 @@ export default function PublicarPlantao() {
         <Header/>
         <SideMenu/>
       </SidebarProvider>
-      <ScrollView className="w-screen pt-6 px-6 bg-[#00021C]">
-          <View className="w-full p-3 rounded-xl bg-[#03dadbb2]">
+      <ScrollView className="w-screen pt-6 px-6 bg-background">
+          <View className="w-full p-3 rounded-xl bg-primary">
             <Text className="font-900 text-white">Publique seu plantão.</Text>
           </View>
           <View className="w-full px-2">
@@ -122,7 +122,7 @@ export default function PublicarPlantao() {
             disabled={loading} 
             onPress={()=>postPlant()} 
             activeOpacity={0.8} 
-            className="flex-row w-full bg-[#03dadbb2] justify-center py-2 rounded-xl my-3 items-center"
+            className="flex-row w-full bg-primary justify-center py-2 rounded-xl my-3 items-center"
           >
             <Text className="text-white font-700 text-sm ml-2">Publicar Diagnóstico</Text>
           </TouchableOpacity>

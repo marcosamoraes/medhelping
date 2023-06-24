@@ -14,32 +14,40 @@ import PublicarDiagnostico from '../../app/main-pages/publicarDiagnostico';
 import PublicarPlantao from '../../app/main-pages/publicarPlantao';
 import VerPerfil from '../../app/main-pages/verPerfil';
 import VerPublicacao from '../../app/main-pages/verPublicacao';
+import { useContext } from 'react';
+import { AuthContext } from '@contexts/Auth';
 
 export default function Routes() {
-
   const { Navigator, Screen } = createNativeStackNavigator()
+
+  const { user } = useContext(AuthContext)
 
   const screenOptions = {
     headerShown: false,
-    animation: 'none'
   }
 
   return (
-    <Navigator initialRouteName='login' screenOptions={screenOptions}>
-      <Screen name='login' component={Login} />
-      <Screen name='register' component={Cadastro} />
-      <Screen name='forgotPassword' component={Forgot} />
-
-      <Screen name='home' component={Home} />
-      <Screen name='updatePassword' component={AlterarSenha} />
-      <Screen name='settings' component={Configuracoes} />
-      <Screen name='editProfile' component={EditarPerfil} />
-      <Screen name='contact' component={FaleConosco} />
-      <Screen name='listCategories' component={ListaCategorias} />
-      <Screen name='publishArticle' component={PublicarDiagnostico} />
-      <Screen name='publishShift' component={PublicarPlantao} />
-      <Screen name='viewProfile' component={VerPerfil} />
-      <Screen name='viewPublication' component={VerPublicacao} />
+    <Navigator screenOptions={screenOptions}>
+      {user.id ? (
+        <>
+          <Screen name='home' component={Home} />
+          <Screen name='updatePassword' component={AlterarSenha} />
+          <Screen name='settings' component={Configuracoes} />
+          <Screen name='editProfile' component={EditarPerfil} />
+          <Screen name='contact' component={FaleConosco} />
+          <Screen name='listCategories' component={ListaCategorias} />
+          <Screen name='publishArticle' component={PublicarDiagnostico} />
+          <Screen name='publishShift' component={PublicarPlantao} />
+          <Screen name='viewProfile' component={VerPerfil} />
+          <Screen name='viewPublication' component={VerPublicacao} />
+        </>
+      ): (
+        <>
+          <Screen name='login' component={Login} />
+          <Screen name='register' component={Cadastro} />
+          <Screen name='forgotPassword' component={Forgot} />
+        </>
+      )}
     </Navigator>
   )
 }

@@ -20,7 +20,7 @@ export default function Header(){
     UIManager.setLayoutAnimationEnabledExperimental(true);
   }
   return (
-    <View style={{paddingTop : top}} className='bg-[#01061C] border-b-2 border-b-[#1F2935] w-screen'>
+    <View style={{paddingTop : top}} className='bg-background border-b-2 border-b-[#1F2935] w-screen'>
       <View className='flex-row px-4 justify-between pt-4 pb-3 w-screen'>
         <TouchableOpacity onPress={()=> {LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);setIsOpen(true)}}>
           <Feather name="menu" size={28} color="white" />

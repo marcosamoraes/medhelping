@@ -61,7 +61,7 @@ export default function AlterarSenha(){
         <TouchableBlur/>
         <Header/>
         <SideMenu/>
-        <View className="w-full h-screen px-6 bg-[#00021C]">
+        <View className="w-full h-screen px-6 bg-background">
           <TextInput
               style={styles.input}
               placeholder='Senha atual'
@@ -94,7 +94,7 @@ export default function AlterarSenha(){
             disabled={loading} 
             onPress={()=> handleEditPassword()} 
             activeOpacity={0.8} 
-            className="flex-row w-full bg-[#03dadbb2] justify-center pt-2 pb-1 rounded-xl my-3 items-center"
+            className="flex-row w-full bg-primary justify-center pt-2 pb-1 rounded-xl my-3 items-center"
           >
             <Text className="text-white font-700 text-sm ml-2">Alterar senha</Text>
           </TouchableOpacity>

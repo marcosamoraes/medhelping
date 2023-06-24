@@ -10,10 +10,16 @@ import SideMenu from "@components/sideMenu";
 import TouchableBlur from "@components/touchableBlur";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useState } from "react";
+import { useRoute } from "@react-navigation/native";
 
 const examBackground = require("../../assets/images/img-fundo-exame.png");
 
 export default function VerPublicacao() {
+    const route = useRoute();
+
+    const { id }: any = route.params;
+    console.log(id)
+
     const [responseId, setResponseId] = useState(0)
     const { bottom } = useSafeAreaInsets()
     const styles = StyleSheet.create({
@@ -31,7 +37,7 @@ export default function VerPublicacao() {
                 <Header />
                 <SideMenu />
             </SidebarProvider>
-            <ScrollView className="w-screen bg-[#00021C]">
+            <ScrollView className="w-screen bg-background">
                 <Image className="w-full h-40 object-cover" source={examBackground} />
                 <View className="p-4 border-b mb-4 border-b-[#1F2935]">
                     <Text className="text-white text-center font-900 text-xl py-2">Testes do Coração</Text>
@@ -57,7 +63,7 @@ export default function VerPublicacao() {
 
             </ScrollView>
 
-            <View style={{ paddingBottom: bottom }} className='bg-[#01061C] mt-auto border-t-2 border-t-[#1F2935] w-screen'>
+            <View style={{ paddingBottom: bottom }} className='bg-background mt-auto border-t-2 border-t-[#1F2935] w-screen'>
                 {!responseId?'' : <View className="flex-row justify-between px-4 items-center pt-3"><View className="bg-[#1F2935] w-4/5 rounded-lg p-2"><Text numberOfLines={1} className="text-white">O incentivo ao avanço tecnológico, assim</Text></View><TouchableOpacity onPress={()=>setResponseId(0)} className="w-8 h-8 bg-[#1F2935] rounded-full justify-center items-center"><Text className="text-white font-700 text-lg">X</Text></TouchableOpacity></View>}
                 <View className='flex-row px-4 justify-between items-center py-1 w-screen'>
                     <TextInput

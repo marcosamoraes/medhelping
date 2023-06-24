@@ -58,7 +58,7 @@ export default function FaleConosco() {
         <Header/>
         <SideMenu/>
       </SidebarProvider>
-      <ScrollView className="w-screen pt-6 px-6 bg-[#00021C]">
+      <ScrollView className="w-screen pt-6 px-6 bg-background">
         <View className="w-full justify-center items-center">
           <Image className="w-20 h-20" source={mailIcon}/>
           <Text className="text-white font-900 text-xl my-4">Fale conosco</Text>
@@ -85,7 +85,7 @@ export default function FaleConosco() {
           disabled={loading} 
           onPress={()=>handleClick()} 
           activeOpacity={0.8} 
-          className="flex-row w-full bg-[#03dadbb2] justify-center py-2 rounded-xl my-3 items-center"
+          className="flex-row w-full bg-primary justify-center py-2 rounded-xl my-3 items-center"
         >
           <Text className="text-white font-700 text-sm ml-2">Enviar</Text>
         </TouchableOpacity>
