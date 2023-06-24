@@ -1,4 +1,4 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { NativeStackNavigationOptions, createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import Cadastro from "../../app/login-pages/cadastro";
 import Forgot from '../../app/login-pages/forgotPassword'
@@ -24,7 +24,8 @@ export default function Routes() {
 
   const screenOptions = {
     headerShown: false,
-  }
+    animation: 'fade'
+  } as NativeStackNavigationOptions
 
   return (
     <Navigator screenOptions={screenOptions}>

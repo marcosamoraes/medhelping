@@ -32,6 +32,11 @@ class Article extends Model
         return Attribute::make(get: fn () => $this->articleLikes()->count());
     }
 
+    protected function isTheOwner(): Attribute
+    {
+        return Attribute::make(get: fn () => $this->user_id && request()->id() === $this->user_id);
+    }
+
     /**
      * Get the user that owns the article.
      */
