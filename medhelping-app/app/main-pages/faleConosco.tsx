@@ -16,7 +16,7 @@ export default function FaleConosco() {
   const [message, setMessage] = useState('');
 
   const navigation = useNavigation();
-
+//FALTA ADICIONAR A ROTA CERTA
   function handleClick() {
     setLoading(true)
     const obj = {
