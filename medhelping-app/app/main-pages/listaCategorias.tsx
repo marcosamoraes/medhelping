@@ -27,7 +27,7 @@ export default function ListaCategorias(){
             </SidebarProvider>
             <ScrollView className="h-full bg-background">
                 <View className="px-6 py-6 h-full flex-row flex-wrap bg-background w-screen">
-                    {categories.length? categories.map((i) => { return <CategoriaCard image={i.image} key={i.id} categoryname={i.name}/>}) : ''}
+                    {categories.length? categories.map((i) => { return <CategoriaCard id={i.id} image={i.image} key={i.id} categoryname={i.name}/>}) : ''}
                 </View>
             </ScrollView>
             <Footer/>
