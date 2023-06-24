@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
-import { View, Image, StyleSheet, TextInput, Text, TouchableOpacity, Alert, Button } from 'react-native';
+import { View, Image, StyleSheet, TextInput, Text, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Link, useNavigation } from "expo-router";
+import { useNavigation } from "expo-router";
 import { AuthContext } from '@contexts/Auth';
 
 const logo = require('../../assets/images/medhelping_logo.png');
@@ -80,10 +80,16 @@ export default function Login() {
                     colors={['rgba(3, 218, 219, 0.7)', 'rgba(7, 172, 247, 0.7)']}
                     className='w-full h-full flex justify-center items-center'
                 >
-                    <Text className='font-900 text-white text-base'>Entrar</Text>
+                    {loading ? (
+                        <Text className='font-900 text-white text-base'>
+                            <ActivityIndicator color="white" />
+                        </Text>
+                    ): (
+                        <Text className='font-900 text-white text-base'>Entrar</Text>
+                    )}
                 </LinearGradient>
             </TouchableOpacity>
-            <TouchableOpacity className='my-5' onPress={() => navigation.navigate('register')}>
+            <TouchableOpacity className='my-5' onPress={() => navigation.navigate("forgotPassword")}>
                 <Text className='font-900 text-white text-base my-5'>
                     Esqueci minha senha
                 </Text>

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { View, Image, StyleSheet, TextInput, Text, Alert, TouchableOpacity } from 'react-native';
+import { View, Image, StyleSheet, TextInput, Text, Alert, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Link, useNavigation } from "expo-router";
 import { AuthContext } from '@contexts/Auth';
@@ -104,7 +104,13 @@ export default function Cadastro() {
           colors={['rgba(3, 218, 219, 0.7)', 'rgba(7, 172, 247, 0.7)']}
           className='w-full h-full flex justify-center items-center'
         >
-          <Text className='font-900 text-white text-base'>Cadastrar</Text>
+          {loading ? (
+            <Text className='font-900 text-white text-base'>
+                <ActivityIndicator color="white" />
+            </Text>
+          ): (
+            <Text className='font-900 text-white text-base'>Cadastrar</Text>
+          )}
         </LinearGradient>
       </TouchableOpacity>
 

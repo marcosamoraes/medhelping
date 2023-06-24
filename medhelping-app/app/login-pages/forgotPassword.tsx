@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Image, StyleSheet, TextInput, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, Image, StyleSheet, TextInput, Text, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Link, useNavigation } from "expo-router";
 import { api } from '../../sources/services/api';
@@ -73,7 +73,13 @@ export default function Forgot() {
           colors={['rgba(3, 218, 219, 0.7)', 'rgba(7, 172, 247, 0.7)']}
           className='w-full h-full flex justify-center items-center'
         >
-          <Text className='font-900 text-white text-base'>Enviar link de recuperação</Text>
+          {loading ? (
+            <Text className='font-900 text-white text-base'>
+                <ActivityIndicator color="white" />
+            </Text>
+          ): (
+            <Text className='font-900 text-white text-base'>Enviar link de recuperação</Text>
+          )}
         </LinearGradient>
       </TouchableOpacity>
 
