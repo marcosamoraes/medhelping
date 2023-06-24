@@ -12,7 +12,7 @@ import IArticle from '@interfaces/IArticle';
 export default function Home(){
     const [articles, setArticles] = useState<IArticle[]>({} as IArticle[])
 
-    const fetchPosts = async () => {
+    const fetchArticles = async () => {
         try {
             const { data: { data } } = await api.get('/articles')
             setArticles(data)
@@ -22,7 +22,7 @@ export default function Home(){
     }
 
     useEffect(()=>{
-        fetchPosts()
+        fetchArticles()
     },[])
 
     return(
