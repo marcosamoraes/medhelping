@@ -4,26 +4,51 @@ import SidebarProvider from "@contexts/Sidebar";
 import SideMenu from "@components/sideMenu";
 import TouchableBlur from "@components/touchableBlur";
 import { useNavigation } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "@services/api";
 
 export default function PublicarPlantao() {
   const [loading, setLoading] = useState(false);
-  const [unity, setUnity] = useState('');
+  const [care_unities, setCareUnities] = useState<{ [key: string]: string }>({});
+  const [selected_unity, setSelectedUnity] = useState('');
   const [city, setCity] = useState('');
   const [date, setDate] = useState('');
-  const [in_hour, setInHour] = useState('');
-  const [out_hour, setOutHour] = useState('');
-  const [price, setPrice] = useState('');
+  const [entry_time, setEntryTime] = useState('');
+  const [out_time, setOutTime] = useState('');
+  const [value, setValue] = useState('');
+  const [payment_method, setPaymentMethod] = useState('')
   const [description, setDescription] = useState('');
 
   const navigation = useNavigation();
+  //SEGUINTE CODIGO PEGA AS CARE UNITIES DA API
+  useEffect(()=>{
+    api.get('/care-units').then((i:any)=>{
+        setCareUnities(i)
+    }).catch(()=>{
+        Alert.alert('Erro', 'Ocorreu um erro, tente novamente', [{ text: 'OK' }])
+    })
+},[])
 
+//SEGUINTE CODIGO ACONTECE AO APERTAR O BOTAO
   function postPlant() {
+    //aqui eu checo se a unity_selected (unidade que o usuario colocou no input) é uma das 5 da api. talvez seja melhor trocar por um select
+    const selectedId = Object.keys(care_unities).find((key) => care_unities[key] === selected_unity);
+    if (!selectedId) {
+      Alert.alert('Erro', 'Unidade inválida', [{ text: 'OK' }])
+    return  
+    }
     setLoading(true)
     const obj = {
+      city,
+      care_unity_id: selectedId,
+      date,
+      entry_time,
+      out_time,
+      value,
+      payment_method,
+      description
     }
-    api.post('/', obj).then(reqSuccess).catch(reqFailure)
+    api.post('/shifts', obj).then(reqSuccess).catch(reqFailure)
   }
 
   function reqSuccess() {
@@ -66,8 +91,8 @@ export default function PublicarPlantao() {
             placeholder='Unidade *'
             className='h-10 w-full rounded-xl text-sm font-400 mb-3 mt-5 px-4'
             placeholderTextColor={'white'}
-            value={unity}
-            onChangeText={setUnity}
+            value={selected_unity}
+            onChangeText={setSelectedUnity}
           />
           <TextInput
             style={styles.input}
@@ -90,24 +115,32 @@ export default function PublicarPlantao() {
             placeholder='Hora de Entrada *'
             className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
             placeholderTextColor={'white'}
-            value={in_hour}
-            onChangeText={setInHour}
+            value={entry_time}
+            onChangeText={setEntryTime}
           />
           <TextInput
             style={styles.input}
             placeholder='Hora de Saída *'
             className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
             placeholderTextColor={'white'}
-            value={out_hour}
-            onChangeText={setOutHour}
+            value={out_time}
+            onChangeText={setOutTime}
           />
           <TextInput
             style={styles.input}
             placeholder='Valor *'
             className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
             placeholderTextColor={'white'}
-            value={price}
-            onChangeText={setPrice}
+            value={value}
+            onChangeText={setValue}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder='Método de pagamento *'
+            className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
+            placeholderTextColor={'white'}
+            value={payment_method}
+            onChangeText={setPaymentMethod}
           />
           <TextInput
             style={styles.inputD}

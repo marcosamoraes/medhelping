@@ -19,13 +19,16 @@ export default function PublicarDiagnostico() {
     const [toggleCheckBox, setToggleCheckBox] = useState(false)
 
     const navigation = useNavigation();
-
+//FALTA IMPLEMENTAR A IMAGEM E TESTAR
     function postDiag() {
         setLoading(true)
         const obj = {
+            title,
+            description,
+            categories: [category, category_two, category_three]
         }
 
-        api.post('/forgot-password', obj).then(reqSuccess).catch(reqFailure)
+        api.post('/artciles', obj).then(reqSuccess).catch(reqFailure)
     }
 
     function reqSuccess() {

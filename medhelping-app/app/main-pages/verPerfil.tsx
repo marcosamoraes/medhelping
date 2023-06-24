@@ -16,6 +16,7 @@ export default function VerPerfil() {
     const navigation = useNavigation();
     const {user} = useContext(AuthContext)
     const [userInfo, setUserInfo] = useState(null)
+    //falta colocar a rota que pega todas as outras infos do usuario, links, crm, quantidade de curtidas e etc
     useEffect(()=>{
         api.get(`/users/${user.id}`).then((i:any)=>{
             setUserInfo(i)
