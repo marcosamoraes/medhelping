@@ -37,8 +37,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::post('articles/{article}/like', [ArticleController::class, 'like']);
     Route::post('articles/{article}/comment', [ArticleController::class, 'comment']);
+    Route::post('articles/{article}/share', [ArticleController::class, 'share']);
     Route::apiResource('articles', ArticleController::class);
 
+    Route::delete('comments/{comment}', [CommentController::class, 'destroy']);
     Route::post('comments/{comment}/like', [CommentController::class, 'like']);
 
     Route::apiResource('shifts', ShiftController::class);

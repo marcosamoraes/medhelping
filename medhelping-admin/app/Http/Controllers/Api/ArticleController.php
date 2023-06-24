@@ -20,7 +20,7 @@ class ArticleController extends Controller
     {
         $articles = Article::when($request->search, function ($query, $search) {
                 $query->orWhere('title', 'REGEXP', $search);
-                $query->orWhereHas('users', function ($query) use ($search) {
+                $query->orWhereHas('user', function ($query) use ($search) {
                     $query->where('name', 'REGEXP', $search);
                 });
             })
@@ -168,13 +168,22 @@ class ArticleController extends Controller
     {
         try {
             $validated = $request->validate([
-                'comment' => ['required', 'string'],
+                'message'               => ['required', 'string'],
+                'anonymous_publication' => ['required', 'boolean'],
+                'comment_id'            => ['nullable', 'exists:comments,id'],
             ]);
 
-            $article->articleComments()->create([
-                'user_id' => $request->user()->id,
-                'comment' => $validated['comment'],
-            ]);
+            $data = [
+                'user_id'               => $request->user()->id,
+                'message'               => $validated['message'],
+                'anonymous_publication' => $validated['anonymous_publication'],
+            ];
+
+            if (isset($validated['comment_id'])) {
+                $data['comment_id'] = $validated['comment_id'];
+            }
+
+            $article->comments()->create($data);
 
             return response()->json([
                 'message'   => 'Comentário criado com sucesso',
@@ -185,5 +194,14 @@ class ArticleController extends Controller
                 'error'     => $e->getMessage(),
             ], 500);
         }
+    }
+
+    /**
+     * Comment the specified resource from storage.
+     */
+    public function share(Article $article)
+    {
+        $article->update(['quantity_shared' => $article->quantity_shared + 1]);
+        return response()->json(null, 200);
     }
 }

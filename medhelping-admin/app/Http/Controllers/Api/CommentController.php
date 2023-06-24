@@ -15,16 +15,17 @@ class CommentController extends Controller
     public function like(Request $request, Comment $comment)
     {
         try {
-            $userAlreadyLiked = $comment->commentLikes()->where('user_id', $request->user()->id)->first();
+            $userAlreadyLiked = $comment->likes()->where('user_id', $request->user()->id)->first();
+
             if ($userAlreadyLiked) {
-                $comment->articleLikes()->where('user_id', $request->user()->id)->delete();
+                $comment->likes()->where('user_id', $request->user()->id)->delete();
 
                 return response()->json([
                     'message'   => 'Comentário descurtido com sucesso',
                 ], 200);
             }
-            
-            $comment->articleLikes()->create([
+
+            $comment->likes()->create([
                 'user_id' => $request->user()->id,
             ]);
 
@@ -34,6 +35,26 @@ class CommentController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'message'   => 'Falha ao curtir comentário',
+                'error'     => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Comment $comment)
+    {
+        try {
+            $comment->nodeComments()->delete();
+            $comment->delete();
+
+            return response()->json([
+                'message'   => 'Comentário excluído com sucesso',
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message'   => 'Falha ao excluir comentário',
                 'error'     => $e->getMessage(),
             ], 500);
         }

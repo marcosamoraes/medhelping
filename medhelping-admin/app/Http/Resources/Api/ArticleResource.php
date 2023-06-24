@@ -4,6 +4,7 @@ namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleResource extends JsonResource
 {
@@ -19,14 +20,16 @@ class ArticleResource extends JsonResource
             'is_the_owner'          => $this->isTheOwner,
             'anonymous_publication' => $this->anonymous_publication,
             'title'                 => $this->title,
-            'image'                 => $this->image,
+            'image'                 => $this->image ? Storage::url($this->image) : null,
             'description'           => $this->description,
             'quantity_shared'       => $this->quantity_shared,
             'likes'                 => $this->likes,
+            'userLiked'             => $this->userLiked,
             'created_at'            => $this->created_at->format('d/m/Y H:i:s'),
             'updated_at'            => $this->updated_at->format('d/m/Y H:i:s'),
 
             'categories'            => CategoryResource::collection($this->categories),
+            'comments'              => CommentResource::collection($this->comments),
 
             $this->when($this->user, function () {
                 return [

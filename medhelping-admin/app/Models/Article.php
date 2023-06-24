@@ -34,7 +34,24 @@ class Article extends Model
 
     protected function isTheOwner(): Attribute
     {
-        return Attribute::make(get: fn () => $this->user_id && request()->id() === $this->user_id);
+        return Attribute::make(get: function () {
+            $user = auth()->user();
+
+            if (!$user) return false;
+
+            return $this->user_id === $user->id;
+        });
+    }
+
+    protected function userLiked(): Attribute
+    {
+        return Attribute::make(get: function () {
+            $user = auth()->user();
+
+            if (!$user) return false;
+
+            return $this->articleLikes()->where('user_id', $user->id)->exists();
+        });
     }
 
     /**
@@ -74,6 +91,6 @@ class Article extends Model
      */
     public function comments(): HasMany
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->whereNull('comment_id');
     }
 }
