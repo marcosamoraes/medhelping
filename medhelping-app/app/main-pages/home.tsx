@@ -44,7 +44,7 @@ export default function Home(){
                 </TouchableOpacity>
                 <View className="flex-row flex-wrap pt-6 pb-4 px-1 justify-between">
                     {articles.length > 0 && articles.map((article) => (
-                        <ArticleCard article={article} />
+                        <ArticleCard key={article.id} article={article} />
                     ))}
                 </View>
             </ScrollView>
