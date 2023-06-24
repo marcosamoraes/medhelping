@@ -58,7 +58,7 @@ export default function VerPublicacao() {
 
     const handleComment = async () => {
         try {
-            const data: any = { message: reply, anonymous_publication: replyAnonymous }
+            const data: any = { message: reply, anonymous_publication: false }
 
             if (replyComment) {
                 data.comment_id = replyComment.id
@@ -141,7 +141,7 @@ export default function VerPublicacao() {
                                 {comment.nodeComments && (
                                     <View className="ml-6 mb-4 border-l border-l-[#1F2935]">
                                         {comment.nodeComments?.map(nodeComment => (
-                                            <ArticleComment comment={nodeComment} setReplyComment={setReplyComment} handleRefetch={handleRefetch} />
+                                            <ArticleComment key={nodeComment.id} comment={nodeComment} setReplyComment={setReplyComment} handleRefetch={handleRefetch} />
                                         ))}
                                     </View>
                                 )}
@@ -186,14 +186,6 @@ export default function VerPublicacao() {
                         <Ionicons name="send" size={20} color="white" />
                     </TouchableOpacity>
                 </View>
-                <View className="flex-row items-center mx-4 mb-2">
-                        <Checkbox
-                            className="w-5 h-5"
-                            value={replyAnonymous}
-                            onValueChange={(newValue) => setReplyAnonymous(newValue)} 
-                        />
-                        <Text className="font-400 ml-3 pt-1 text-xs text-white">Comentar anonimamente</Text>
-                    </View>
             </View>
         </>
     )

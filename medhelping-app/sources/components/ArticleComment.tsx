@@ -41,10 +41,12 @@ export default function ArticleComment({ comment, setReplyComment, handleRefetch
     return (
         <>
             <View className="flex-row justify-between w-full px-6 my-3">
-                <Image className="w-10 h-10 object-cover rounded-full" source={commentImage} />
-                <View className="px-6">
-                    <Text className="text-white font-900 text-sn">{anonymous_publication ? 'Anônimo' : user.name}</Text>
-                    <Text className="text-white font-500 text-sn">{message}</Text>
+                <View className="flex-row">
+                    <Image className="w-10 h-10 object-cover rounded-full" source={commentImage} />
+                    <View className="px-6">
+                        <Text className="text-white font-900 text-sn">{anonymous_publication ? 'Anônimo' : user.name}</Text>
+                        <Text className="text-white font-500 text-sn">{message}</Text>
+                    </View>
                 </View>
                 <TouchableOpacity className="items-center my-auto">
                     {is_the_owner ? (
