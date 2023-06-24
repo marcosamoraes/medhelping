@@ -104,13 +104,9 @@ export default function Cadastro() {
           colors={['rgba(3, 218, 219, 0.7)', 'rgba(7, 172, 247, 0.7)']}
           className='w-full h-full flex justify-center items-center'
         >
-          {loading ? (
-            <Text className='font-900 text-white text-base'>
-                <ActivityIndicator color="white" />
-            </Text>
-          ): (
-            <Text className='font-900 text-white text-base'>Cadastrar</Text>
-          )}
+          <Text className='font-900 text-white text-base'>
+            {loading ? <ActivityIndicator color="white" /> : "Cadastrar"}
+          </Text>
         </LinearGradient>
       </TouchableOpacity>
 
