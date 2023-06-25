@@ -9,15 +9,20 @@ import { api } from "@services/api";
 import ICareUnit from "@interfaces/ICareUnit";
 import SelectPicker from "@components/SelectPicker";
 import Checkbox from "expo-checkbox";
+import DateTimePicker from '@react-native-community/datetimepicker';
+import moment from "moment";
 
 export default function PublicarPlantao() {
   const [loading, setLoading] = useState<boolean>(false);
   const [careUnits, setCareUnits] = useState<ICareUnit[]>({} as ICareUnit[]);
   const [careUnit, setCareUnit] = useState<string|null>(null);
   const [city, setCity] = useState<string>('');
-  const [date, setDate] = useState<string>('');
-  const [entryTime, setEntryTime] = useState<string>('');
-  const [outTime, setOutTime] = useState<string>('');
+  const [date, setDate] = useState<Date>(new Date());
+  const [showDate, setShowDate] = useState<boolean>(false);
+  const [entryTime, setEntryTime] = useState<Date>(new Date());
+  const [showEntryTime, setShowEntryTime] = useState<boolean>(false);
+  const [outTime, setOutTime] = useState<Date>(new Date());
+  const [showOutTime, setShowOutTime] = useState<boolean>(false);
   const [value, setValue] = useState<string>('');
   const [paymentMethod, setPaymentMethod] = useState<string>('')
   const [description, setDescription] = useState<string>('');
@@ -46,14 +51,14 @@ export default function PublicarPlantao() {
 
   const handleSubmit = async () => {
     setLoading(true)
-    
+
     try {
       const obj = {
         care_unit_id: careUnit,
         city,
-        date,
-        entry_time: entryTime,
-        out_time: outTime,
+        date: moment(date).format('YYYY-MM-DD'),
+        entry_time: moment(entryTime).format('HH:mm'),
+        out_time: moment(outTime).format('HH:mm'),
         value,
         payment_method: paymentMethod,
         description,
@@ -87,6 +92,28 @@ export default function PublicarPlantao() {
     }
   });
 
+  const handleDateChange = (event: any, selectedDate: any) => {
+    const currentDate = selectedDate || date;
+    setShowDate(false)
+    setDate(currentDate)
+  };
+
+  const handleEntryTimeChange = (event: any, selectedTime: any) => {
+    const currentTime = selectedTime || entryTime;
+    setShowEntryTime(false)
+    setEntryTime(currentTime)
+  };
+
+  const handleOutTimeChange = (event: any, selectedTime: any) => {
+    const currentTime = selectedTime || outTime;
+    setShowOutTime(false)
+    setOutTime(currentTime)
+  };
+
+  const dateFormatted = moment(date).format('DD/MM/YYYY')
+  const entryTimeFormatted = moment(entryTime).format('HH:mm')
+  const outTimeFormatted = moment(outTime).format('HH:mm')
+
   return(
     <>
       <SidebarProvider>
@@ -110,30 +137,60 @@ export default function PublicarPlantao() {
             value={city}
             onChangeText={setCity}
           />
+
           <TextInput
             style={styles.input}
             placeholder='Data *'
             className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
             placeholderTextColor={'white'}
-            value={date}
-            onChangeText={setDate}
+            value={dateFormatted}
+            onFocus={() => setShowDate(true)}
           />
+          {showDate && (
+            <DateTimePicker
+              value={date}
+              mode="date"
+              display="spinner"
+              onChange={handleDateChange}
+            />
+          )}
+
           <TextInput
             style={styles.input}
             placeholder='Hora de Entrada *'
             className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
             placeholderTextColor={'white'}
-            value={entryTime}
-            onChangeText={setEntryTime}
+            value={entryTimeFormatted}
+            onFocus={() => setShowEntryTime(true)}
           />
+          {showEntryTime && (
+            <DateTimePicker
+              value={entryTime}
+              mode="time"
+              display="spinner"
+              is24Hour={true}
+              onChange={handleEntryTimeChange}
+            />
+          )}
+
           <TextInput
             style={styles.input}
             placeholder='Hora de Saída *'
             className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
             placeholderTextColor={'white'}
-            value={outTime}
-            onChangeText={setOutTime}
+            value={outTimeFormatted}
+            onFocus={() => setShowOutTime(true)}
           />
+          {showOutTime && (
+            <DateTimePicker
+              value={outTime}
+              mode="time"
+              display="spinner"
+              is24Hour={true}
+              onChange={handleOutTimeChange}
+            />
+          )}
+
           <TextInput
             style={styles.input}
             placeholder='Valor'
