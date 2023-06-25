@@ -24,6 +24,7 @@ class UserResource extends JsonResource
             'image'             => $this->image ? Storage::url($this->image) : null,
             'likes'             => $this->likes,
             'articles_shared'   => $this->articlesShared,
+            'quantity_articles' => $this->quantityArticles,
             'created_at'        => $this->created_at->format('d/m/Y H:i:s'),
             'updated_at'        => $this->updated_at->format('d/m/Y H:i:s'),
 

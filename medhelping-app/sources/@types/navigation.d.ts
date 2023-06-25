@@ -14,9 +14,7 @@ export declare global {
       shifts: undefined
       publishArticle: undefined
       publishShift: undefined
-      viewProfile: {
-        id: int
-      }
+      viewProfile: {id: int} | undefined
       viewPublication: {
         id: int
       }

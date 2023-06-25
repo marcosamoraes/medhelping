@@ -8,6 +8,7 @@ import { Alert } from "react-native"
 
 type AuthContextDataProps = {
   user: IUser
+  updateUser: (user: IUser) => void
   register: (name: string, email: string, password: string, passwordConfirmation: string) => Promise<void>
   signIn: (email: string, password: string) => Promise<void>
   loadUserData: () => Promise<void>
@@ -33,6 +34,11 @@ export function AuthProvider ({ children }: AuthProviderProps) {
     setLoading(true)
   }
 
+  const updateUser = (user: IUser) => {
+    setUser(user)
+    storageUserSave(user)
+  }
+
   const register = async (name: string, email: string, password: string, passwordConfirmation: string) => {
     try {
       const { data } = await api.post('/register', { name, email, password, password_confirmation: passwordConfirmation })
@@ -54,7 +60,7 @@ export function AuthProvider ({ children }: AuthProviderProps) {
   const signIn = async (email: string, password: string) => {
     try {
       const { data } = await api.post('/login', { email, password })
-      
+
       if (data.user) {
         setUser(data.user)
         storageUserSave(data.user)
@@ -95,6 +101,7 @@ export function AuthProvider ({ children }: AuthProviderProps) {
   return (
     <AuthContext.Provider value={{ 
       user, 
+      updateUser,
       register, 
       signIn, 
       loadUserData, 

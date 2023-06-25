@@ -90,7 +90,7 @@ export default function Home() {
                             <ArticleCard key={article.id} article={article} />
                         )) : (
                             <View className="w-full p-4 rounded-xl bg-primary">
-                                <Text className="font-700 text-white">Nenhum artigo encontrado.</Text>
+                                <Text className="font-700 text-white">Nenhuma publicação encontrada.</Text>
                             </View>
                         )
                     )}

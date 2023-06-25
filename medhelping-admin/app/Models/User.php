@@ -73,6 +73,11 @@ class User extends Authenticatable
         return Attribute::make(get: fn () => $this->articles->sum('quantity_shared'));
     }
 
+    protected function quantityArticles(): Attribute
+    {
+        return Attribute::make(get: fn () => $this->articles->count());
+    }
+
     public function articles(): HasMany
     {
         return $this->hasMany(Article::class);
