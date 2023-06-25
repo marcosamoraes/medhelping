@@ -11,6 +11,7 @@ import { AuthContext } from "@contexts/Auth";
 import { useRoute } from "@react-navigation/native";
 import IUser from "@interfaces/IUser";
 import { api } from "@services/api";
+import * as ImagePicker from 'expo-image-picker';
 
 const doctoraliaImg = require('../../assets/images/doctoralia.png');
 const avatarImg = require('../../assets/images/avatar-template.jpg');
@@ -21,6 +22,7 @@ export default function VerPerfil() {
     
     const { user, updateUser } = useContext(AuthContext)
     const [userData, setUserData] = useState<IUser>({} as IUser)
+    const [preview, setPreview] = useState<string | null>(null)
 
     const navigation = useNavigation();
 
@@ -43,6 +45,46 @@ export default function VerPerfil() {
         }
     }, [id])
 
+    const pickImage = async () => {
+        try {
+            const result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                quality: 1,
+            });
+        
+            if (!result.canceled && result.assets[0]) {
+                setPreview(result.assets[0].uri);
+                handleChangeAvatar(result.assets[0].uri)
+            }
+        } catch (error: any) {
+            console.error(error);
+        }
+    };
+
+    const handleChangeAvatar = async (preview: string) => {
+        try {
+            const uploadFormData = new FormData()
+
+            uploadFormData.append('file', {
+                uri: preview,
+                name: 'image.jpg',
+                type: 'image/jpg'
+            } as any)
+
+            const { data } = await api.post('/upload/users', uploadFormData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+
+            const response = await api.put(`/users/${userData.id}/avatar`, { image: data })
+            updateUser(response.data.user)
+        } catch (error: any) {
+            console.error(error.response.data.error)
+            const message = error.response.data.message ?? 'Ocorreu um erro, tente novamente';
+            Alert.alert('Erro', message, [{ text: 'OK' }])
+        }
+    }
 
     const handleEditProfile = () => {
         navigation.navigate("editProfile")
@@ -55,7 +97,7 @@ export default function VerPerfil() {
         }
     });
 
-    const avatar = userData.image ? { uri: userData.image } : avatarImg
+    const avatar = preview ? { uri: preview } : (userData.image ? { uri: userData.image } : avatarImg)
 
     return (
         <>
@@ -72,6 +114,7 @@ export default function VerPerfil() {
                         <TouchableOpacity
                             activeOpacity={0.7} 
                             className="bg-background w-10 h-10 items-center justify-center rounded-full absolute z-10 right-0 bottom-0"
+                            onPress={pickImage}
                         >
                             <FontAwesome name="gear" size={20} color="white" />
                         </TouchableOpacity>

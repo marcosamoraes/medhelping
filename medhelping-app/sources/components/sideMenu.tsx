@@ -46,7 +46,7 @@ export default function SideMenu() {
                     </Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('viewProfile', {id: 1})}>
+            <TouchableOpacity onPress={() => navigation.navigate('viewProfile')}>
                 <View className="flex-row py-2">
                     <Ionicons name="person" size={26} color="white" />
                     <Text className="pt-1 pl-4 font-900 text-white text-xl">

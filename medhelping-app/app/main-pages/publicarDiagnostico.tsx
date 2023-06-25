@@ -98,7 +98,6 @@ export default function PublicarDiagnostico() {
             console.error(error);
         }
     };
-    
 
     const styles = StyleSheet.create({
         input: {

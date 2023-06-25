@@ -126,16 +126,15 @@ class UserController extends Controller
     public function updateAvatar(Request $request, User $user)
     {
         try {
-            $request->validate([
-                'image' => ['required', 'file'],
+            $validated = $request->validate([
+                'image' => ['required', 'string'],
             ]);
 
             if ($user->image) {
                 Storage::delete($user->image);
             }
-            $data['image'] = $request->file('image')->store('users');
 
-            $user->save();
+            $user->update($validated);
 
             return response()->json([
                 'message'   => 'Avatar atualizado com sucesso',

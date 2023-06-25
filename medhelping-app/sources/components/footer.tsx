@@ -26,7 +26,7 @@ export default function Footer(){
                 <TouchableOpacity onPress={() => navigation.navigate('settings')}>
                     <FontAwesome name="gear" size={24} color="white" />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('viewProfile', {id: 1})}>
+                <TouchableOpacity onPress={() => navigation.navigate('viewProfile')}>
                     <Ionicons name="person" size={24} color="white" />
                 </TouchableOpacity>
             </View>

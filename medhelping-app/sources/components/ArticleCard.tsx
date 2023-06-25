@@ -8,22 +8,25 @@ type ArticleCardProps = {
 const styles = StyleSheet.create({
     imageBackground: {
         flex: 1,
-        resizeMode: 'cover'
+        resizeMode: 'cover',
+        opacity: 0.8,
     }
 });
 
 const backgroundImage = require('../../assets/images/img-fundo-exame.png')
 
-export default function ArticleCard({ article: { id, title, anonymous_publication, user, categories, created_at} }: ArticleCardProps) {
+export default function ArticleCard({ article: { id, title, anonymous_publication, image, user, categories, created_at} }: ArticleCardProps) {
     const navigation = useNavigation();
 
     function handleClick(){
         navigation.navigate("viewPublication", {id: id})
     }
 
+    const articleImage = image ? { uri: image } : backgroundImage
+
     return (<>
         <TouchableOpacity onPress={() => handleClick()} activeOpacity={0.8} style={{width: '45%'}} className="mb-6 aspect-square">
-            <ImageBackground style={styles.imageBackground} className="w-full relative cover items-center justify-center" source={backgroundImage}>
+            <ImageBackground style={styles.imageBackground} className="w-full relative cover items-center justify-center" source={articleImage}>
                 <Text className="font-500 absolute top-1 left-1 text-xs px-3 pt-1 text-white rounded-full bg-[#000000cc]">{categories[0].name}</Text>
                 <Text className="font-900 pb-2 pt-4 px-2 text-base text-center text-white">{title}</Text>
                 <Text className="font-400 text-center text-xs text-white">{!anonymous_publication && user ? user.name : 'Anônimo'} em {created_at.split(' ')[0]}</Text>

@@ -48,7 +48,7 @@ export default function Configuracoes() {
     function reqSuccess() {
         Alert.alert('Sucesso', 'Informações alteradas com êxito', [{ text: 'OK' }])
         setLoading(false)
-        navigation.navigate("viewProfile", { id: 1 })
+        navigation.navigate("viewProfile")
     }
 
     function reqFailure(e: any) {

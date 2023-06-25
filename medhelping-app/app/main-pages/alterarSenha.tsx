@@ -34,7 +34,7 @@ export default function AlterarSenha(){
     Alert.alert('Sucesso', 'Sua senha foi alterada com êxito', [{ text: 'OK' }])
     
     setLoading(false)
-    navigation.navigate("viewProfile", {id: 1})
+    navigation.navigate("viewProfile")
   }
 
   function reqFailure() {
