@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\CareUnitController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\ShiftController;
 use App\Http\Controllers\Api\UploadController;
 use App\Http\Controllers\Api\UserController;
@@ -53,4 +54,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('users/{user}/avatar', [UserController::class, 'updateAvatar']);
     Route::put('users/{user}/address', [UserController::class, 'updateAddress']);
     Route::apiResource('users', UserController::class)->only(['show', 'update']);
+
+    Route::post('contacts', [ContactController::class, 'store']);
 });

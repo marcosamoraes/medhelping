@@ -7,6 +7,7 @@ use App\Http\Requests\Api\UserUpdateAddressRequest;
 use App\Http\Requests\Api\UserUpdatePasswordRequest;
 use App\Http\Requests\Api\UserUpdateProfileRequest;
 use App\Http\Requests\Api\UserUpdateRequest;
+use App\Http\Resources\Api\UserResource;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         return response()->json([
-            'data'  => $user,
+            'user'  => new UserResource($user),
         ], 200);
     }
 
@@ -36,7 +37,7 @@ class UserController extends Controller
 
             return response()->json([
                 'message'   => 'Usuário atualizado com sucesso',
-                'user'      => $user,
+                'user'      => new UserResource($user),
             ], 200);
         } catch (Exception $e) {
             return response()->json([
@@ -83,7 +84,7 @@ class UserController extends Controller
 
             return response()->json([
                 'message'   => 'Perfil atualizado com sucesso',
-                'user'      => $user,
+                'user'      => new UserResource($user),
             ], 200);
         } catch (Exception $e) {
             return response()->json([
@@ -106,10 +107,10 @@ class UserController extends Controller
             } else {
                 $user->address()->update($validated);
             }
-            
+
             return response()->json([
                 'message'   => 'Endereço atualizado com sucesso',
-                'user'      => $user,
+                'user'      => new UserResource($user),
             ], 200);
         } catch (Exception $e) {
             return response()->json([
@@ -138,7 +139,7 @@ class UserController extends Controller
 
             return response()->json([
                 'message'   => 'Avatar atualizado com sucesso',
-                'user'      => $user,
+                'user'      => new UserResource($user),
             ], 200);
         } catch (Exception $e) {
             return response()->json([

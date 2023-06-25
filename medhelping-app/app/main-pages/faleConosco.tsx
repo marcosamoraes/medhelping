@@ -1,4 +1,4 @@
-import { ScrollView, View, Text, TextInput, StyleSheet, TouchableOpacity, Image, Alert } from "react-native";
+import { ScrollView, View, Text, TextInput, StyleSheet, TouchableOpacity, Image, Alert, ActivityIndicator } from "react-native";
 import Header from "@components/header";
 import Footer from "@components/footer";
 import { useNavigation } from "expo-router";
@@ -16,25 +16,22 @@ export default function FaleConosco() {
   const [message, setMessage] = useState('');
 
   const navigation = useNavigation();
-//FALTA ADICIONAR A ROTA CERTA
-  function handleClick() {
+
+  const handleSubmit = async () => {
     setLoading(true)
-    const obj = {
-      title,
-      message
+
+    try {
+      await api.post('/contacts', {title, message})
+
+      Alert.alert('Sucesso', 'Mensagem enviada com sucesso. Em breve entraremos em contato.', [{ text: 'OK' }])
+      navigation.navigate('home')
+    } catch (error: any) {
+      console.error(error.response.data.error)
+      const message = error.response.data.message ?? 'Ocorreu um erro, tente novamente';
+      Alert.alert('Erro', message, [{ text: 'OK' }])
+    } finally {
+      setLoading(false)
     }
-    api.put('/', obj).then(reqSuccess).catch(reqFailure)
-  }
-
-  function reqSuccess() {
-    setLoading(false)
-    Alert.alert('Mensagem enviada', 'Enviaremos um retorno em breve', [{ text: 'OK' }])
-    navigation.navigate("home")
-  }
-
-  function reqFailure() {
-    Alert.alert('Erro', 'Ocorreu um erro, tente novamente', [{ text: 'OK' }])
-    setLoading(false)
   }
 
   const styles = StyleSheet.create({
@@ -83,11 +80,11 @@ export default function FaleConosco() {
         />
         <TouchableOpacity 
           disabled={loading} 
-          onPress={()=>handleClick()} 
+          onPress={handleSubmit} 
           activeOpacity={0.8} 
           className="flex-row w-full bg-primary justify-center py-2 rounded-xl my-3 items-center"
         >
-          <Text className="text-white font-700 text-sm ml-2">Enviar</Text>
+          <Text className="text-white font-700 text-sm ml-2">{loading ? <ActivityIndicator color="white" /> : 'Enviar'}</Text>
         </TouchableOpacity>
         <View className="h-10"></View>
       </ScrollView>

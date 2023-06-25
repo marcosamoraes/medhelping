@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\UserResource;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -24,9 +25,9 @@ class AuthController extends Controller
 
             $user = User::create($validated);
             $token = $this->createToken($user);
-        
+
             return response()->json([
-                'user' => $user,
+                'user' => new UserResource($user),
                 'token' => $token,
             ], 201);
         } catch (Exception $e) {
@@ -49,7 +50,7 @@ class AuthController extends Controller
             $token = $this->createToken($user);
 
             return response()->json([
-                'user' => $user,
+                'user' => new UserResource($user),
                 'token' => $token,
             ]);
         }
@@ -64,7 +65,7 @@ class AuthController extends Controller
      */
     public function me(Request $request)
     {
-        return response()->json($request->user());
+        return response()->json(new UserResource($request->user()));
     }
 
     /**
