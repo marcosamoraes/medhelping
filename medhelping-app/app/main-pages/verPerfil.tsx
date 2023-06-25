@@ -28,8 +28,8 @@ export default function VerPerfil() {
 
     const fetchUserData = async () => {
         try {
-            const response = await api.get(`/users/${id}`)
-            setUserData(response.data)
+            const { data } = await api.get(`/users/${id}`)
+            setUserData(data.user)
         } catch (error: any) {
             const message = error.response.data.message ?? 'Ocorreu um erro, tente novamente'
             Alert.alert('Erro', message, [{ text: 'OK' }])
@@ -111,23 +111,27 @@ export default function VerPerfil() {
                 <View className="w-full bg-[#505050b1]">
                     <View className="my-4 relative mx-auto">
                         <Image source={avatar} className="h-28 w-28 object-cover rounded-full" />
-                        <TouchableOpacity
-                            activeOpacity={0.7} 
-                            className="bg-background w-10 h-10 items-center justify-center rounded-full absolute z-10 right-0 bottom-0"
-                            onPress={pickImage}
-                        >
-                            <FontAwesome name="gear" size={20} color="white" />
-                        </TouchableOpacity>
+                        {!id || id === user.id && (
+                            <TouchableOpacity
+                                activeOpacity={0.7} 
+                                className="bg-background w-10 h-10 items-center justify-center rounded-full absolute z-10 right-0 bottom-0"
+                                onPress={pickImage}
+                            >
+                                <FontAwesome name="gear" size={20} color="white" />
+                            </TouchableOpacity>
+                        )}
                     </View>
                     <Text className="font-900 text-white text-center text-xl">{user.name}</Text>
                     {/* <Text className="font-500 text-white text-center text-base">Breve descrição</Text> */}
-                    <TouchableOpacity
-                        onPress={()=>handleEditProfile()} 
-                        activeOpacity={0.8} 
-                        className="w-1/2 mx-auto bg-[#07acf7] justify-center pt-2 pb-1 rounded-xl mt-3 mb-5 items-center"
-                    >
-                        <Text className="text-white font-600 text-sm ml-2">Editar Perfil</Text>
-                    </TouchableOpacity>
+                    {!id || id === user.id && (
+                        <TouchableOpacity
+                            onPress={()=>handleEditProfile()} 
+                            activeOpacity={0.8} 
+                            className="w-1/2 mx-auto bg-[#07acf7] justify-center pt-2 pb-1 rounded-xl mt-3 mb-5 items-center"
+                        >
+                            <Text className="text-white font-600 text-sm ml-2">Editar Perfil</Text>
+                        </TouchableOpacity>
+                    )}
                     <View className="flex-row mb-5 w-2/3 justify-evenly items-center mx-auto">
                         {userData.infos?.link_facebook && (
                             <TouchableOpacity

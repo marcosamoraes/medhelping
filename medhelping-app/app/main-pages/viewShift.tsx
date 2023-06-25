@@ -69,9 +69,23 @@ export default function ViewShift() {
                             <Text className="text-white text-center font-900 text-xl py-2">
                                 {`${shift.care_unit?.name} - ${shift.city}`}
                             </Text>
-                            <Text className="text-white text-center font-500 text-sm py-2">
-                                {shift.anonymous_publication ? 'Anônimo' : shift.user?.name} em {shift.created_at?.substring(0, 10)}
-                            </Text>
+                            {shift.user && !shift.anonymous_publication ? (
+                                <TouchableOpacity 
+                                    className="flex flex-row justify-center"
+                                    onPress={() => navigation.navigate('viewProfile', {id: shift.user?.id})}
+                                >
+                                    <Text className="text-blue-500 text-center font-700 text-sm py-2">
+                                        {shift.user?.name}
+                                    </Text>
+                                    <Text className="text-white text-center font-500 text-sm py-2">
+                                        {''} em {shift.created_at?.substring(0, 10)}
+                                    </Text>
+                                </TouchableOpacity>
+                            ) : (
+                                <Text className="text-white text-center font-500 text-sm py-2">
+                                    Anônimo em {shift.created_at?.substring(0, 10)}
+                                </Text>
+                            )}
                             <Text className="text-white text-center font-500 text-sm py-2">
                                 Data do plantão: {shift.date}
                             </Text>

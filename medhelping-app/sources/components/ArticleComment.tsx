@@ -3,6 +3,7 @@ import { Feather } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { api } from "@services/api";
 import IComment from "@interfaces/IComment";
+import { useNavigation } from "expo-router";
 
 const avatarTemplate = require("../../assets/images/avatar-template.jpg")
 
@@ -15,6 +16,9 @@ type ArticleCommentProps = {
 
 export default function ArticleComment({ comment, setReplyComment, handleRefetch, canReply = false }: ArticleCommentProps) {
     const { id, user, anonymous_publication, message, is_the_owner, quantity_likes, user_liked } = comment;
+
+    const navigation = useNavigation();
+
     const handleDelete = async () => {
         try {
             await api.delete(`/comments/${id}`)
@@ -44,7 +48,18 @@ export default function ArticleComment({ comment, setReplyComment, handleRefetch
                 <View className="flex-row">
                     <Image className="w-10 h-10 object-cover rounded-full" source={commentImage} />
                     <View className="px-6">
-                        <Text className="text-white font-900 text-sn">{anonymous_publication ? 'Anônimo' : user.name}</Text>
+                        {user && !comment.anonymous_publication ? (
+                            <TouchableOpacity 
+                                onPress={() => navigation.navigate('viewProfile', {id: user.id})}
+                            >
+                                <Text className="text-blue-500 font-900 text-sn">{user.name}</Text>
+                            </TouchableOpacity>
+                        ) : (
+                            <Text className="text-white font-900 text-sn">
+                                Anônimo
+                            </Text>
+                        )}
+                        
                         <Text className="text-white font-500 text-sn">{message}</Text>
                     </View>
                 </View>

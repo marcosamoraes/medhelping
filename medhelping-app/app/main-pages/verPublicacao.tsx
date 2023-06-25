@@ -37,7 +37,11 @@ export default function VerPublicacao() {
         setLoading(true)
         try {
             const { data: { article } } = await api.get(`/articles/${id}`);
-            setArticle(article);
+            const { user } = article[0] ?? article
+            setArticle({
+                ...article,
+                user
+            });
         } catch (error: any) {
             const message = error.response.data.message ?? 'Ocorreu um erro, tente novamente';
             Alert.alert('Erro', message, [{ text: 'OK' }])
@@ -103,6 +107,8 @@ export default function VerPublicacao() {
 
     const articleImage = article?.image ? { uri: article?.image } : examBackground
 
+    console.log(article)
+
     return (
         <>
             <SidebarProvider>
@@ -116,9 +122,23 @@ export default function VerPublicacao() {
                         <Image className="w-full h-40 object-cover" source={articleImage} />
                         <View className="p-4 border-b mb-4 border-b-[#1F2935]">
                             <Text className="text-white text-center font-900 text-xl py-2">{article.title}</Text>
-                            <Text className="text-white text-center font-500 text-sm py-2">
-                                {article.anonymous_publication ? 'Anônimo' : article.user?.name} em {article.created_at?.substring(0, 10)}
-                            </Text>
+                            {article.user && !article.anonymous_publication ? (
+                                <TouchableOpacity 
+                                    className="flex flex-row justify-center"
+                                    onPress={() => navigation.navigate('viewProfile', {id: article.user?.id})}
+                                >
+                                    <Text className="text-blue-500 text-center font-700 text-sm py-2">
+                                        {article.user?.name}
+                                    </Text>
+                                    <Text className="text-white text-center font-500 text-sm py-2">
+                                        {''} em {article.created_at?.substring(0, 10)}
+                                    </Text>
+                                </TouchableOpacity>
+                            ) : (
+                                <Text className="text-white text-center font-500 text-sm py-2">
+                                    Anônimo em {article.created_at?.substring(0, 10)}
+                                </Text>
+                            )}
                             <Text className="text-white text-center font-500 text-sm py-2">{article.description}</Text>
                             <View className="flex-row justify-between items-center px-2 my-2">
                                 <View className="flex-row">
