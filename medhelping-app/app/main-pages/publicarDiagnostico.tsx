@@ -30,7 +30,7 @@ export default function PublicarDiagnostico() {
             const { data } = await api.get(`/categories`)
             setCategories(data)
         } catch (error: any) {
-            console.log(error.response.data.message ?? 'Ocorreu um erro, tente novamente')
+            console.error(error.response.data.message ?? 'Ocorreu um erro, tente novamente')
         }
     }
 

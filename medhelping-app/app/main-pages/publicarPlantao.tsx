@@ -1,4 +1,4 @@
-import { ScrollView, View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { ScrollView, View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, Button } from "react-native";
 import Header from "@components/header";
 import SidebarProvider from "@contexts/Sidebar";
 import SideMenu from "@components/sideMenu";
@@ -6,60 +6,73 @@ import TouchableBlur from "@components/touchableBlur";
 import { useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
 import { api } from "@services/api";
+import ICareUnit from "@interfaces/ICareUnit";
+import SelectPicker from "@components/SelectPicker";
+import Checkbox from "expo-checkbox";
 
 export default function PublicarPlantao() {
-  const [loading, setLoading] = useState(false);
-  const [care_unities, setCareUnities] = useState<{ [key: string]: string }>({});
-  const [selected_unity, setSelectedUnity] = useState('');
-  const [city, setCity] = useState('');
-  const [date, setDate] = useState('');
-  const [entry_time, setEntryTime] = useState('');
-  const [out_time, setOutTime] = useState('');
-  const [value, setValue] = useState('');
-  const [payment_method, setPaymentMethod] = useState('')
-  const [description, setDescription] = useState('');
+  const [loading, setLoading] = useState<boolean>(false);
+  const [careUnits, setCareUnits] = useState<ICareUnit[]>({} as ICareUnit[]);
+  const [careUnit, setCareUnit] = useState<string|null>(null);
+  const [city, setCity] = useState<string>('');
+  const [date, setDate] = useState<string>('');
+  const [entryTime, setEntryTime] = useState<string>('');
+  const [outTime, setOutTime] = useState<string>('');
+  const [value, setValue] = useState<string>('');
+  const [paymentMethod, setPaymentMethod] = useState<string>('')
+  const [description, setDescription] = useState<string>('');
+  const [anonymousPublication, setAnonymousPublication] = useState<boolean>(false)
 
   const navigation = useNavigation();
-  //SEGUINTE CODIGO PEGA AS CARE UNITIES DA API
-  useEffect(()=>{
-    api.get('/care-units').then((i:any)=>{
-        setCareUnities(i)
-    }).catch(()=>{
-        Alert.alert('Erro', 'Ocorreu um erro, tente novamente', [{ text: 'OK' }])
-    })
-},[])
 
-//SEGUINTE CODIGO ACONTECE AO APERTAR O BOTAO
-  function postPlant() {
-    //aqui eu checo se a unity_selected (unidade que o usuario colocou no input) é uma das 5 da api. talvez seja melhor trocar por um select
-    const selectedId = Object.keys(care_unities).find((key) => care_unities[key] === selected_unity);
-    if (!selectedId) {
-      Alert.alert('Erro', 'Unidade inválida', [{ text: 'OK' }])
-    return  
+  const fetchCareUnits = async () => {
+    try {
+      const { data } = await api.get(`/care-units`)
+      
+      const fetchedCareUnits = Object.entries(data).map(([id, name]) => ({
+        id: parseInt(id),
+        name: name as string,
+      }));
+      
+      setCareUnits(fetchedCareUnits)
+    } catch (error: any) {
+      console.error(error.response.data.message ?? 'Ocorreu um erro, tente novamente')
     }
+  }
+
+  useEffect(() => {
+    fetchCareUnits()
+  }, [])
+
+  const handleSubmit = async () => {
     setLoading(true)
-    const obj = {
-      city,
-      care_unity_id: selectedId,
-      date,
-      entry_time,
-      out_time,
-      value,
-      payment_method,
-      description
+    
+    try {
+      const obj = {
+        care_unit_id: careUnit,
+        city,
+        date,
+        entry_time: entryTime,
+        out_time: outTime,
+        value,
+        payment_method: paymentMethod,
+        description,
+        anonymous_publication: anonymousPublication
+      } as any
+
+      await api.post('/shifts', obj)
+
+      Alert.alert('Sucesso', 'Plantão cadastrado com sucesso.', [{ text: 'OK' }])
+      navigation.navigate('shifts')
+    } catch (error: any) {
+      console.error(error.response.data.error)
+      const message = error.response.data.message ?? 'Ocorreu um erro, tente novamente';
+      Alert.alert('Erro', message, [{ text: 'OK' }])
+    } finally {
+      setLoading(false)
     }
-    api.post('/shifts', obj).then(reqSuccess).catch(reqFailure)
   }
 
-  function reqSuccess() {
-    setLoading(false)
-    navigation.navigate("home")
-  }
-
-  function reqFailure() {
-    Alert.alert('Erro', 'Ocorreu um erro, tente novamente', [{ text: 'OK' }])
-    setLoading(false)
-  }
   const styles = StyleSheet.create({
     input:{
       borderColor: 'white',
@@ -86,14 +99,9 @@ export default function PublicarPlantao() {
             <Text className="font-900 text-white">Publique seu plantão.</Text>
           </View>
           <View className="w-full px-2">
-          <TextInput
-            style={styles.input}
-            placeholder='Unidade *'
-            className='h-10 w-full rounded-xl text-sm font-400 mb-3 mt-5 px-4'
-            placeholderTextColor={'white'}
-            value={selected_unity}
-            onChangeText={setSelectedUnity}
-          />
+          
+          <SelectPicker name="Unidade *" items={careUnits} value={careUnit} setValue={setCareUnit} />
+          
           <TextInput
             style={styles.input}
             placeholder='Cidade *'
@@ -115,7 +123,7 @@ export default function PublicarPlantao() {
             placeholder='Hora de Entrada *'
             className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
             placeholderTextColor={'white'}
-            value={entry_time}
+            value={entryTime}
             onChangeText={setEntryTime}
           />
           <TextInput
@@ -123,12 +131,12 @@ export default function PublicarPlantao() {
             placeholder='Hora de Saída *'
             className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
             placeholderTextColor={'white'}
-            value={out_time}
+            value={outTime}
             onChangeText={setOutTime}
           />
           <TextInput
             style={styles.input}
-            placeholder='Valor *'
+            placeholder='Valor'
             className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
             placeholderTextColor={'white'}
             value={value}
@@ -136,24 +144,30 @@ export default function PublicarPlantao() {
           />
           <TextInput
             style={styles.input}
-            placeholder='Método de pagamento *'
+            placeholder='Método de pagamento'
             className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
             placeholderTextColor={'white'}
-            value={payment_method}
+            value={paymentMethod}
             onChangeText={setPaymentMethod}
           />
           <TextInput
             style={styles.inputD}
-            placeholder='Descrição'
+            placeholder='Descrição *'
             multiline={true}
             className='h-14 w-full align-text-top rounded-xl text-sm font-400 my-3 py-2 px-4'
             placeholderTextColor={'white'}
             value={description}
             onChangeText={setDescription}
           />
+          <View className="flex-row items-center my-4">
+            <Checkbox
+              value={anonymousPublication}
+              onValueChange={(newValue) => setAnonymousPublication(newValue)} />
+            <Text className="font-400 ml-3 pt-1 text-sm text-white">Publicar de Forma Anônima</Text>
+          </View>
           <TouchableOpacity 
             disabled={loading} 
-            onPress={()=>postPlant()} 
+            onPress={()=>handleSubmit()} 
             activeOpacity={0.8} 
             className="flex-row w-full bg-primary justify-center py-2 rounded-xl my-3 items-center"
           >

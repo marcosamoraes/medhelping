@@ -40,12 +40,11 @@ export default function Home() {
 
     const fetchArticles = async (text?: string) => {
         setLoading(true)
-        console.log(text)
         try {
             const { data: { data } } = await api.get(`/articles?category=${id}&search=${text ?? search}`)
             setArticles(data)
         } catch (error: any) {
-            console.log(error.response)
+            console.error(error.response)
         } finally {
             setLoading(false)
         }
