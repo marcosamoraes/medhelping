@@ -4,7 +4,7 @@ import Header from "@components/header";
 import SideMenu from "@components/sideMenu";
 import SidebarProvider from "@contexts/Sidebar";
 import TouchableBlur from "@components/touchableBlur";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { api } from "@services/api";
 import ArticleCard from "@components/ArticleCard";
 import IArticle from '@interfaces/IArticle';
@@ -22,22 +22,27 @@ export default function Home() {
     const [search, setSearch] = useState<string>('')
 
     const navigation = useNavigation()
+    
+    const debouncedFetch = useRef(
+        debounce(async (text: string) => fetchArticles(text), 500)
+    ).current
 
-    const debouncedFetch = useCallback(
-		debounce(() => fetchArticles(), 1000)
-    , [])
+    useEffect(() => {
+        return () => {
+            debouncedFetch.cancel()
+        }
+    }, [debouncedFetch])
 
     const handleSearch = (text: string) => {
         setSearch(text)
-        debouncedFetch()
+        debouncedFetch(text)
     }
 
-    const fetchArticles = async () => {
-        console.log('fetching')
-        console.log(`/articles?category=${id}&search=${search}`)
+    const fetchArticles = async (text?: string) => {
         setLoading(true)
+        console.log(text)
         try {
-            const { data: { data } } = await api.get(`/articles?category=${id}&search=${search}`)
+            const { data: { data } } = await api.get(`/articles?category=${id}&search=${text ?? search}`)
             setArticles(data)
         } catch (error: any) {
             console.log(error.response)
