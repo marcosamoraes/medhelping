@@ -14,6 +14,9 @@ import PublicarDiagnostico from '../../app/main-pages/publicarDiagnostico';
 import PublicarPlantao from '../../app/main-pages/publicarPlantao';
 import VerPerfil from '../../app/main-pages/verPerfil';
 import VerPublicacao from '../../app/main-pages/verPublicacao';
+import Shifts from '../../app/main-pages/shifts';
+import ViewShift from '../../app/main-pages/viewShift';
+
 import { useContext } from 'react';
 import { AuthContext } from '@contexts/Auth';
 
@@ -39,8 +42,10 @@ export default function Routes() {
           <Screen name='listCategories' component={ListaCategorias} />
           <Screen name='publishArticle' component={PublicarDiagnostico} />
           <Screen name='publishShift' component={PublicarPlantao} />
+          <Screen name='shifts' component={Shifts} />
           <Screen name='viewProfile' component={VerPerfil} />
           <Screen name='viewPublication' component={VerPublicacao} />
+          <Screen name='viewShift' component={ViewShift} />
         </>
       ): (
         <>

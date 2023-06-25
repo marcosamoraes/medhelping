@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\ShiftStoreRequest;
 use App\Http\Requests\Api\ShiftUpdateRequest;
+use App\Http\Resources\Api\ShiftResource;
 use App\Models\Shift;
 use Exception;
 use Illuminate\Http\Request;
@@ -18,7 +19,11 @@ class ShiftController extends Controller
     {
         $shifts = Shift::when($request->search, function ($query, $search) {
                 $query->orWhere('title', 'REGEXP', $search);
+                $query->orWhere('city', 'REGEXP', $search);
                 $query->orWhereHas('users', function ($query) use ($search) {
+                    $query->where('name', 'REGEXP', $search);
+                });
+                $query->orWhereHas('careUnit', function ($query) use ($search) {
                     $query->where('name', 'REGEXP', $search);
                 });
             })
@@ -26,7 +31,7 @@ class ShiftController extends Controller
             ->paginate($request->per_page ?? 10);
 
         return response()->json([
-            'data'          => $shifts,
+            'data'          => ShiftResource::collection($shifts),
             'per_page'      => $shifts->perPage(),
             'current_page'  => $shifts->currentPage(),
             'last_page'     => $shifts->lastPage(),
@@ -43,12 +48,12 @@ class ShiftController extends Controller
             $validated = $request->validated();
 
             $validated['user_id'] = $request->user()->id;
-            
+
             $shift = Shift::create($validated);
 
             return response()->json([
                 'message'   => 'Plantão criado com sucesso',
-                'shift'   => $shift,
+                'shift'     => new ShiftResource($shift),
             ], 201);
         } catch (Exception $e) {
             return response()->json([
@@ -64,7 +69,7 @@ class ShiftController extends Controller
     public function show(Shift $shift)
     {
         return response()->json([
-            'shift' => $shift,
+            'shift' => new ShiftResource($shift),
         ], 200);
     }
 
@@ -80,7 +85,7 @@ class ShiftController extends Controller
 
             return response()->json([
                 'message'   => 'Plantão atualizado com sucesso',
-                'shift'   => $shift,
+                'shift'     => new ShiftResource($shift),
             ], 200);
         } catch (Exception $e) {
             return response()->json([

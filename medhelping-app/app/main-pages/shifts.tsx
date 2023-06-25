@@ -6,25 +6,21 @@ import SidebarProvider from "@contexts/Sidebar";
 import TouchableBlur from "@components/touchableBlur";
 import { useEffect, useRef, useState } from "react";
 import { api } from "@services/api";
-import ArticleCard from "@components/ArticleCard";
-import IArticle from '@interfaces/IArticle';
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "expo-router";
-import { useRoute } from "@react-navigation/native";
 import { debounce } from "lodash";
+import IShift from "@interfaces/IShift";
+import ShiftCard from "@components/ShiftCard";
 
-export default function Home() {
-    const route = useRoute();
-    const { id }: any = route.params ?? { id: 0 };
-
-    const [articles, setArticles] = useState<IArticle[]>({} as IArticle[])
+export default function Shifts() {
+    const [shifts, setShifts] = useState<IShift[]>({} as IShift[])
     const [loading, setLoading] = useState<boolean>(false)
     const [search, setSearch] = useState<string>('')
 
     const navigation = useNavigation()
     
     const debouncedFetch = useRef(
-        debounce(async (text: string) => fetchArticles(text), 500)
+        debounce(async (text: string) => fetchShifts(text), 500)
     ).current
 
     useEffect(() => {
@@ -38,12 +34,12 @@ export default function Home() {
         debouncedFetch(text)
     }
 
-    const fetchArticles = async (text?: string) => {
+    const fetchShifts = async (text?: string) => {
         setLoading(true)
         console.log(text)
         try {
-            const { data: { data } } = await api.get(`/articles?category=${id}&search=${text ?? search}`)
-            setArticles(data)
+            const { data: { data } } = await api.get(`/shifts?search=${text ?? search}`)
+            setShifts(data)
         } catch (error: any) {
             console.log(error.response)
         } finally {
@@ -53,13 +49,13 @@ export default function Home() {
 
     useEffect(() => {
         return navigation.addListener('focus', () => {
-            fetchArticles()
+            fetchShifts()
         });
     }, [navigation]);
 
     useEffect(() => {
-        fetchArticles()
-    }, [id])
+        fetchShifts()
+    }, [])
 
     return (
         <SidebarProvider>
@@ -68,30 +64,29 @@ export default function Home() {
             <SideMenu />
 
             <ScrollView className="w-screen py-6 px-6 bg-background">
-                {id ? (
-                    <TextInput
-                        placeholder='Busque pelo título ou autor'
-                        className='h-10 w-full rounded-xl text-sm font-400 my-2 px-4 bg-background border border-white text-white'
-                        placeholderTextColor={'white'}
-                        onChangeText={(text) => handleSearch(text)}
-                        value={search}
-                    />
-                ) : articles.length > 0 && (
-                    <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate("publishArticle")}>
+                {shifts.length > 0 && (
+                    <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate("publishShift")}>
                         <View className="w-full p-4 rounded-xl bg-primary">
-                            <Text className="font-900 mb-3 text-white">Dúvidas sobre o diagnóstico ou conduta para o paciente?</Text>
+                            <Text className="font-900 mb-3 text-white">Publique um plantão.</Text>
                         </View>
                     </TouchableOpacity>
                 )}
+                <TextInput
+                    placeholder='Busque pelo título, cidade ou unidade'
+                    className='h-10 w-full rounded-xl text-sm font-400 mt-5 px-4 bg-background border border-white text-white'
+                    placeholderTextColor={'white'}
+                    onChangeText={(text) => handleSearch(text)}
+                    value={search}
+                />
                 <View className="flex-row flex-wrap pt-6 pb-4 px-1 justify-between">
                     {loading ? (
                         <ActivityIndicator color="white" size={40} className="flex-1 h-60" />
                     ) : (
-                        articles.length > 0 ? articles.map((article) => (
-                            <ArticleCard key={article.id} article={article} />
+                        shifts.length > 0 ? shifts.map((shift) => (
+                            <ShiftCard key={shift.id} shift={shift} />
                         )) : (
                             <View className="w-full p-4 rounded-xl bg-primary">
-                                <Text className="font-700 text-white">Nenhum artigo encontrado.</Text>
+                                <Text className="font-700 text-white">Nenhum plantão encontrado.</Text>
                             </View>
                         )
                     )}

@@ -78,6 +78,14 @@ export default function SideMenu() {
                     </Text>
                 </View>
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('shifts')}>
+                <View className="flex-row py-2">
+                    <FontAwesome name="list-ul" size={26} color="white" />
+                    <Text className="pt-1 pl-4 font-900 text-white text-xl">
+                        Plantões
+                    </Text>
+                </View>
+            </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('settings')}>
                 <View className="flex-row py-2">
                     <FontAwesome name="gear" size={26} color="white" />

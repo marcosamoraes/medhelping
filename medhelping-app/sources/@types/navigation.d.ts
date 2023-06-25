@@ -11,12 +11,16 @@ export declare global {
       editProfile: undefined
       contact: undefined
       listCategories: undefined
+      shifts: undefined
       publishArticle: undefined
       publishShift: undefined
       viewProfile: {
         id: int
       }
       viewPublication: {
+        id: int
+      }
+      viewShift: {
         id: int
       }
     }

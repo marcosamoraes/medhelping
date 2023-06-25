@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -35,5 +36,16 @@ class Shift extends Model
     public function careUnit(): BelongsTo
     {
         return $this->belongsTo(CareUnit::class);
+    }
+
+    protected function isTheOwner(): Attribute
+    {
+        return Attribute::make(get: function () {
+            $user = auth()->user();
+
+            if (!$user) return false;
+
+            return $this->user_id === $user->id;
+        });
     }
 }
