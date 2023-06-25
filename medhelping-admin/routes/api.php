@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\CareUnitController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\ShiftController;
+use App\Http\Controllers\Api\UploadController;
 use App\Http\Controllers\Api\UserController;
 
 /*
@@ -34,6 +35,8 @@ Route::get('care-units', [CareUnitController::class, 'index']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('me', [AuthController::class, 'me']);
+
+    Route::post('upload/{folder}', [UploadController::class, 'store']);
 
     Route::post('articles/{article}/like', [ArticleController::class, 'like']);
     Route::post('articles/{article}/comment', [ArticleController::class, 'comment']);

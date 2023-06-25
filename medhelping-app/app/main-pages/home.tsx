@@ -33,6 +33,8 @@ export default function Home() {
     }
 
     const fetchArticles = async () => {
+        console.log('fetching')
+        console.log(`/articles?category=${id}&search=${search}`)
         setLoading(true)
         try {
             const { data: { data } } = await api.get(`/articles?category=${id}&search=${search}`)
@@ -43,6 +45,12 @@ export default function Home() {
             setLoading(false)
         }
     }
+
+    useEffect(() => {
+        return navigation.addListener('focus', () => {
+            fetchArticles()
+        });
+    }, [navigation]);
 
     useEffect(() => {
         fetchArticles()

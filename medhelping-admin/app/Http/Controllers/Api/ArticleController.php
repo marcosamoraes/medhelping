@@ -49,15 +49,17 @@ class ArticleController extends Controller
         try {
             $validated = $request->validated();
 
-            if (isset($data['image'])) {
-                $data['image'] = $request->file('image')->store('articles');
-            }
-
             $validated['user_id'] = $request->user()->id;
 
             $article = Article::create($validated);
 
-            $article->articleCategories()->sync($request->categories);
+            foreach ($request->categories as $category) {
+                if ($category) {
+                    $article->articleCategories()->create([
+                        'category_id' => $category,
+                    ]);
+                }
+            }
 
             return response()->json([
                 'message'   => 'Artigo criado com sucesso',
