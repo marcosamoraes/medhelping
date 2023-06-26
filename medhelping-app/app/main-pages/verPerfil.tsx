@@ -186,13 +186,13 @@ export default function VerPerfil() {
                     <View>
                         <Text className="font-700 mb-1 text-white">Área de ocupação</Text>
                         <Text className="font-700 text-[#03DADB]">
-                            { userData.infos.occupation_area ?? 'Não informado' }
+                            { userData.infos?.occupation_area ?? 'Não informado' }
                         </Text>
                     </View>
                     <View>
                         <Text className="font-700 text-right mb-1 text-white">Especialidade</Text>
                         <Text className="font-700 text-right text-[#03DADB]">
-                            { userData.infos.specialties ?? 'Não informado' }
+                            { userData.infos?.specialties ?? 'Não informado' }
                         </Text>
                     </View>
                 </View>
@@ -200,13 +200,13 @@ export default function VerPerfil() {
                     <View>
                         <Text className="font-700 mb-1 text-white">Faculdade</Text>
                         <Text className="font-700 text-[#03DADB]">
-                            { userData.infos.faculty ?? 'Não informado' }
+                            { userData.infos?.faculty ?? 'Não informado' }
                         </Text>
                     </View>
                     <View>
                         <Text className="font-700 text-right mb-1 text-white">Formado em</Text>
                         <Text className="font-700 text-right text-[#03DADB]">
-                            { userData.infos.faculty_year ?? 'Não informado' }
+                            { userData.infos?.faculty_year ?? 'Não informado' }
                         </Text>
                     </View>
                 </View>

@@ -28,17 +28,8 @@ class UserResource extends JsonResource
             'created_at'        => $this->created_at->format('d/m/Y H:i:s'),
             'updated_at'        => $this->updated_at->format('d/m/Y H:i:s'),
 
-            $this->when($this->address, function () {
-                return [
-                    'address'   => new UserAddressResource($this->address),
-                ];
-            }),
-
-            $this->when($this->infos, function () {
-                return [
-                    'infos'     => new UserInfoResource($this->infos),
-                ];
-            }),
+            'address'           => $this->address ? new UserAddressResource($this->address) : null,
+            'infos'             => $this->infos ? new UserInfoResource($this->infos) : null,
         ];
     }
 }

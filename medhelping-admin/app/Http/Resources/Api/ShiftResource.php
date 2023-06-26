@@ -31,12 +31,7 @@ class ShiftResource extends JsonResource
             'updated_at'            => $this->updated_at->format('d/m/Y H:i:s'),
 
             'care_unit'             => new CareUnitResource($this->careUnit),
-
-            $this->when($this->user, function () {
-                return [
-                    'user' => new UserResource($this->user),
-                ];
-            }),
+            'user'                  => $this->user ? new UserResource($this->user) : null,
         ];
     }
 }

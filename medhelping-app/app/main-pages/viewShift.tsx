@@ -27,11 +27,7 @@ export default function ViewShift() {
         setLoading(true)
         try {
             const { data: { shift } } = await api.get(`/shifts/${id}`);
-            const { user } = shift[0] ?? shift
-            setShift({
-                ...shift,
-                user
-            });
+            setShift(shift);
         } catch (error: any) {
             const message = error.response.data.message ?? 'Ocorreu um erro, tente novamente';
             Alert.alert('Erro', message, [{ text: 'OK' }])

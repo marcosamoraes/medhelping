@@ -37,11 +37,7 @@ export default function VerPublicacao() {
         setLoading(true)
         try {
             const { data: { article } } = await api.get(`/articles/${id}`);
-            const { user } = article[0] ?? article
-            setArticle({
-                ...article,
-                user
-            });
+            setArticle(article);
         } catch (error: any) {
             const message = error.response.data.message ?? 'Ocorreu um erro, tente novamente';
             Alert.alert('Erro', message, [{ text: 'OK' }])

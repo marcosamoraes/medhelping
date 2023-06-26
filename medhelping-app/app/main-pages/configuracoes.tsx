@@ -29,12 +29,7 @@ export default function Configuracoes() {
         try {
             const response = await api.put(`/users/${userData.id}/profile`, { ...userData.infos })
             Alert.alert('Sucesso', response.data.message, [{ text: 'OK' }])
-            console.log(response.data.user[1])
-            const infos = response.data.user[1].infos ?? response.data.user[0].infos
-            updateUser({
-                ...response.data.user,
-                infos
-            })
+            updateUser(response.data.user)
         } catch (error: any) {
             console.error('configuracoes: ', error.response.data.error)
             const message = error.response.data.message ?? 'Ocorreu um erro, tente novamente';

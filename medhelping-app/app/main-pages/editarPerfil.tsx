@@ -53,11 +53,7 @@ export default function EditarPerfil() {
         try {
             const response = await api.put(`/users/${userData.id}`, { ...userData })
             Alert.alert('Sucesso', response.data.message, [{ text: 'OK' }])
-            const address = response.data.user[0] ? response.data.user[0].address : response.data.user.address
-            updateUser({
-                ...response.data.user,
-                address
-            })
+            updateUser(response.data.user)
         } catch (error: any) {
             console.error('editarPerfil: ', error.response.data.error)
             const message = error.response.data.message ?? 'Ocorreu um erro, tente novamente';
