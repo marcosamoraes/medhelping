@@ -103,8 +103,6 @@ export default function VerPublicacao() {
 
     const articleImage = article?.image ? { uri: article?.image } : examBackground
 
-    console.log(article)
-
     return (
         <>
             <SidebarProvider>

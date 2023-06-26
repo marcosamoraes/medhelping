@@ -62,6 +62,8 @@ export function AuthProvider ({ children }: AuthProviderProps) {
       const { data } = await api.post('/login', { email, password })
 
       if (data.user) {
+        api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
+
         setUser(data.user)
         storageUserSave(data.user)
         setToken(data.token)
