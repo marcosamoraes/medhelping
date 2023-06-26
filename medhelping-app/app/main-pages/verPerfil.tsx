@@ -33,7 +33,7 @@ export default function VerPerfil() {
         } catch (error: any) {
             const message = error.response.data.message ?? 'Ocorreu um erro, tente novamente'
             Alert.alert('Erro', message, [{ text: 'OK' }])
-            console.error(error.response.data.error ?? error)
+            console.error('verPerfil->fetchUserData: ', error.response.data.error ?? error)
         }
     }
 
@@ -57,7 +57,7 @@ export default function VerPerfil() {
                 handleChangeAvatar(result.assets[0].uri)
             }
         } catch (error: any) {
-            console.error(error);
+            console.error('verPerfil->pickImage: ', error);
         }
     };
 
@@ -80,7 +80,7 @@ export default function VerPerfil() {
             const response = await api.put(`/users/${userData.id}/avatar`, { image: data })
             updateUser(response.data.user)
         } catch (error: any) {
-            console.error(error.response.data.error)
+            console.error('verPerfil->handleChangeAvatar: ', error.response.data.error)
             const message = error.response.data.message ?? 'Ocorreu um erro, tente novamente';
             Alert.alert('Erro', message, [{ text: 'OK' }])
         }
@@ -111,7 +111,7 @@ export default function VerPerfil() {
                 <View className="w-full bg-[#505050b1]">
                     <View className="my-4 relative mx-auto">
                         <Image source={avatar} className="h-28 w-28 object-cover rounded-full" />
-                        {!id || id === user.id && (
+                        {(!id || id === user.id) && (
                             <TouchableOpacity
                                 activeOpacity={0.7} 
                                 className="bg-background w-10 h-10 items-center justify-center rounded-full absolute z-10 right-0 bottom-0"
@@ -123,7 +123,7 @@ export default function VerPerfil() {
                     </View>
                     <Text className="font-900 text-white text-center text-xl">{user.name}</Text>
                     {/* <Text className="font-500 text-white text-center text-base">Breve descrição</Text> */}
-                    {!id || id === user.id && (
+                    {(!id || id === user.id) && (
                         <TouchableOpacity
                             onPress={()=>handleEditProfile()} 
                             activeOpacity={0.8} 
@@ -178,7 +178,7 @@ export default function VerPerfil() {
                     <View>
                         <Text className="font-700 mb-1 text-right text-white">CRM</Text>
                         <Text className="font-700 text-right text-[#03DADB]">
-                            { userData.infos ? userData.infos.crm : 'Não informado' }
+                            { userData.infos?.crm ?? 'Não informado' }
                         </Text>
                     </View>
                 </View>
@@ -186,13 +186,13 @@ export default function VerPerfil() {
                     <View>
                         <Text className="font-700 mb-1 text-white">Área de ocupação</Text>
                         <Text className="font-700 text-[#03DADB]">
-                            { userData.infos ? userData.infos.occupation_area : 'Não informado' }
+                            { userData.infos.occupation_area ?? 'Não informado' }
                         </Text>
                     </View>
                     <View>
                         <Text className="font-700 text-right mb-1 text-white">Especialidade</Text>
                         <Text className="font-700 text-right text-[#03DADB]">
-                            { userData.infos ? userData.infos.specialties : 'Não informado' }
+                            { userData.infos.specialties ?? 'Não informado' }
                         </Text>
                     </View>
                 </View>
@@ -200,13 +200,13 @@ export default function VerPerfil() {
                     <View>
                         <Text className="font-700 mb-1 text-white">Faculdade</Text>
                         <Text className="font-700 text-[#03DADB]">
-                            { userData.infos ? userData.infos.faculty : 'Não informado' }
+                            { userData.infos.faculty ?? 'Não informado' }
                         </Text>
                     </View>
                     <View>
                         <Text className="font-700 text-right mb-1 text-white">Formado em</Text>
                         <Text className="font-700 text-right text-[#03DADB]">
-                            { userData.infos ? userData.infos.faculty_year : 'Não informado' }
+                            { userData.infos.faculty_year ?? 'Não informado' }
                         </Text>
                     </View>
                 </View>

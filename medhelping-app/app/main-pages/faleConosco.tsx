@@ -26,7 +26,7 @@ export default function FaleConosco() {
       Alert.alert('Sucesso', 'Mensagem enviada com sucesso. Em breve entraremos em contato.', [{ text: 'OK' }])
       navigation.navigate('home')
     } catch (error: any) {
-      console.error(error.response.data.error)
+      console.error('faleConosco: ', error.response.data.error)
       const message = error.response.data.message ?? 'Ocorreu um erro, tente novamente';
       Alert.alert('Erro', message, [{ text: 'OK' }])
     } finally {

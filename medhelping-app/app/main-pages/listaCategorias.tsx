@@ -19,7 +19,7 @@ export default function ListaCategorias(){
             const { data } = await api.get('/categories')
             setCategories(data)
         } catch (error) {
-            console.error(error)
+            console.error('listaCategorias: ', error)
         } finally {
             setLoading(false)
         }

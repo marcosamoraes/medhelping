@@ -75,7 +75,7 @@ export default function VerPublicacao() {
 
             handleRefetch()
         } catch (error: any) {
-            console.error(error.response.data.error)
+            console.error('verPublicacao->handleComment: ', error.response.data.error)
             const message = error.response.data.message ?? 'Ocorreu um erro, tente novamente';
             Alert.alert('Erro', message, [{ text: 'OK' }])
         }
@@ -90,7 +90,7 @@ export default function VerPublicacao() {
             await api.post(`/articles/${id}/share`)
             handleRefetch()
         } catch (error: any) {
-            console.error(error.response.data.error)
+            console.error('verPublicacao->handleShare: ', error.response.data.error)
             const message = error.response.data.message ?? 'Ocorreu um erro, tente novamente';
             Alert.alert('Erro', message, [{ text: 'OK' }])
         }

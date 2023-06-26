@@ -52,7 +52,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('users/{user}/password', [UserController::class, 'updatePassword']);
     Route::put('users/{user}/profile', [UserController::class, 'updateProfile']);
     Route::put('users/{user}/avatar', [UserController::class, 'updateAvatar']);
-    Route::put('users/{user}/address', [UserController::class, 'updateAddress']);
     Route::apiResource('users', UserController::class)->only(['show', 'update']);
 
     Route::post('contacts', [ContactController::class, 'store']);

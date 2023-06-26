@@ -33,7 +33,17 @@ class UserController extends Controller
         try {
             $validated = $request->validated();
 
+            if (isset($validated['address'])) {
+                if (!$user->address) {
+                    $user->address()->create($validated['address']);
+                } else {
+                    $user->address()->update($validated['address']);
+                }
+            }
+
             $user->update($validated);
+
+            $user->refresh();
 
             return response()->json([
                 'message'   => 'Usuário atualizado com sucesso',
@@ -54,6 +64,12 @@ class UserController extends Controller
     {
         try {
             $validated = $request->validated();
+
+            if (!password_verify($validated['old_password'], $user->password)) {
+                return response()->json([
+                    'message'   => 'Senha atual incorreta',
+                ], 400);
+            }
 
             $user->update($validated);
 
@@ -76,11 +92,13 @@ class UserController extends Controller
         try {
             $validated = $request->validated();
 
-            if ($user->infos->count() === 0) {
+            if (!$user->infos) {
                 $user->infos()->create($validated);
             } else {
                 $user->infos()->update($validated);
             }
+
+            $user->refresh();
 
             return response()->json([
                 'message'   => 'Perfil atualizado com sucesso',
@@ -89,32 +107,6 @@ class UserController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'message'   => 'Erro ao atualizar perfil',
-                'error'     => $e->getMessage(),
-            ], 400);
-        }
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function updateAddress(UserUpdateAddressRequest $request, User $user)
-    {
-        try {
-            $validated = $request->validated();
-
-            if ($user->address->count() === 0) {
-                $user->address()->create($validated);
-            } else {
-                $user->address()->update($validated);
-            }
-
-            return response()->json([
-                'message'   => 'Endereço atualizado com sucesso',
-                'user'      => new UserResource($user),
-            ], 200);
-        } catch (Exception $e) {
-            return response()->json([
-                'message'   => 'Erro ao atualizar endereço',
                 'error'     => $e->getMessage(),
             ], 400);
         }

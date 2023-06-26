@@ -41,7 +41,7 @@ export default function PublicarPlantao() {
       
       setCareUnits(fetchedCareUnits)
     } catch (error: any) {
-      console.error(error.response.data.message ?? 'Ocorreu um erro, tente novamente')
+      console.error('publicarPlantao->fetchCareUnits: ', error.response.data.message ?? 'Ocorreu um erro, tente novamente')
     }
   }
 
@@ -70,7 +70,7 @@ export default function PublicarPlantao() {
       Alert.alert('Sucesso', 'Plantão cadastrado com sucesso.', [{ text: 'OK' }])
       navigation.navigate('shifts')
     } catch (error: any) {
-      console.error(error.response.data.error)
+      console.error('publicarPlantao->handleSubmit: ', error.response.data.error)
       const message = error.response.data.message ?? 'Ocorreu um erro, tente novamente';
       Alert.alert('Erro', message, [{ text: 'OK' }])
     } finally {

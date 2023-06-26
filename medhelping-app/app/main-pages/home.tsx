@@ -44,7 +44,7 @@ export default function Home() {
             const { data: { data } } = await api.get(`/articles?category=${id}&search=${text ?? search}`)
             setArticles(data)
         } catch (error: any) {
-            console.error(error.response)
+            console.error('home: ', error.response)
         } finally {
             setLoading(false)
         }

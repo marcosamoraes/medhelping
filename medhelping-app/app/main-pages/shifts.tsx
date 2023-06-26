@@ -40,7 +40,7 @@ export default function Shifts() {
             const { data: { data } } = await api.get(`/shifts?search=${text ?? search}`)
             setShifts(data)
         } catch (error: any) {
-            console.error(error.response)
+            console.error('shifts: ', error.response)
         } finally {
             setLoading(false)
         }

@@ -34,7 +34,7 @@ export default function ArticleComment({ comment, setReplyComment, handleRefetch
             await api.post(`/comments/${id}/like`)
             handleRefetch()
         } catch (error: any) {
-            console.error(error.response.data.error)
+            console.error('articleComment: ', error.response.data.error)
             const message = error.response.data.message ?? 'Ocorreu um erro, tente novamente';
             Alert.alert('Erro', message, [{ text: 'OK' }])
         }

@@ -30,7 +30,7 @@ export default function PublicarDiagnostico() {
             const { data } = await api.get(`/categories`)
             setCategories(data)
         } catch (error: any) {
-            console.error(error.response.data.message ?? 'Ocorreu um erro, tente novamente')
+            console.error('publicarDiagnostico->fetchCategories: ', error.response.data.message ?? 'Ocorreu um erro, tente novamente')
         }
     }
 
@@ -76,7 +76,7 @@ export default function PublicarDiagnostico() {
             Alert.alert('Sucesso', 'Artigo cadastrado com sucesso.', [{ text: 'OK' }])
             navigation.navigate('home')
         } catch (error: any) {
-            console.error(error.response.data.error)
+            console.error('publicarDiagnostico->handleSubmit: ', error.response.data.error)
             const message = error.response.data.message ?? 'Ocorreu um erro, tente novamente';
             Alert.alert('Erro', message, [{ text: 'OK' }])
         } finally {
@@ -95,7 +95,7 @@ export default function PublicarDiagnostico() {
                 setPreview(result.assets[0].uri);
             }
         } catch (error: any) {
-            console.error(error);
+            console.error('publicarDiagnostico->pickImage: ', error);
         }
     };
 
