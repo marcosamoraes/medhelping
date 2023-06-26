@@ -22,6 +22,12 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "package": "com.marcosamoraes.medhelpingapp"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "29066b89-e0be-41c2-99da-e1d74ea4a9e0"
       }
     }
   }
