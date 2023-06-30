@@ -91,6 +91,6 @@ class Article extends Model
      */
     public function comments(): HasMany
     {
-        return $this->hasMany(Comment::class)->whereNull('comment_id');
+        return $this->hasMany(Comment::class)->whereNull('comment_id')->whereType('article');
     }
 }

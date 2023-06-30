@@ -14,7 +14,7 @@ type SelectPickerProps = {
 }
 
 export default function SelectPicker({ name, value, setValue, items } : SelectPickerProps) {
-
+  
   return (
     <>
       <Text className="pt-3 text-white">{ name }</Text>

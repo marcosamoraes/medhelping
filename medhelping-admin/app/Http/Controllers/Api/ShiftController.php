@@ -113,4 +113,40 @@ class ShiftController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * Comment the specified resource from storage.
+     */
+    public function comment(Request $request, Shift $shift)
+    {
+        try {
+            $validated = $request->validate([
+                'message'               => ['required', 'string'],
+                'anonymous_publication' => ['required', 'boolean'],
+                'comment_id'            => ['nullable', 'exists:comments,id'],
+            ]);
+
+            $data = [
+                'user_id'               => $request->user()->id,
+                'message'               => $validated['message'],
+                'anonymous_publication' => $validated['anonymous_publication'],
+                'type'                  => 'shift',
+            ];
+
+            if (isset($validated['comment_id'])) {
+                $data['comment_id'] = $validated['comment_id'];
+            }
+
+            $shift->comments()->create($data);
+
+            return response()->json([
+                'message'   => 'Comentário criado com sucesso',
+            ], 201);
+        } catch (Exception $e) {
+            return response()->json([
+                'message'   => 'Falha ao criar comentário',
+                'error'     => $e->getMessage(),
+            ], 500);
+        }
+    }
 }

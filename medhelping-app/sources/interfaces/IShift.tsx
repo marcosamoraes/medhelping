@@ -1,4 +1,5 @@
 import ICareUnit from "./ICareUnit"
+import IComment from "./IComment"
 import IUser from "./IUser"
 
 interface IShift {
@@ -16,6 +17,7 @@ interface IShift {
 
   user?: IUser
   care_unit: ICareUnit
+  comments: IComment[],
 }
 
 export default IShift

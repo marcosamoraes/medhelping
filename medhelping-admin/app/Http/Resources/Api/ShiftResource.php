@@ -32,6 +32,7 @@ class ShiftResource extends JsonResource
 
             'care_unit'             => new CareUnitResource($this->careUnit),
             'user'                  => $this->user ? new UserResource($this->user) : null,
+            'comments'              => CommentResource::collection($this->comments),
         ];
     }
 }

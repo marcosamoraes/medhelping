@@ -22,6 +22,7 @@ class Comment extends Model
         'comment_id',
         'anonymous_publication',
         'message',
+        'type',
     ];
 
     protected function quantityLikes(): Attribute

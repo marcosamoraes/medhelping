@@ -179,6 +179,7 @@ class ArticleController extends Controller
                 'user_id'               => $request->user()->id,
                 'message'               => $validated['message'],
                 'anonymous_publication' => $validated['anonymous_publication'],
+                'type'                  => 'article',
             ];
 
             if (isset($validated['comment_id'])) {
@@ -199,7 +200,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * Comment the specified resource from storage.
+     * Share the specified resource from storage.
      */
     public function share(Article $article)
     {

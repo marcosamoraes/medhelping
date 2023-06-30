@@ -211,24 +211,24 @@ export default function PublicarPlantao() {
             style={styles.inputD}
             placeholder='Descrição *'
             multiline={true}
-            className='h-14 w-full align-text-top rounded-xl text-sm font-400 my-3 py-2 px-4'
+            className='h-32 w-full align-text-top rounded-xl text-sm font-400 my-3 py-2 px-4'
             placeholderTextColor={'white'}
             value={description}
             onChangeText={setDescription}
           />
-          <View className="flex-row items-center my-4">
+          {/* <View className="flex-row items-center my-4">
             <Checkbox
               value={anonymousPublication}
               onValueChange={(newValue) => setAnonymousPublication(newValue)} />
             <Text className="font-400 ml-3 pt-1 text-sm text-white">Publicar de Forma Anônima</Text>
-          </View>
+          </View> */}
           <TouchableOpacity 
             disabled={loading} 
             onPress={()=>handleSubmit()} 
             activeOpacity={0.8} 
             className="flex-row w-full bg-primary justify-center py-2 rounded-xl my-3 items-center"
           >
-            <Text className="text-white font-700 text-sm ml-2">Publicar Diagnóstico</Text>
+            <Text className="text-white font-700 text-sm ml-2">Publicar Plantão</Text>
           </TouchableOpacity>
           <View className="h-10"></View>
         </View>

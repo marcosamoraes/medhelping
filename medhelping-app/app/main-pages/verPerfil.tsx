@@ -1,4 +1,4 @@
-import { Image, ImageBackground, ScrollView, View, StyleSheet, TouchableOpacity, Text, Alert, Linking } from "react-native";
+import { Image, ImageBackground, ScrollView, View, StyleSheet, TouchableOpacity, Text, Alert, Linking, ActivityIndicator } from "react-native";
 import Footer from "@components/footer";
 import Header from "@components/header";
 import { FontAwesome } from '@expo/vector-icons';
@@ -107,122 +107,123 @@ export default function VerPerfil() {
                 <SideMenu/>
             </SidebarProvider>
             <ScrollView className="bg-background">
-                <ImageBackground blurRadius={10} className="w-full" style={styles.imageBackground} source={avatar}>
-                <View className="w-full bg-[#505050b1]">
-                    <View className="my-4 relative mx-auto">
-                        <Image source={avatar} className="h-28 w-28 object-cover rounded-full" />
-                        {(!id || id === user.id) && (
-                            <TouchableOpacity
-                                activeOpacity={0.7} 
-                                className="bg-background w-10 h-10 items-center justify-center rounded-full absolute z-10 right-0 bottom-0"
-                                onPress={pickImage}
-                            >
-                                <FontAwesome name="gear" size={20} color="white" />
-                            </TouchableOpacity>
-                        )}
-                    </View>
-                    <Text className="font-900 text-white text-center text-xl">{user.name}</Text>
-                    {/* <Text className="font-500 text-white text-center text-base">Breve descrição</Text> */}
-                    {(!id || id === user.id) && (
-                        <TouchableOpacity
-                            onPress={()=>handleEditProfile()} 
-                            activeOpacity={0.8} 
-                            className="w-1/2 mx-auto bg-[#07acf7] justify-center pt-2 pb-1 rounded-xl mt-3 mb-5 items-center"
-                        >
-                            <Text className="text-white font-600 text-sm ml-2">Editar Perfil</Text>
-                        </TouchableOpacity>
-                    )}
-                    <View className="flex-row mb-5 w-2/3 justify-evenly items-center mx-auto">
-                        {userData.infos?.link_facebook && (
-                            <TouchableOpacity
-                                className="h-9 w-9 rounded-full justify-center items-center bg-[#3C5A99]"
-                                onPress={() => Linking.openURL(userData.infos.link_facebook) }
-                            >
-                                <FontAwesome name="facebook-f" size={20} color="white" />
-                            </TouchableOpacity>
-                        )}
-                        {userData.infos?.link_instagram && (
-                            <TouchableOpacity
-                                className="h-9 w-9 rounded-full justify-center items-center bg-[#E5535F]"
-                                onPress={() => Linking.openURL(userData.infos.link_instagram) }
-                            >
-                                <FontAwesome name="instagram" size={20} color="white" />
-                            </TouchableOpacity>
-                        )}
-                        {userData.infos?.link_twitter && (
-                            <TouchableOpacity
-                                className="h-9 w-9 rounded-full justify-center items-center bg-[#24A1F2]"
-                                onPress={() => Linking.openURL(userData.infos.link_twitter) }
-                            >
-                                <FontAwesome name="twitter" size={20} color="white" />
-                            </TouchableOpacity>
-                        )}
-                        {userData.infos?.link_doctoralia && (
-                            <TouchableOpacity
-                                className="h-9 w-9 rounded-full justify-center items-center bg-[#5DC4A5]"
-                                onPress={() => Linking.openURL(userData.infos.link_doctoralia) }
-                            >
-                                <Image source={doctoraliaImg} className="w-5 h-5 object-cover"/>
-                            </TouchableOpacity>
-                        )}
-                    </View>
-                    </View>
-                </ImageBackground>
-                <View className="px-6 flex-row justify-between py-3 border-b border-b-[#1F2935]">
-                    <View>
-                        <Text className="font-700 mb-1 text-white">Localização</Text>
-                        <Text className="font-700 text-[#03DADB]">
-                            { userData.address ? `${userData.address.city} - ${userData.address.state}` : 'Não informado' }
-                        </Text>
-                    </View>
-                    <View>
-                        <Text className="font-700 mb-1 text-right text-white">CRM</Text>
-                        <Text className="font-700 text-right text-[#03DADB]">
-                            { userData.infos?.crm ?? 'Não informado' }
-                        </Text>
-                    </View>
-                </View>
-                <View className="px-6 flex-row justify-between py-3 border-b border-b-[#1F2935]">
-                    <View>
-                        <Text className="font-700 mb-1 text-white">Área de ocupação</Text>
-                        <Text className="font-700 text-[#03DADB]">
-                            { userData.infos?.occupation_area ?? 'Não informado' }
-                        </Text>
-                    </View>
-                    <View>
-                        <Text className="font-700 text-right mb-1 text-white">Especialidade</Text>
-                        <Text className="font-700 text-right text-[#03DADB]">
-                            { userData.infos?.specialties ?? 'Não informado' }
-                        </Text>
-                    </View>
-                </View>
-                <View className="px-6 flex-row justify-between py-3 border-b border-b-[#1F2935]">
-                    <View>
-                        <Text className="font-700 mb-1 text-white">Faculdade</Text>
-                        <Text className="font-700 text-[#03DADB]">
-                            { userData.infos?.faculty ?? 'Não informado' }
-                        </Text>
-                    </View>
-                    <View>
-                        <Text className="font-700 text-right mb-1 text-white">Formado em</Text>
-                        <Text className="font-700 text-right text-[#03DADB]">
-                            { userData.infos?.faculty_year ?? 'Não informado' }
-                        </Text>
-                    </View>
-                </View>
-                
-                <View className="px-6 mb-6 flex-row justify-between py-3 border-b border-b-[#1F2935]">
-                    <View>
-                        <Text className="font-700 my-1 text-sm text-white">
-                            {user.quantity_articles} {user.quantity_articles > 1 ? 'publicações' : 'publicação'}
-                        </Text>
-                    </View>
-                    <View>
-                        <Text className="font-700 my-1 text-sm text-white">
-                            {user.likes} {user.likes > 1 ? 'curtidas' : 'curtida'}
-                        </Text>
-                    </View>
-                </View>
+                {!userData ? (
+                    <ActivityIndicator 
+                        size="large" 
+                        color="#07acf7" 
+                        className="flex justify-center items-center h-[70vh]"
+                    />
+                ) : (
+                    <>
+                        <ImageBackground blurRadius={10} className="w-full" style={styles.imageBackground} source={avatar}>
+                        <View className="w-full bg-[#505050b1]">
+                            <View className="my-4 relative mx-auto">
+                                <Image source={avatar} className="h-28 w-28 object-cover rounded-full" />
+                                {(!id || id === user.id) && (
+                                    <TouchableOpacity
+                                        activeOpacity={0.7} 
+                                        className="bg-background w-10 h-10 items-center justify-center rounded-full absolute z-10 right-0 bottom-0"
+                                        onPress={pickImage}
+                                    >
+                                        <FontAwesome name="gear" size={20} color="white" />
+                                    </TouchableOpacity>
+                                )}
+                            </View>
+                            <Text className="font-900 text-white text-center text-xl">{userData.name}</Text>
+                            {/* <Text className="font-500 text-white text-center text-base">Breve descrição</Text> */}
+                            {(!id || id === user.id) && (
+                                <TouchableOpacity
+                                    onPress={()=>handleEditProfile()} 
+                                    activeOpacity={0.8} 
+                                    className="w-1/2 mx-auto bg-[#07acf7] justify-center pt-2 pb-1 rounded-xl mt-3 mb-2 items-center"
+                                >
+                                    <Text className="text-white font-600 text-sm ml-2">Editar Perfil</Text>
+                                </TouchableOpacity>
+                            )}
+                            <View className="flex-row mb-5 mt-3 w-2/3 justify-evenly items-center mx-auto">
+                                <TouchableOpacity
+                                    className={`h-9 w-9 rounded-full justify-center items-center 
+                                    ${userData.infos?.link_facebook ? 'bg-[#3C5A99]' : 'bg-[#505050]'}`}
+                                    disabled={!userData.infos?.link_facebook}
+                                    onPress={() => Linking.openURL(userData.infos.link_facebook) }
+                                >
+                                    <FontAwesome name="facebook-f" size={20} color="white"/>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    className={`h-9 w-9 rounded-full justify-center items-center 
+                                    ${userData.infos?.link_instagram ? 'bg-[#E5535F]' : 'bg-[#505050]'}`}
+                                    disabled={!userData.infos?.link_instagram}
+                                    onPress={() => Linking.openURL(userData.infos.link_instagram) }
+                                >
+                                    <FontAwesome name="instagram" size={20} color="white" />
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    className={`h-9 w-9 rounded-full justify-center items-center 
+                                    ${userData.infos?.link_twitter ? 'bg-[#24A1F2]' : 'bg-[#505050]'}`}
+                                    disabled={!userData.infos?.link_twitter}
+                                    onPress={() => Linking.openURL(userData.infos.link_twitter) }
+                                >
+                                    <FontAwesome name="twitter" size={20} color="white" />
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    className={`h-9 w-9 rounded-full justify-center items-center 
+                                    ${userData.infos?.link_doctoralia ? 'bg-[#5DC4A5]' : 'bg-[#505050]'}`}
+                                    disabled={!userData.infos?.link_doctoralia}
+                                    onPress={() => Linking.openURL(userData.infos.link_doctoralia) }
+                                >
+                                    <Image source={doctoraliaImg} className="w-5 h-5 object-cover"/>
+                                </TouchableOpacity>
+                            </View>
+                            </View>
+                        </ImageBackground>
+                        <View className="px-6 flex-row justify-between py-3 border-b border-b-[#1F2935]">
+                            <View>
+                                <Text className="font-700 mb-1 text-white">Localização</Text>
+                                <Text className="font-700 text-[#03DADB]">
+                                    { userData.address ? `${userData.address.city} - ${userData.address.state}` : 'Não informado' }
+                                </Text>
+                            </View>
+                            <View>
+                                <Text className="font-700 mb-1 text-right text-white">CRM</Text>
+                                <Text className="font-700 text-right text-[#03DADB]">
+                                    { userData.infos?.crm ?? 'Não informado' }
+                                </Text>
+                            </View>
+                        </View>
+                        <View className="px-6 flex-row justify-between py-3 border-b border-b-[#1F2935]">
+                            <View>
+                                <Text className="font-700 mb-1 text-white">Especialidade</Text>
+                                <Text className="font-700 text-[#03DADB]">
+                                    { userData.infos?.specialties ?? 'Não informado' }
+                                </Text>
+                            </View>
+                            <View>
+                                <Text className="font-700 mb-1 text-right text-white">Área de atuação</Text>
+                                <Text className="font-700 text-right text-[#03DADB]">
+                                    { userData.infos?.occupation_area ?? 'Não informado' }
+                                </Text>
+                            </View>
+                        </View>
+                        
+                        <View className="px-6 mb-6 flex-row justify-between py-3 border-b border-b-[#1F2935]">
+                            <View className="w-24">
+                                <Text className="font-700 my-1 text-sm text-white">
+                                    {userData.quantity_articles} {userData.quantity_articles > 1 ? 'publicações' : 'publicação'}
+                                </Text>
+                            </View>
+                            <View className="flex-1">
+                                <Text className="font-700 my-1 text-sm text-center text-white">
+                                    {userData.articles_commented} {userData.articles_commented > 1 ? 'comentários' : 'comentário'}
+                                </Text>
+                            </View>
+                            <View className="w-24">
+                                <Text className="font-700 my-1 text-sm text-right text-white">
+                                    {userData.likes} {userData.likes > 1 ? 'curtidas' : 'curtida'}
+                                </Text>
+                            </View>
+                        </View>
+                    </>
+                )}
             </ScrollView>
             <Footer />
         </>

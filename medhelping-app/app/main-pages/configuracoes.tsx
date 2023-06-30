@@ -96,7 +96,7 @@ export default function Configuracoes() {
             />
             <TextInput
                 style={styles.input}
-                placeholder='Área de atuação'
+                placeholder='Área de Atuação (Ex: Cirurgia Vascular)'
                 className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
                 placeholderTextColor={'white'}
                 value={userData.infos?.occupation_area}
@@ -104,7 +104,7 @@ export default function Configuracoes() {
             />
             <TextInput
                 style={styles.input}
-                placeholder='Especialidades'
+                placeholder='Especialidade (Ex: Cirurgia Geral)'
                 className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
                 placeholderTextColor={'white'}
                 value={userData.infos?.specialties}

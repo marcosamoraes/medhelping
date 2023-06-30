@@ -58,7 +58,7 @@ export default function SideMenu() {
                     <View className="flex-row py-2">
                         <FontAwesome name="plus" size={26} color="white" />
                         <Text className="pt-1 pl-4 font-900 text-white text-xl">
-                            Publicar Diagnóstico
+                            Publicar Caso
                         </Text>
                     </View>
                 </TouchableOpacity>

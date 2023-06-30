@@ -47,6 +47,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('comments/{comment}', [CommentController::class, 'destroy']);
     Route::post('comments/{comment}/like', [CommentController::class, 'like']);
 
+    Route::post('shifts/{shift}/comment', [ShiftController::class, 'comment']);
     Route::apiResource('shifts', ShiftController::class);
 
     Route::put('users/{user}/password', [UserController::class, 'updatePassword']);

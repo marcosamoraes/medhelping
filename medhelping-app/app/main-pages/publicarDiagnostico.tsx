@@ -138,7 +138,7 @@ export default function PublicarDiagnostico() {
                         style={styles.inputD}
                         placeholder='Descrição'
                         multiline={true}
-                        className='h-24 w-full align-text-top rounded-xl text-sm font-400 my-3 py-2 px-4'
+                        className='h-32 w-full align-text-top rounded-xl text-sm font-400 my-3 py-2 px-4'
                         placeholderTextColor={'white'}
                         value={description}
                         onChangeText={setDescription}
@@ -169,6 +169,11 @@ export default function PublicarDiagnostico() {
                             onValueChange={(newValue) => setAnonymousPublication(newValue)} />
                         <Text className="font-400 ml-3 pt-1 text-sm text-white">Publicar de Forma Anônima</Text>
                     </View>
+                    <View className="w-full p-4 rounded-xl bg-yellow-300">
+                        <Text className="font-500 text-yellow-900">Certifique-se de que os posts não contenham dados/fotos 
+                        ou vídeos que possam identificar o paciente, mantendo sua privacidade. Conteúdos fora dessa normativa, 
+                        após devidamente analisados e identificados, serão excluídos.</Text>
+                    </View>
                     <TouchableOpacity 
                         disabled={loading} 
                         onPress={()=> handleSubmit()} 
@@ -176,7 +181,7 @@ export default function PublicarDiagnostico() {
                         className="flex-row w-full bg-primary justify-center py-2 rounded-xl my-3 items-center"
                     >
                         <Text className="text-white font-700 text-sm ml-2">
-                            {loading ? <ActivityIndicator color="white" /> : "Publicar Diagnóstico"}
+                            {loading ? <ActivityIndicator color="white" /> : "Publicar Caso"}
                         </Text>
                     </TouchableOpacity>
                     <View className="h-10"></View>

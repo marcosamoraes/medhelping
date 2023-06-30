@@ -38,8 +38,9 @@ export default function Home() {
         debouncedFetch(text)
     }
 
-    const fetchArticles = async (text?: string) => {
+        const fetchArticles = async (text?: string) => {
         setLoading(true)
+        console.log(id, route.params)
         try {
             const { data: { data } } = await api.get(`/articles?category=${id}&search=${text ?? search}`)
             setArticles(data)
@@ -58,7 +59,7 @@ export default function Home() {
 
     useEffect(() => {
         fetchArticles()
-    }, [id])
+    }, [route])
 
     return (
         <SidebarProvider>
@@ -78,7 +79,8 @@ export default function Home() {
                 ) : articles.length > 0 && (
                     <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate("publishArticle")}>
                         <View className="w-full p-4 rounded-xl bg-primary">
-                            <Text className="font-900 mb-3 text-white">Dúvidas sobre o diagnóstico ou conduta para o paciente?</Text>
+                            <Text className="font-900 mb-3 text-sm text-white">Dúvida no diagnóstico ou conduta para o seu paciente?</Text>
+                            <Text className="mb-3 text-xs text-white">Publique seu caso clínico e encontre a melhor solução.</Text>
                         </View>
                     </TouchableOpacity>
                 )}

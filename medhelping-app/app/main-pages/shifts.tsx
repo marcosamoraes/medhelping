@@ -40,7 +40,7 @@ export default function Shifts() {
             const { data: { data } } = await api.get(`/shifts?search=${text ?? search}`)
             setShifts(data)
         } catch (error: any) {
-            console.error('shifts: ', error.response)
+            console.error('shifts: ', error.response.data)
         } finally {
             setLoading(false)
         }
@@ -66,7 +66,8 @@ export default function Shifts() {
                 {shifts.length > 0 && (
                     <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate("publishShift")}>
                         <View className="w-full p-4 rounded-xl bg-primary">
-                            <Text className="font-900 mb-3 text-white">Publique um plantão.</Text>
+                            <Text className="font-900 mb-3 text-sm text-white">Precisa passar seu plantão?</Text>
+                            <Text className="mb-3 text-xs text-white">Publique e tenha ajuda da comunidade Med Helping.</Text>
                         </View>
                     </TouchableOpacity>
                 )}

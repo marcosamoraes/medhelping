@@ -17,19 +17,20 @@ class UserResource extends JsonResource
     {
         // resource for User model with likes, articlesShared, UserAddress relationship, UserInfo relationship
         return [
-            'id'                => $this->id,
-            'name'              => $this->name,
-            'email'             => $this->email,
-            'whatsapp'          => $this->whatsapp,
-            'image'             => $this->image ? Storage::url($this->image) : null,
-            'likes'             => $this->likes,
-            'articles_shared'   => $this->articlesShared,
-            'quantity_articles' => $this->quantityArticles,
-            'created_at'        => $this->created_at->format('d/m/Y H:i:s'),
-            'updated_at'        => $this->updated_at->format('d/m/Y H:i:s'),
+            'id'                    => $this->id,
+            'name'                  => $this->name,
+            'email'                 => $this->email,
+            'whatsapp'              => $this->whatsapp,
+            'image'                 => $this->image ? Storage::url($this->image) : null,
+            'likes'                 => $this->likes,
+            'articles_shared'       => $this->articlesShared,
+            'articles_commented'    => $this->articlesCommented,
+            'quantity_articles'     => $this->quantityArticles,
+            'created_at'            => $this->created_at->format('d/m/Y H:i:s'),
+            'updated_at'            => $this->updated_at->format('d/m/Y H:i:s'),
 
-            'address'           => $this->address ? new UserAddressResource($this->address) : null,
-            'infos'             => $this->infos ? new UserInfoResource($this->infos) : null,
+            'address'               => $this->address ? new UserAddressResource($this->address) : null,
+            'infos'                 => $this->infos ? new UserInfoResource($this->infos) : null,
         ];
     }
 }
