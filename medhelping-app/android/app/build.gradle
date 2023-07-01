@@ -113,13 +113,13 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace 'com.marcosamoraes.medhelpingapp'
+    namespace 'br.com.medhelping'
     defaultConfig {
-        applicationId 'com.marcosamoraes.medhelpingapp'
+        applicationId 'br.com.medhelping'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0.0"
+        versionName "2.0.0"
     }
 
     splits {

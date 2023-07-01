@@ -3,7 +3,7 @@
     "name": "medhelping-app",
     "slug": "medhelping-app",
     "scheme": "medhelping",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -17,14 +17,14 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.marcosamoraes.medhelpingapp"
+      "bundleIdentifier": "com.medhelping"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#01061C"
       },
-      "package": "com.marcosamoraes.medhelpingapp"
+      "package": "br.com.medhelping"
     },
     "extra": {
       "eas": {

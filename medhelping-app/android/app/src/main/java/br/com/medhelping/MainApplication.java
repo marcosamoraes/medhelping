@@ -1,4 +1,4 @@
-package com.marcosamoraes.medhelpingapp;
+package br.com.medhelping;
 
 import android.app.Application;
 import android.content.res.Configuration;
