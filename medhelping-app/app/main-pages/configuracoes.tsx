@@ -96,19 +96,19 @@ export default function Configuracoes() {
             />
             <TextInput
                 style={styles.input}
-                placeholder='Área de Atuação (Ex: Cirurgia Vascular)'
-                className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
-                placeholderTextColor={'white'}
-                value={userData.infos?.occupation_area}
-                onChangeText={(value) => setUserData({ ...userData, infos: { ...userData.infos, occupation_area: value } })}
-            />
-            <TextInput
-                style={styles.input}
                 placeholder='Especialidade (Ex: Cirurgia Geral)'
                 className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
                 placeholderTextColor={'white'}
                 value={userData.infos?.specialties}
                 onChangeText={(value) => setUserData({ ...userData, infos: { ...userData.infos, specialties: value } })}
+            />
+            <TextInput
+                style={styles.input}
+                placeholder='Área de Atuação (Ex: Cirurgia Vascular)'
+                className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
+                placeholderTextColor={'white'}
+                value={userData.infos?.occupation_area}
+                onChangeText={(value) => setUserData({ ...userData, infos: { ...userData.infos, occupation_area: value } })}
             />
             <TextInput
                 style={styles.input}

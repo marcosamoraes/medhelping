@@ -32,6 +32,7 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('forgot-password', [PasswordController::class, 'forgot']);
 
 Route::get('categories', [CategoryController::class, 'index']);
+Route::get('categories/{category}', [CategoryController::class, 'show']);
 Route::get('care-units', [CareUnitController::class, 'index']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {

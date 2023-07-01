@@ -12,6 +12,7 @@ import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "expo-router";
 import { useRoute } from "@react-navigation/native";
 import { debounce } from "lodash";
+import ICategory from "@interfaces/ICategory";
 
 export default function Home() {
     const route = useRoute();
@@ -20,6 +21,7 @@ export default function Home() {
     const [articles, setArticles] = useState<IArticle[]>({} as IArticle[])
     const [loading, setLoading] = useState<boolean>(false)
     const [search, setSearch] = useState<string>('')
+    const [category, setCategory] = useState<ICategory>({} as ICategory)
 
     const navigation = useNavigation()
     
@@ -38,24 +40,24 @@ export default function Home() {
         debouncedFetch(text)
     }
 
-        const fetchArticles = async (text?: string) => {
+    const fetchArticles = async (text?: string) => {
         setLoading(true)
-        console.log(id, route.params)
         try {
             const { data: { data } } = await api.get(`/articles?category=${id}&search=${text ?? search}`)
             setArticles(data)
+
+            if (id) {
+                const { data: { category } } = await api.get(`/categories/${id}`)
+                setCategory(category)
+            } else {
+                setCategory({} as ICategory)
+            }
         } catch (error: any) {
             console.error('home: ', error.response)
         } finally {
             setLoading(false)
         }
     }
-
-    useEffect(() => {
-        return navigation.addListener('focus', () => {
-            fetchArticles()
-        });
-    }, [navigation]);
 
     useEffect(() => {
         fetchArticles()
@@ -89,7 +91,7 @@ export default function Home() {
                         <ActivityIndicator color="white" size={40} className="flex-1 h-60" />
                     ) : (
                         articles.length > 0 ? articles.map((article) => (
-                            <ArticleCard key={article.id} article={article} />
+                            <ArticleCard key={article.id} article={article} category={category} />
                         )) : (
                             <View className="w-full p-4 rounded-xl bg-primary">
                                 <Text className="font-700 text-white">Nenhuma publicação encontrada.</Text>
