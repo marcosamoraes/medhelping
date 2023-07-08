@@ -30,6 +30,7 @@ Route::get('/dashboard', DashboardController::class)->middleware(['auth', 'verif
 
 Route::get('/migrate', function () {
     Artisan::call('migrate');
+    Artisan::call('db:seed');
 });
 
 Route::middleware('auth')->group(function () {

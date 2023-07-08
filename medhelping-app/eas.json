@@ -12,7 +12,12 @@
         "buildType": "apk"
       }
     },
-    "production": {}
+    "production": {},
+    "google-production": {
+      "android": {
+        "credentialsSource": "local"
+      }
+    }
   },
   "submit": {
     "production": {}
