@@ -18,7 +18,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.medhelping",
-      "buildNumber": "2.0.2"
+      "buildNumber": "2.0.3"
     },
     "android": {
       "adaptiveIcon": {
@@ -34,7 +34,12 @@
       }
     },
     "plugins": [
-      "expo-tracking-transparency"
+      [
+        "expo-tracking-transparency",
+        {
+          "userTrackingPermission": "Isso será utilizado para entregar anúncios personalizados para você."
+        }
+      ]
     ]
   }
 }
