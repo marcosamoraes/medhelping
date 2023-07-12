@@ -31,7 +31,7 @@
       </dict>
     </array>
     <key>CFBundleVersion</key>
-    <string>2.0.2</string>
+    <string>2.0.3</string>
     <key>LSRequiresIPhoneOS</key>
     <true/>
     <key>NSAppTransportSecurity</key>
@@ -54,7 +54,7 @@
     <key>NSPhotoLibraryUsageDescription</key>
     <string>Allow $(PRODUCT_NAME) to access your photos</string>
     <key>NSUserTrackingUsageDescription</key>
-    <string>Allow this app to collect app-related data that can be used for tracking you or your device.</string>
+    <string>Isso será utilizado para entregar anúncios personalizados para você.</string>
     <key>UILaunchStoryboardName</key>
     <string>SplashScreen</string>
     <key>UIRequiredDeviceCapabilities</key>
