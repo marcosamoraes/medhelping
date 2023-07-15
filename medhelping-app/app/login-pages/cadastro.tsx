@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { View, Image, StyleSheet, TextInput, Text, Alert, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Image, StyleSheet, TextInput, Text, Alert, TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Link, useNavigation } from "expo-router";
 import { AuthContext } from '@contexts/Auth';
@@ -35,7 +35,9 @@ export default function Cadastro() {
     container: {
       width: 1000,
       height: 280,
-      top: -120
+      top: -120,
+      left: '50%',
+      marginLeft: -500
 
     },
     logo: {
@@ -50,9 +52,9 @@ export default function Cadastro() {
   });
 
   return (
-    <View className="bg-background flex-1 items-center">
+    <ScrollView className="bg-background flex-1">
       <Image style={styles.logo}
-        className="w-28 h-28 z-10 border-2 rounded-3xl mt-24 mb-16"
+        className="mx-auto w-28 h-28 z-10 border-2 rounded-3xl mt-24 mb-16"
         source={logo}
       />
       <LinearGradient
@@ -63,7 +65,7 @@ export default function Cadastro() {
       <TextInput
         style={styles.input}
         placeholder='Nome'
-        className='h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
+        className='mx-auto h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
         placeholderTextColor={'white'}
         value={name}
         onChangeText={setName}
@@ -71,7 +73,7 @@ export default function Cadastro() {
       <TextInput
         style={styles.input}
         placeholder='Email'
-        className='h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
+        className='mx-auto h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
         placeholderTextColor={'white'}
         value={email}
         onChangeText={setEmail}
@@ -79,7 +81,7 @@ export default function Cadastro() {
       <TextInput
         style={styles.input}
         placeholder='Senha'
-        className='h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
+        className='mx-auto h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
         placeholderTextColor={'white'}
         secureTextEntry={true}
         value={password}
@@ -88,7 +90,7 @@ export default function Cadastro() {
       <TextInput
         style={styles.input}
         placeholder='Confirmar senha'
-        className='h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
+        className='mx-auto h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
         placeholderTextColor={'white'}
         secureTextEntry={true}
         value={passwordConfirmation}
@@ -98,7 +100,7 @@ export default function Cadastro() {
         disabled={loading} 
         onPress={() => handleRegister()} 
         activeOpacity={0.8} 
-        className='w-4/5 overflow-hidden bg-[#348CA9] my-5 h-11 justify-center items-center rounded-2xl'
+        className='mx-auto w-4/5 overflow-hidden bg-[#348CA9] my-5 h-11 justify-center items-center rounded-2xl'
       >
         <LinearGradient
           colors={['rgba(3, 218, 219, 0.7)', 'rgba(7, 172, 247, 0.7)']}
@@ -110,9 +112,9 @@ export default function Cadastro() {
         </LinearGradient>
       </TouchableOpacity>
 
-      <TouchableOpacity className='my-5' onPress={() => navigation.navigate('login')}>
+      <TouchableOpacity className='mx-auto mb-2' onPress={() => navigation.navigate('login')}>
         <Text className='font-900 text-white text-base my-5'>Fazer Login</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   )
 }
