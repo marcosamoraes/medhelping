@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { View, Image, StyleSheet, TextInput, Text, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import { View, Image, StyleSheet, TextInput, Text, TouchableOpacity, Alert, ActivityIndicator, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from "expo-router";
 import { AuthContext } from '@contexts/Auth';
@@ -28,7 +28,9 @@ export default function Login() {
         container: {
             width: 1000,
             height: 280,
-            top: -120
+            top: -120,
+            left: '50%',
+            marginLeft: -500
 
         },
         logo: {
@@ -43,9 +45,9 @@ export default function Login() {
     });
 
     return (
-        <View className="bg-background flex-1 items-center">
+        <ScrollView className="bg-background flex-1">
             <Image style={styles.logo}
-                className="w-28 h-28 z-10 border-2 rounded-3xl mt-24 mb-20"
+                className="w-28 mx-auto h-28 z-10 border-2 rounded-3xl mt-24 mb-20"
                 source={logo}
             />
             <LinearGradient
@@ -56,7 +58,7 @@ export default function Login() {
             <TextInput
                 style={styles.input}
                 placeholder='Email'
-                className='h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
+                className='mx-auto h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
                 placeholderTextColor={'white'}
                 value={email}
                 onChangeText={setEmail}
@@ -64,17 +66,17 @@ export default function Login() {
             <TextInput
                 style={styles.input}
                 placeholder='Senha'
-                className='h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
+                className='mx-auto h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
                 placeholderTextColor={'white'}
                 secureTextEntry={true}
                 value={password}
                 onChangeText={setPassword}
             />
-            <TouchableOpacity 
-                disabled={loading} 
-                onPress={() => handleLogin()} 
-                activeOpacity={0.8} 
-                className='w-4/5 overflow-hidden bg-[#348CA9] my-5 h-11 justify-center items-center rounded-2xl'
+            <TouchableOpacity
+                disabled={loading}
+                onPress={() => handleLogin()}
+                activeOpacity={0.8}
+                className='mx-auto w-4/5 overflow-hidden bg-[#348CA9] my-5 h-11 justify-center items-center rounded-2xl'
             >
                 <LinearGradient
                     colors={['rgba(3, 218, 219, 0.7)', 'rgba(7, 172, 247, 0.7)']}
@@ -85,16 +87,16 @@ export default function Login() {
                     </Text>
                 </LinearGradient>
             </TouchableOpacity>
-            <TouchableOpacity className='my-5' onPress={() => navigation.navigate("forgotPassword")}>
+            <TouchableOpacity className='mx-auto my-5' onPress={() => navigation.navigate("forgotPassword")}>
                 <Text className='font-900 text-white text-base my-5'>
                     Esqueci minha senha
                 </Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('register')}>
+            <TouchableOpacity className='mx-auto mb-3' onPress={() => navigation.navigate('register')}>
                 <Text className='font-900 text-[#03DADB] text-base mt-5 mb-3'>
                     Novo no app? Criar conta!
                 </Text>
             </TouchableOpacity>
-        </View>
+        </ScrollView>
     )
 }

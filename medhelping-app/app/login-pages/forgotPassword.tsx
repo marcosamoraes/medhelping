@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Image, StyleSheet, TextInput, Text, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import { View, Image, StyleSheet, TextInput, Text, TouchableOpacity, Alert, ActivityIndicator, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Link, useNavigation } from "expo-router";
 import { api } from '../../sources/services/api';
@@ -29,8 +29,9 @@ export default function Forgot() {
     container: {
       width: 1000,
       height: 280,
-      top: -120
-
+      top: -120,
+      left: '50%',
+      marginLeft: -500
     },
     logo: {
       borderColor: '#EEEEEE',
@@ -45,9 +46,9 @@ export default function Forgot() {
 
   return (
     <>
-      <View className="bg-background flex-1 items-center">
+      <ScrollView className="bg-background flex-1">
         <Image style={styles.logo}
-          className="w-28 h-28 z-10 border-2 rounded-3xl my-24"
+          className="mx-auto w-28 h-28 z-10 border-2 rounded-3xl my-24"
           source={require('../../assets/images/medhelping_logo.png')}
         />
         <LinearGradient
@@ -58,7 +59,7 @@ export default function Forgot() {
         <TextInput
           style={styles.input}
           placeholder='Email de recuperação'
-          className='h-10 w-4/5 rounded-xl text-sm font-400 my-5 px-4'
+          className='mx-auto h-10 w-4/5 rounded-xl text-sm font-400 my-5 px-4'
           placeholderTextColor={'white'}
           value={email}
           onChangeText={setEmail}
@@ -67,7 +68,7 @@ export default function Forgot() {
           disabled={loading} 
           onPress={() => handleRecover()} 
           activeOpacity={0.8} 
-          className='w-4/5 overflow-hidden bg-[#348CA9] mt-7 mb-12 h-11 justify-center items-center rounded-2xl'
+          className='mx-auto w-4/5 overflow-hidden bg-[#348CA9] mt-7 mb-12 h-11 justify-center items-center rounded-2xl'
         >
           <LinearGradient
             colors={['rgba(3, 218, 219, 0.7)', 'rgba(7, 172, 247, 0.7)']}
@@ -79,10 +80,10 @@ export default function Forgot() {
           </LinearGradient>
         </TouchableOpacity>
 
-        <TouchableOpacity className='my-5' onPress={() => navigation.navigate('login')}>
+        <TouchableOpacity className='mx-auto my-5' onPress={() => navigation.navigate('login')}>
           <Text className='font-900 text-white text-base my-5'> Fazer Login </Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     </>
   )
 }

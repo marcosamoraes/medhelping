@@ -3,6 +3,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { FontAwesome } from '@expo/vector-icons'; 
 import { Ionicons } from '@expo/vector-icons';
 import { Link, useNavigation } from "expo-router";
+import { KeyboardAvoidingView } from "react-native";
 
 export default function Footer(){
     const navigation = useNavigation()
