@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "medhelping",
-    "slug": "medhelping",
+    "name": "Medhelping",
+    "slug": "medhelping-app",
     "scheme": "medhelping",
     "version": "2.0.1",
     "orientation": "portrait",
