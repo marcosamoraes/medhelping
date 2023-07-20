@@ -27,7 +27,7 @@ export default function SelectPicker({ name, value, setValue, items } : SelectPi
         marginTop: 10,
       }} >
         <Picker
-          style={{ color: "#FFF", marginTop: -5 }}
+          style={{ color: "#FFF", marginTop: -5, height: "100%", width: "100%" }}
           selectedValue={value}
           onValueChange={(itemValue, itemIndex) => setValue(itemValue)}
         >

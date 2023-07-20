@@ -14,7 +14,7 @@ class UploadController extends Controller
     public function store(Request $request, string $folder)
     {
         try {
-            $url = $request->file('file')->store($folder);
+            $url = $request->file('file')->storePublicly($folder);
             return response()->json($url, 200);
         } catch (Exception $e) {
             return response()->json([

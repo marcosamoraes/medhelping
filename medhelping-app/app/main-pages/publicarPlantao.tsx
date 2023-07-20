@@ -152,6 +152,7 @@ export default function PublicarPlantao() {
               mode="date"
               display="spinner"
               onChange={handleDateChange}
+              style={{width: '100%', height: '100%', backgroundColor: "white"}}
             />
           )}
 
@@ -170,6 +171,7 @@ export default function PublicarPlantao() {
               display="spinner"
               is24Hour={true}
               onChange={handleEntryTimeChange}
+              style={{width: '100%', height: '100%', backgroundColor: "white"}}
             />
           )}
 
@@ -188,6 +190,7 @@ export default function PublicarPlantao() {
               display="spinner"
               is24Hour={true}
               onChange={handleOutTimeChange}
+              style={{width: '100%', height: '100%', backgroundColor: "white"}}
             />
           )}
 

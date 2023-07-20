@@ -19,6 +19,11 @@ import ViewShift from '../../app/main-pages/viewShift';
 
 import { useContext } from 'react';
 import { AuthContext } from '@contexts/Auth';
+import { NavigationContainer } from '@react-navigation/native';
+
+import * as Linking from 'expo-linking';
+
+const prefix = Linking.createURL('/');
 
 export default function Routes() {
   const { Navigator, Screen } = createNativeStackNavigator()
@@ -30,30 +35,36 @@ export default function Routes() {
     animation: 'fade'
   } as NativeStackNavigationOptions
 
+  const linking = {
+    prefixes: [prefix],
+  };
+
   return (
-    <Navigator screenOptions={screenOptions}>
-      {user.id ? (
-        <>
-          <Screen name='home' component={Home} />
-          <Screen name='updatePassword' component={AlterarSenha} />
-          <Screen name='settings' component={Configuracoes} />
-          <Screen name='editProfile' component={EditarPerfil} />
-          <Screen name='contact' component={FaleConosco} />
-          <Screen name='listCategories' component={ListaCategorias} />
-          <Screen name='publishArticle' component={PublicarDiagnostico} />
-          <Screen name='publishShift' component={PublicarPlantao} />
-          <Screen name='shifts' component={Shifts} />
-          <Screen name='viewProfile' component={VerPerfil} />
-          <Screen name='viewPublication' component={VerPublicacao} />
-          <Screen name='viewShift' component={ViewShift} />
-        </>
-      ): (
-        <>
-          <Screen name='login' component={Login} />
-          <Screen name='register' component={Cadastro} />
-          <Screen name='forgotPassword' component={Forgot} />
-        </>
-      )}
-    </Navigator>
+    <NavigationContainer linking={linking} independent={true}>
+      <Navigator screenOptions={screenOptions}>
+        {user.id ? (
+          <>
+            <Screen name='home' component={Home} />
+            <Screen name='updatePassword' component={AlterarSenha} />
+            <Screen name='settings' component={Configuracoes} />
+            <Screen name='editProfile' component={EditarPerfil} />
+            <Screen name='contact' component={FaleConosco} />
+            <Screen name='listCategories' component={ListaCategorias} />
+            <Screen name='publishArticle' component={PublicarDiagnostico} />
+            <Screen name='publishShift' component={PublicarPlantao} />
+            <Screen name='shifts' component={Shifts} />
+            <Screen name='viewProfile' component={VerPerfil} />
+            <Screen name='viewPublication' component={VerPublicacao} />
+            <Screen name='viewShift' component={ViewShift} />
+          </>
+        ): (
+          <>
+            <Screen name='login' component={Login} />
+            <Screen name='register' component={Cadastro} />
+            <Screen name='forgotPassword' component={Forgot} />
+          </>
+        )}
+      </Navigator>
+    </NavigationContainer>
   )
 }

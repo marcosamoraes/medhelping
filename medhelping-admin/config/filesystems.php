@@ -42,6 +42,16 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
             'throw' => true,
+            'permissions' => [
+                'file' => [
+                    'public' => 0777,
+                    'private' => 0600,
+                ],
+                'dir' => [
+                    'public' => 0775,
+                    'private' => 0700,
+                ],
+            ],
         ],
 
         's3' => [

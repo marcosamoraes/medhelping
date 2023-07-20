@@ -51,6 +51,12 @@ class ArticleController extends Controller
 
             $validated['user_id'] = $request->user()->id;
 
+            if (!isset($validated['categories']) || !$validated['categories']) {
+                return response()->json([
+                    'message' => 'Selecione ao menos uma categoria',
+                ], 422);
+            }
+
             $article = Article::create($validated);
 
             foreach ($request->categories as $category) {
