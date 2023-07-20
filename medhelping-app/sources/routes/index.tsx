@@ -21,10 +21,6 @@ import { useContext } from 'react';
 import { AuthContext } from '@contexts/Auth';
 import { NavigationContainer } from '@react-navigation/native';
 
-import * as Linking from 'expo-linking';
-
-const prefix = Linking.createURL('/');
-
 export default function Routes() {
   const { Navigator, Screen } = createNativeStackNavigator()
 
@@ -36,7 +32,17 @@ export default function Routes() {
   } as NativeStackNavigationOptions
 
   const linking = {
-    prefixes: [prefix],
+    prefixes: ['medhelping://', 'com.medhelping://', 'com.marcosamoraes.medhelpingapp://', 'br.com.medhelping://'],
+    config: {
+      screens: {
+        viewPublication: {
+          path: 'viewPublication/:id',
+          parse: {
+            id: (id: string) => Number(id)
+          }
+        },
+      }
+    }
   };
 
   return (

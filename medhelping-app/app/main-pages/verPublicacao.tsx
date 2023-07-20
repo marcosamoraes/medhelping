@@ -79,7 +79,7 @@ export default function VerPublicacao() {
 
     const handleShare = async () => {
         Share.share({
-            message: `Compartilhando o artigo ${article.title} que vi no MedHelping\n\nhttps://medhelping.com.br`,
+            message: `Compartilhando o artigo ${article.title} que vi no MedHelping\n\nmedhelping://viewPublication/${id}`,
         })
 
         try {
