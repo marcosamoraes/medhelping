@@ -37,6 +37,7 @@ Route::get('care-units', [CareUnitController::class, 'index']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('me', [AuthController::class, 'me']);
+    Route::get('delete-user', [AuthController::class, 'deleteUser']);
 
     Route::post('upload/{folder}', [UploadController::class, 'store']);
 

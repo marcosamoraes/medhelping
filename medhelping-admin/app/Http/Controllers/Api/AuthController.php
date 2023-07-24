@@ -68,6 +68,26 @@ class AuthController extends Controller
         return response()->json(new UserResource($request->user()));
     }
 
+    /*
+    * Delete user
+    */
+    public function deleteUser(Request $request)
+    {
+        try {
+            $user = $request->user();
+            $user->delete();
+
+            return response()->json([
+                'message' => 'Conta excluída com sucesso.',
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Falha ao excluir conta, tente novamente mais tarde.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
     /**
      * Create a new token
      */
