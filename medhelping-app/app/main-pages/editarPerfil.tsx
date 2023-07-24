@@ -1,14 +1,14 @@
-import { Image, ScrollView, StyleSheet, TextInput, Text, TouchableOpacity, View, Alert, ActivityIndicator } from "react-native";
 import Footer from "@components/footer";
 import Header from "@components/header";
-import { useNavigation } from "expo-router";
-import SidebarProvider from "@contexts/Sidebar";
 import SideMenu from "@components/sideMenu";
 import TouchableBlur from "@components/touchableBlur";
-import { useContext, useEffect, useState } from "react";
-import { api } from "@services/api";
-import IUser from "@interfaces/IUser";
 import { AuthContext } from "@contexts/Auth";
+import SidebarProvider from "@contexts/Sidebar";
+import IUser from "@interfaces/IUser";
+import { api } from "@services/api";
+import { useNavigation } from "expo-router";
+import { useContext, useEffect, useState } from "react";
+import { ActivityIndicator, Alert, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 const avatarImg = require("../../assets/images/avatar-template.jpg")
 
@@ -16,7 +16,7 @@ export default function EditarPerfil() {
     const [loading, setLoading] = useState(false);
     const [userData, setUserData] = useState<IUser>({} as IUser);
 
-    const { user, updateUser } = useContext(AuthContext)
+    const { user, updateUser, logout } = useContext(AuthContext)
 
     useEffect(() => {
         setUserData(user)
@@ -56,6 +56,22 @@ export default function EditarPerfil() {
             updateUser(response.data.user)
         } catch (error: any) {
             console.error('editarPerfil: ', error.response.data.error)
+            const message = error.response.data.message ?? 'Ocorreu um erro, tente novamente';
+            Alert.alert('Erro', message, [{ text: 'OK' }])
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const handleDeleteAccount = async () => {
+        setLoading(true)
+        
+        try {
+            const response = await api.get(`/delete-user`)
+            Alert.alert('Sucesso', response.data.message, [{ text: 'OK' }])
+            logout()
+        } catch (error: any) {
+            console.error('deleteAccount: ', error.response.data.error)
             const message = error.response.data.message ?? 'Ocorreu um erro, tente novamente';
             Alert.alert('Erro', message, [{ text: 'OK' }])
         } finally {
@@ -181,6 +197,17 @@ export default function EditarPerfil() {
                 >
                     <Text className="text-white font-700 text-sm ml-2">
                         {loading ? <ActivityIndicator color="white" /> : 'Atualizar perfil'}
+                    </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity 
+                    disabled={loading} 
+                    onPress={handleDeleteAccount} 
+                    activeOpacity={0.8} 
+                    className="flex-row w-full bg-red-500 justify-center pt-2 pb-1 rounded-xl my-3 items-center"
+                >
+                    <Text className="text-white font-700 text-sm ml-2">
+                        {loading ? <ActivityIndicator color="white" /> : 'Deletar conta'}
                     </Text>
                 </TouchableOpacity>
                 <View className="h-5"></View>
