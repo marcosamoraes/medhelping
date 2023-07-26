@@ -75,7 +75,7 @@ class AuthController extends Controller
     {
         try {
             $user = $request->user();
-            $user->delete();
+            $user->update(['active' => 0]);
 
             return response()->json([
                 'message' => 'Conta excluída com sucesso.',

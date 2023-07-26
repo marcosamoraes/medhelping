@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\ShiftController;
 use App\Http\Controllers\Api\UploadController;
 use App\Http\Controllers\Api\UserController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,12 @@ use App\Http\Controllers\Api\UserController;
 
 Route::get('/', function () {
     return response()->json(['message' => 'MedHelping API', 'status' => 'Connected']);;
+});
+
+Route::get('app', function (Request $request) {
+    $url = $request->prefix . '?path=' . $request->path . '&id=' . $request->id;
+    dd($url);
+    return redirect($url);
 });
 
 Route::post('login', [AuthController::class, 'login']);
