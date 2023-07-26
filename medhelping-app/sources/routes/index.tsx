@@ -17,24 +17,32 @@ import VerPublicacao from '../../app/main-pages/verPublicacao';
 import Shifts from '../../app/main-pages/shifts';
 import ViewShift from '../../app/main-pages/viewShift';
 
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { AuthContext } from '@contexts/Auth';
 import { NavigationContainer } from '@react-navigation/native';
+import { createURL, useURL } from 'expo-linking';
+import { RedirectContext } from '@contexts/Redirect';
 
 export default function Routes() {
   const { Navigator, Screen } = createNativeStackNavigator()
 
   const { user } = useContext(AuthContext)
+  const { setPath, setId } = useContext(RedirectContext)
+
+  const redirectURL = useURL()
 
   const screenOptions = {
     headerShown: false,
     animation: 'fade'
   } as NativeStackNavigationOptions
 
+  const prefix = createURL("/")
+
   const linking = {
-    prefixes: ['medhelping://', 'com.medhelping://', 'com.marcosamoraes.medhelpingapp://', 'br.com.medhelping://'],
+    prefixes: [prefix],
     config: {
       screens: {
+        register: 'register',
         viewPublication: {
           path: 'viewPublication/:id',
           parse: {
@@ -45,6 +53,19 @@ export default function Routes() {
     }
   };
 
+  useEffect(() => {
+    if (redirectURL) {
+      const queryParams = redirectURL?.split('?')[1]
+      const params = queryParams?.split('&').reduce((acc: any, param: string) => {
+        const [key, value] = param.split('=')
+        acc[key] = value
+        return acc
+      }, {})
+      setPath(params?.path)
+      setId(params?.id)
+    }
+  }, [redirectURL])
+  
   return (
     <NavigationContainer linking={linking} independent={true}>
       <Navigator screenOptions={screenOptions}>

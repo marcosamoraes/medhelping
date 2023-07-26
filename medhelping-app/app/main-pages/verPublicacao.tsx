@@ -16,6 +16,7 @@ import { useNavigation } from "expo-router";
 import ArticleComment from '../../sources/components/ArticleComment';
 import IComment from "@interfaces/IComment";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { createURL } from "expo-linking";
 
 const examBackground = require("../../assets/images/img-fundo-exame.png");
 
@@ -78,9 +79,12 @@ export default function VerPublicacao() {
         }
     }
 
+    const prefix = createURL("/")
+
     const handleShare = async () => {
-        Share.share({
-            message: `Compartilhando o artigo ${article.title} que vi no MedHelping\n\nmedhelping://viewPublication/${id}`,
+        await Share.share({
+            message: `Compartilhando o artigo ${article.title} que vi no MedHelping`,
+            url: `https://api.medhelping.com.br/api/app?prefix=${prefix}&path=viewPublication&id=${id}`
         })
 
         try {

@@ -4,7 +4,7 @@ import Header from "@components/header";
 import SideMenu from "@components/sideMenu";
 import SidebarProvider from "@contexts/Sidebar";
 import TouchableBlur from "@components/touchableBlur";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { api } from "@services/api";
 import ArticleCard from "@components/ArticleCard";
 import IArticle from '@interfaces/IArticle';
@@ -14,6 +14,8 @@ import { useRoute } from "@react-navigation/native";
 import { debounce } from "lodash";
 import ICategory from "@interfaces/ICategory";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { RedirectContext } from "@contexts/Redirect";
+import { AuthContext } from "@contexts/Auth";
 
 export default function Home() {
     const route = useRoute();
@@ -24,7 +26,17 @@ export default function Home() {
     const [search, setSearch] = useState<string>('')
     const [category, setCategory] = useState<ICategory>({} as ICategory)
 
+    const { logout } = useContext(AuthContext)
+    const { path, id: pathId, deleteRedirectUrl } = useContext(RedirectContext)
+
     const navigation = useNavigation()
+
+    useEffect(() => {
+        if (path && pathId) {
+            navigation.navigate('viewPublication', { id: pathId })
+            deleteRedirectUrl()
+        }
+    }, [path])
     
     const debouncedFetch = useRef(
         debounce(async (text: string) => fetchArticles(text), 500)
@@ -54,7 +66,10 @@ export default function Home() {
                 setCategory({} as ICategory)
             }
         } catch (error: any) {
-            console.error('home: ', error.response)
+            console.error('home: ', error.response.data.message)
+            if (error.response?.data?.message === 'Unauthenticated.') {
+                logout()
+            }
         } finally {
             setLoading(false)
         }
