@@ -11,6 +11,7 @@ import { useNavigation } from "expo-router";
 import { debounce } from "lodash";
 import IShift from "@interfaces/IShift";
 import ShiftCard from "@components/ShiftCard";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function Shifts() {
     const [shifts, setShifts] = useState<IShift[]>({} as IShift[])
@@ -62,7 +63,7 @@ export default function Shifts() {
             <Header />
             <SideMenu />
 
-            <ScrollView className="w-screen py-6 px-6 bg-background">
+            <KeyboardAwareScrollView className="w-screen py-6 px-6 bg-background">
                 {shifts.length > 0 && (
                     <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate("publishShift")}>
                         <View className="w-full p-4 rounded-xl bg-primary">
@@ -91,7 +92,7 @@ export default function Shifts() {
                         )
                     )}
                 </View>
-            </ScrollView>
+            </KeyboardAwareScrollView>
             <Footer />
         </SidebarProvider>
     )

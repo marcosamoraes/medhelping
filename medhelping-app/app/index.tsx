@@ -8,15 +8,6 @@ import SplashScreen from '../sources/screens/splash_screen_screen';
 export default function App() {
   const [hasLoadedFonts] = useFonts({ Catamaran_300Light, Catamaran_400Regular, Catamaran_500Medium, Catamaran_600SemiBold, Catamaran_700Bold, Catamaran_800ExtraBold, Catamaran_900Black })
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const { status } = await requestTrackingPermissionsAsync();
-  //     if (status === 'granted') {
-  //       console.log('Yay! I have user permission to track data');
-  //     }
-  //   })();
-  // }, []);
-
   return (
     <AuthProvider>
       <View className='flex flex-1 bg-background'>

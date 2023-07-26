@@ -3,6 +3,7 @@ import { View, Image, StyleSheet, TextInput, Text, TouchableOpacity, Alert, Acti
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from "expo-router";
 import { AuthContext } from '@contexts/Auth';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const logo = require('../../assets/images/medhelping_logo.png');
 
@@ -45,7 +46,7 @@ export default function Login() {
     });
 
     return (
-        <ScrollView className="bg-background flex-1">
+        <KeyboardAwareScrollView className="bg-background flex-1">
             <Image style={styles.logo}
                 className="w-28 mx-auto h-28 z-10 border-2 rounded-3xl mt-24 mb-20"
                 source={logo}
@@ -97,6 +98,6 @@ export default function Login() {
                     Novo no app? Criar conta!
                 </Text>
             </TouchableOpacity>
-        </ScrollView>
+        </KeyboardAwareScrollView>
     )
 }

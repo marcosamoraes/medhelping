@@ -7,6 +7,7 @@ import SidebarProvider from "@contexts/Sidebar";
 import TouchableBlur from "@components/touchableBlur";
 import { useState } from "react";
 import { api } from "@services/api";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const mailIcon = require("../../assets/images/mailicon.png");
 
@@ -55,7 +56,7 @@ export default function FaleConosco() {
         <Header/>
         <SideMenu/>
       </SidebarProvider>
-      <ScrollView className="w-screen pt-6 px-6 bg-background">
+      <KeyboardAwareScrollView className="w-screen pt-6 px-6 bg-background">
         <View className="w-full justify-center items-center">
           <Image className="w-20 h-20" source={mailIcon}/>
           <Text className="text-white font-900 text-xl my-4">Fale conosco</Text>
@@ -87,7 +88,7 @@ export default function FaleConosco() {
           <Text className="text-white font-700 text-sm ml-2">{loading ? <ActivityIndicator color="white" /> : 'Enviar'}</Text>
         </TouchableOpacity>
         <View className="h-10"></View>
-      </ScrollView>
+      </KeyboardAwareScrollView>
       <Footer/>
     </>
   )

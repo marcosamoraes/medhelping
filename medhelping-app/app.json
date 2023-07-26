@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "Medhelping",
+    "name": "Med Helping",
     "slug": "medhelping-app",
     "scheme": "medhelping",
-    "version": "2.0.3",
+    "version": "2.0.5",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -18,7 +18,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.medhelping",
-      "buildNumber": "2.0.6"
+      "buildNumber": "2.0.8"
     },
     "android": {
       "adaptiveIcon": {

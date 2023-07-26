@@ -3,6 +3,7 @@ import { View, Image, StyleSheet, TextInput, Text, Alert, TouchableOpacity, Acti
 import { LinearGradient } from 'expo-linear-gradient';
 import { Link, useNavigation } from "expo-router";
 import { AuthContext } from '@contexts/Auth';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const logo = require('../../assets/images/medhelping_logo.png');
 
@@ -52,7 +53,7 @@ export default function Cadastro() {
   });
 
   return (
-    <ScrollView className="bg-background flex-1">
+    <KeyboardAwareScrollView className="bg-background flex-1">
       <Image style={styles.logo}
         className="mx-auto w-28 h-28 z-10 border-2 rounded-3xl mt-24 mb-16"
         source={logo}
@@ -115,6 +116,6 @@ export default function Cadastro() {
       <TouchableOpacity className='mx-auto mb-2' onPress={() => navigation.navigate('login')}>
         <Text className='font-900 text-white text-base my-5'>Fazer Login</Text>
       </TouchableOpacity>
-    </ScrollView>
+    </KeyboardAwareScrollView>
   )
 }

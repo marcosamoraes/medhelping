@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { api } from "@services/api";
 import CategoriaCard from "@components/categoriaCard";
 import ICategory from "@interfaces/ICategory";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function ListaCategorias(){
     const [categories, setCategories] = useState<ICategory[]>({} as ICategory[]);
@@ -36,7 +37,7 @@ export default function ListaCategorias(){
                 <Header/>
                 <SideMenu/>
             </SidebarProvider>
-            <ScrollView className="h-full bg-background">
+            <KeyboardAwareScrollView className="h-full bg-background">
                 <View className="px-6 py-6 h-full flex-row flex-wrap bg-background w-screen">
                     {loading ? (
                         <ActivityIndicator color="white" size={40} className="flex-1 h-60" />
@@ -46,7 +47,7 @@ export default function ListaCategorias(){
                         })
                     )}
                 </View>
-            </ScrollView>
+            </KeyboardAwareScrollView>
             <Footer/>
         </>
     )

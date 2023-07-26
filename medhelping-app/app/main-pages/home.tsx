@@ -13,6 +13,7 @@ import { useNavigation } from "expo-router";
 import { useRoute } from "@react-navigation/native";
 import { debounce } from "lodash";
 import ICategory from "@interfaces/ICategory";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function Home() {
     const route = useRoute();
@@ -69,7 +70,7 @@ export default function Home() {
             <Header />
             <SideMenu />
 
-            <ScrollView className="w-screen py-6 px-6 bg-background">
+            <KeyboardAwareScrollView className="w-screen py-6 px-6 bg-background">
                 {id ? (
                     <TextInput
                         placeholder='Busque pelo título ou autor'
@@ -99,7 +100,7 @@ export default function Home() {
                         )
                     )}
                 </View>
-            </ScrollView>
+            </KeyboardAwareScrollView>
             <Footer />
         </SidebarProvider>
     )

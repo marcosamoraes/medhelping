@@ -13,6 +13,7 @@ import Footer from "@components/footer";
 import { Ionicons } from '@expo/vector-icons';
 import IComment from "@interfaces/IComment";
 import ArticleComment from "@components/ArticleComment";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const examBackground = require("../../assets/images/img-fundo-exame.png");
 
@@ -86,7 +87,7 @@ export default function ViewShift() {
                 <Header />
                 <SideMenu />
             </SidebarProvider>
-            <ScrollView className="w-screen bg-background">
+            <KeyboardAwareScrollView className="w-screen bg-background">
                 {!loading ? (
                     <>
                         <Image className="w-full h-40 object-cover" source={examBackground} />
@@ -149,7 +150,7 @@ export default function ViewShift() {
                         <ActivityIndicator size="large" color="white" />
                     </View>
                 )}
-            </ScrollView>
+            </KeyboardAwareScrollView>
 
             <View style={{ paddingBottom: bottom }} className='bg-background mt-auto border-t-2 border-t-[#1F2935] w-screen'>
                 {replyComment && (

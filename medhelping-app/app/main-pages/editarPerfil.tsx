@@ -9,6 +9,7 @@ import { api } from "@services/api";
 import { useNavigation } from "expo-router";
 import { useContext, useEffect, useState } from "react";
 import { ActivityIndicator, Alert, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const avatarImg = require("../../assets/images/avatar-template.jpg")
 
@@ -102,7 +103,7 @@ export default function EditarPerfil() {
                 <Header/>
                 <SideMenu/>
             </SidebarProvider>
-            <ScrollView className="w-screen px-6 bg-background">
+            <KeyboardAwareScrollView className="w-screen px-6 bg-background">
                 <Image className="w-28 mx-auto h-28 my-6 object-cover rounded-full" source={avatar} />
                 <TextInput
                     style={styles.input}
@@ -211,7 +212,7 @@ export default function EditarPerfil() {
                     </Text>
                 </TouchableOpacity>
                 <View className="h-5"></View>
-            </ScrollView>
+            </KeyboardAwareScrollView>
             <Footer />
         </>
     )

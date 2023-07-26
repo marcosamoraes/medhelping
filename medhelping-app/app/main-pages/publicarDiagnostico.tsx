@@ -11,6 +11,7 @@ import { api } from "@services/api";
 import ICategory from "@interfaces/ICategory";
 import SelectPicker from "@components/SelectPicker";
 import * as ImagePicker from 'expo-image-picker';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 export default function PublicarDiagnostico() {
     const [loading, setLoading] = useState<boolean>(false);
@@ -120,7 +121,7 @@ export default function PublicarDiagnostico() {
                 <Header/>
                 <SideMenu/>
             </SidebarProvider>
-            <ScrollView className="w-screen pt-6 px-6 bg-background">
+            <KeyboardAwareScrollView className="w-screen pt-6 px-6 bg-background">
                 <View className="w-full p-4 rounded-xl bg-primary">
                     <Text className="font-900 mb-3 text-white">Publique seu caso clínico.</Text>
                     <Text className="font-700 text-white">Pergunte a comunidade MedHelping.</Text>
@@ -186,7 +187,7 @@ export default function PublicarDiagnostico() {
                     </TouchableOpacity>
                     <View className="h-10"></View>
                 </View>
-            </ScrollView>
+            </KeyboardAwareScrollView>
         </>
     )
 }

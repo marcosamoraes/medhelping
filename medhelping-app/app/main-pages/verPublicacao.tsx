@@ -15,6 +15,7 @@ import Checkbox from "expo-checkbox";
 import { useNavigation } from "expo-router";
 import ArticleComment from '../../sources/components/ArticleComment';
 import IComment from "@interfaces/IComment";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const examBackground = require("../../assets/images/img-fundo-exame.png");
 
@@ -110,7 +111,7 @@ export default function VerPublicacao() {
                 <Header />
                 <SideMenu />
             </SidebarProvider>
-            <ScrollView className="w-screen bg-background">
+            <KeyboardAwareScrollView className="w-screen bg-background">
                 {!loading ? (
                     <>
                         <Image className="w-full h-40 object-cover" source={articleImage} />
@@ -167,7 +168,7 @@ export default function VerPublicacao() {
                         <ActivityIndicator size="large" color="white" />
                     </View>
                 )}
-            </ScrollView>
+            </KeyboardAwareScrollView>
 
             <View style={{ paddingBottom: bottom }} className='bg-background mt-auto border-t-2 border-t-[#1F2935] w-screen'>
                 {replyComment && (

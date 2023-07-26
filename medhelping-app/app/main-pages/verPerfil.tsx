@@ -12,6 +12,7 @@ import { useRoute } from "@react-navigation/native";
 import IUser from "@interfaces/IUser";
 import { api } from "@services/api";
 import * as ImagePicker from 'expo-image-picker';
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const doctoraliaImg = require('../../assets/images/doctoralia.png');
 const avatarImg = require('../../assets/images/avatar-template.jpg');
@@ -106,7 +107,7 @@ export default function VerPerfil() {
                 <Header/>
                 <SideMenu/>
             </SidebarProvider>
-            <ScrollView className="bg-background">
+            <KeyboardAwareScrollView className="bg-background">
                 {!userData ? (
                     <ActivityIndicator 
                         size="large" 
@@ -224,7 +225,7 @@ export default function VerPerfil() {
                         </View>
                     </>
                 )}
-            </ScrollView>
+            </KeyboardAwareScrollView>
             <Footer />
         </>
     )

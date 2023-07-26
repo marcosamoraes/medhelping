@@ -3,6 +3,7 @@ import { View, Image, StyleSheet, TextInput, Text, TouchableOpacity, Alert, Acti
 import { LinearGradient } from 'expo-linear-gradient';
 import { Link, useNavigation } from "expo-router";
 import { api } from '../../sources/services/api';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function Forgot() {
   const [loading, setLoading] = useState(false);
@@ -46,7 +47,7 @@ export default function Forgot() {
 
   return (
     <>
-      <ScrollView className="bg-background flex-1">
+      <KeyboardAwareScrollView className="bg-background flex-1">
         <Image style={styles.logo}
           className="mx-auto w-28 h-28 z-10 border-2 rounded-3xl my-24"
           source={require('../../assets/images/medhelping_logo.png')}
@@ -83,7 +84,7 @@ export default function Forgot() {
         <TouchableOpacity className='mx-auto my-5' onPress={() => navigation.navigate('login')}>
           <Text className='font-900 text-white text-base my-5'> Fazer Login </Text>
         </TouchableOpacity>
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </>
   )
 }

@@ -11,6 +11,7 @@ import SelectPicker from "@components/SelectPicker";
 import Checkbox from "expo-checkbox";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from "moment";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function PublicarPlantao() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -94,19 +95,16 @@ export default function PublicarPlantao() {
 
   const handleDateChange = (event: any, selectedDate: any) => {
     const currentDate = selectedDate || date;
-    setShowDate(false)
     setDate(currentDate)
   };
 
   const handleEntryTimeChange = (event: any, selectedTime: any) => {
     const currentTime = selectedTime || entryTime;
-    setShowEntryTime(false)
     setEntryTime(currentTime)
   };
 
   const handleOutTimeChange = (event: any, selectedTime: any) => {
     const currentTime = selectedTime || outTime;
-    setShowOutTime(false)
     setOutTime(currentTime)
   };
 
@@ -121,7 +119,7 @@ export default function PublicarPlantao() {
         <Header/>
         <SideMenu/>
       </SidebarProvider>
-      <ScrollView className="w-screen pt-6 px-6 bg-background">
+      <KeyboardAwareScrollView className="w-screen pt-6 px-6 bg-background">
           <View className="w-full p-3 rounded-xl bg-primary">
             <Text className="font-900 text-white">Publique seu plantão.</Text>
           </View>
@@ -145,14 +143,22 @@ export default function PublicarPlantao() {
             placeholderTextColor={'white'}
             value={dateFormatted}
             onFocus={() => setShowDate(true)}
+            onBlur={() => setShowDate(false)}
           />
           {showDate && (
             <DateTimePicker
               value={date}
               mode="date"
               display="spinner"
+              locale="pt-BR"
               onChange={handleDateChange}
-              style={{width: '100%', height: '100%', backgroundColor: "white"}}
+              style={{ 
+                borderRadius: 15, 
+                borderWidth: 1,
+                borderColor: "white", 
+                backgroundColor: "#FFF",
+                marginTop: -150
+              }}
             />
           )}
 
@@ -163,6 +169,7 @@ export default function PublicarPlantao() {
             placeholderTextColor={'white'}
             value={entryTimeFormatted}
             onFocus={() => setShowEntryTime(true)}
+            onBlur={() => setShowEntryTime(false)}
           />
           {showEntryTime && (
             <DateTimePicker
@@ -170,8 +177,15 @@ export default function PublicarPlantao() {
               mode="time"
               display="spinner"
               is24Hour={true}
+              locale="pt-BR"
               onChange={handleEntryTimeChange}
-              style={{width: '100%', height: '100%', backgroundColor: "white"}}
+              style={{ 
+                borderRadius: 15, 
+                borderWidth: 1,
+                borderColor: "white", 
+                backgroundColor: "#FFF",
+                marginTop: -150
+              }}
             />
           )}
 
@@ -182,6 +196,7 @@ export default function PublicarPlantao() {
             placeholderTextColor={'white'}
             value={outTimeFormatted}
             onFocus={() => setShowOutTime(true)}
+            onBlur={() => setShowOutTime(false)}
           />
           {showOutTime && (
             <DateTimePicker
@@ -189,8 +204,15 @@ export default function PublicarPlantao() {
               mode="time"
               display="spinner"
               is24Hour={true}
+              locale="pt-BR"
               onChange={handleOutTimeChange}
-              style={{width: '100%', height: '100%', backgroundColor: "white"}}
+              style={{ 
+                borderRadius: 15, 
+                borderWidth: 1,
+                borderColor: "white", 
+                backgroundColor: "#FFF",
+                marginTop: -150
+              }}
             />
           )}
 
@@ -235,7 +257,7 @@ export default function PublicarPlantao() {
           </TouchableOpacity>
           <View className="h-10"></View>
         </View>
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </>
   )
 }

@@ -10,6 +10,7 @@ import { useContext, useEffect, useState } from "react";
 import { api } from "@services/api";
 import { AuthContext } from "@contexts/Auth";
 import IUser from "@interfaces/IUser";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function Configuracoes() {
     const [loading, setLoading] = useState(false);
@@ -60,7 +61,7 @@ export default function Configuracoes() {
             <Header/>
             <SideMenu/>
         </SidebarProvider>
-        <ScrollView className="w-screen px-6 bg-background">
+        <KeyboardAwareScrollView className="w-screen px-6 bg-background">
             <TextInput
                 style={styles.input}
                 placeholder='Idade'
@@ -153,7 +154,7 @@ export default function Configuracoes() {
                 </Text>
             </TouchableOpacity>
             <View className="h-4"></View>
-        </ScrollView>
+        </KeyboardAwareScrollView>
         <Footer />
     </>)
 }
