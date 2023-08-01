@@ -12,6 +12,7 @@ interface IArticle {
   quantity_shared: number,
   likes: number,
   userLiked: boolean,
+  is_the_owner: boolean,
   created_at: string,
   updated_at: string,
 

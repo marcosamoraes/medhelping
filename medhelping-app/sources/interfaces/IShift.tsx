@@ -12,6 +12,7 @@ interface IShift {
   payment_method?: string
   description: string
   anonymous_publication: boolean
+  is_the_owner: boolean
   created_at: string
   updated_at: string
 

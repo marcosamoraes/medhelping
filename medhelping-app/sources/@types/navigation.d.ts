@@ -21,6 +21,9 @@ export declare global {
       viewShift: {
         id: int
       }
+      viewPublicationImage: {
+        image: string
+      }
     }
   }
 }

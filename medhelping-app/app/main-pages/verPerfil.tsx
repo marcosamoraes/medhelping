@@ -38,11 +38,23 @@ export default function VerPerfil() {
         }
     }
 
+    const fetchUserLoggedData = async () => {
+        try {
+            const { data } = await api.get('/me')
+            setUserData(data)
+            updateUser(data)
+        } catch (error: any) {
+            const message = error.response.data.message ?? 'Ocorreu um erro, tente novamente'
+            Alert.alert('Erro', message, [{ text: 'OK' }])
+            console.error('verPerfil->fetchUserData: ', error.response.data.error ?? error)
+        }
+    }
+
     useEffect(() => {
         if (id) {
             fetchUserData()
         } else {
-            setUserData(user)
+            fetchUserLoggedData()
         }
     }, [id])
 
@@ -100,6 +112,8 @@ export default function VerPerfil() {
 
     const avatar = preview ? { uri: preview } : (userData.image ? { uri: userData.image } : avatarImg)
 
+    console.log(userData)
+
     return (
         <>
             <SidebarProvider>
@@ -116,7 +130,7 @@ export default function VerPerfil() {
                     />
                 ) : (
                     <>
-                        <ImageBackground blurRadius={10} className="w-full" style={styles.imageBackground} source={avatar}>
+                        <ImageBackground blurRadius={10} className="w-full" style={styles.imageBackground} source={avatar} defaultSource={avatarImg}>
                         <View className="w-full bg-[#505050b1]">
                             <View className="my-4 relative mx-auto">
                                 <Image source={avatar} className="h-28 w-28 object-cover rounded-full" />

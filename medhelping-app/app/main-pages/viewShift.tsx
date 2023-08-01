@@ -10,7 +10,7 @@ import { api } from "@services/api";
 import { useNavigation } from "expo-router";
 import IShift from "@interfaces/IShift";
 import Footer from "@components/footer";
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Feather } from '@expo/vector-icons';
 import IComment from "@interfaces/IComment";
 import ArticleComment from "@components/ArticleComment";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -71,6 +71,22 @@ export default function ViewShift() {
         }
     }
 
+    const handleDelete = () => {
+        Alert.alert('Atenção', 'Deseja realmente excluir este plantão?', [
+            { text: 'Não' },
+            { text: 'Sim', onPress: async () => {
+                try {
+                    await api.delete(`/shifts/${id}`)
+                    navigation.goBack()
+                } catch (error: any) {
+                    console.error('viewShift->handleDelete: ', error.response.data.error)
+                    const message = error.response.data.message ?? 'Ocorreu um erro, tente novamente';
+                    Alert.alert('Erro', message, [{ text: 'OK' }])
+                }
+            }}
+        ])
+    }
+
     const { bottom } = useSafeAreaInsets()
     const styles = StyleSheet.create({
         input: {
@@ -93,8 +109,20 @@ export default function ViewShift() {
                         <Image className="w-full h-40 object-cover" source={examBackground} />
                         <View className="p-4 border-b mb-4 border-b-[#1F2935]">
                             <Text className="text-white text-center font-900 text-xl py-2">
-                                {`${shift.care_unit?.name} - ${shift.city}`}
                             </Text>
+                            <View className="w-full">
+                                <Text className="text-white text-center font-900 text-xl py-2">
+                                    {`${shift.care_unit?.name} - ${shift.city}`}
+                                </Text>
+                                    
+                                {shift.is_the_owner && (
+                                    <TouchableOpacity onPress={handleDelete}>
+                                        <Text className="absolute right-0 -top-10">
+                                            <Feather name='trash' size={24} color="red" />
+                                        </Text>
+                                    </TouchableOpacity>
+                                )}
+                            </View>
                             {shift.user && !shift.anonymous_publication ? (
                                 <TouchableOpacity 
                                     className="flex flex-row justify-center"

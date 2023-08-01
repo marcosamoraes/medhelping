@@ -16,6 +16,7 @@ import VerPerfil from '../../app/main-pages/verPerfil';
 import VerPublicacao from '../../app/main-pages/verPublicacao';
 import Shifts from '../../app/main-pages/shifts';
 import ViewShift from '../../app/main-pages/viewShift';
+import ViewPublicationImage from '../../app/main-pages/ViewPublicationImage';
 
 import { useContext, useEffect } from 'react';
 import { AuthContext } from '@contexts/Auth';
@@ -82,6 +83,7 @@ export default function Routes() {
             <Screen name='shifts' component={Shifts} />
             <Screen name='viewProfile' component={VerPerfil} />
             <Screen name='viewPublication' component={VerPublicacao} />
+            <Screen name='viewPublicationImage' component={ViewPublicationImage} />
             <Screen name='viewShift' component={ViewShift} />
           </>
         ): (

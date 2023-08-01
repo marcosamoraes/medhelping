@@ -57,6 +57,14 @@ export default function Shifts() {
         fetchShifts()
     }, [])
 
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            fetchShifts()
+        });
+    
+        return unsubscribe;
+    }, [navigation]);
+
     return (
         <SidebarProvider>
             <TouchableBlur />

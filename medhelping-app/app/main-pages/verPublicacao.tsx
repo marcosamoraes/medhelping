@@ -1,13 +1,13 @@
-import { Image, ScrollView, View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Share, ActivityIndicator } from "react-native";
+import { Image, ScrollView, View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Share, ActivityIndicator, Pressable } from "react-native";
 import Header from "@components/header";
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5, Feather } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import SidebarProvider from "@contexts/Sidebar";
 import SideMenu from "@components/sideMenu";
 import TouchableBlur from "@components/touchableBlur";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import { api } from "@services/api";
 import IArticle from "@interfaces/IArticle";
@@ -17,6 +17,7 @@ import ArticleComment from '../../sources/components/ArticleComment';
 import IComment from "@interfaces/IComment";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { createURL } from "expo-linking";
+import { ResizeMode, Video } from "expo-av";
 
 const examBackground = require("../../assets/images/img-fundo-exame.png");
 
@@ -30,7 +31,10 @@ export default function VerPublicacao() {
     const [replyAnonymous, setReplyAnonymous] = useState<boolean>(false)
     const [replyComment, setReplyComment] = useState<IComment|null>(null)
     const [loading, setLoading] = useState<boolean>(false)
+    const [loadingVideo, setLoadingVideo] = useState<boolean>(true)
 
+    const video = useRef<any>(null);
+    
     const navigation = useNavigation();
 
     const handleRefetch = () => setRefetch(prev => prev + 1)
@@ -97,6 +101,28 @@ export default function VerPublicacao() {
         }
     }
 
+    const showImageFull = () => {
+        if (!article.image) return
+        
+        navigation.navigate('viewPublicationImage', { image: article.image })
+    }
+
+    const handleDelete = () => {
+        Alert.alert('Atenção', 'Deseja realmente excluir esta publicação?', [
+            { text: 'Não' },
+            { text: 'Sim', onPress: async () => {
+                try {
+                    await api.delete(`/articles/${id}`)
+                    navigation.goBack()
+                } catch (error: any) {
+                    console.error('verPublicacao->handleDelete: ', error.response.data.error)
+                    const message = error.response.data.message ?? 'Ocorreu um erro, tente novamente';
+                    Alert.alert('Erro', message, [{ text: 'OK' }])
+                }
+            }}
+        ])
+    }
+
     const { bottom } = useSafeAreaInsets()
     const styles = StyleSheet.create({
         input: {
@@ -106,7 +132,12 @@ export default function VerPublicacao() {
         }
     })
 
-    const articleImage = article?.image ? { uri: article?.image } : examBackground
+    const fileType = article?.image?.split('.').pop()?.toLowerCase()
+
+    let articleFile = examBackground
+    if (article?.image) {
+        articleFile = { uri: article?.image }
+    }
 
     return (
         <>
@@ -115,12 +146,42 @@ export default function VerPublicacao() {
                 <Header />
                 <SideMenu />
             </SidebarProvider>
-            <KeyboardAwareScrollView className="w-screen bg-background">
+            <KeyboardAwareScrollView className="w-screen bg-background h-full">
                 {!loading ? (
                     <>
-                        <Image className="w-full h-40 object-cover" source={articleImage} />
+                        {fileType === 'mp4' && article?.image ? (
+                            <>
+                                {loadingVideo && (
+                                    <ActivityIndicator size="large" color="white" className="h-40" />
+                                )}
+                                <Video
+                                    ref={video}
+                                    className={`w-full ${!loadingVideo ? 'h-60' : ''}`}
+                                    source={articleFile}
+                                    onPlaybackStatusUpdate={(status: any) => status.isLoaded && setLoadingVideo(false)}
+                                    useNativeControls
+                                    resizeMode={ResizeMode.CONTAIN}
+                                />
+                            </>
+                        ): (
+                            <Pressable onPress={showImageFull}>
+                                <Image className="w-full h-40 object-cover" source={articleFile} defaultSource={examBackground} />
+                            </Pressable>
+                        )}
                         <View className="p-4 border-b mb-4 border-b-[#1F2935]">
-                            <Text className="text-white text-center font-900 text-xl py-2">{article.title}</Text>
+                            <View className="w-full">
+                                <Text className="text-white text-center font-900 text-xl py-2">
+                                    {article.title}
+                                </Text>
+                                    
+                                {article.is_the_owner && (
+                                    <TouchableOpacity onPress={handleDelete}>
+                                        <Text className="absolute right-0 -top-10">
+                                            <Feather name='trash' size={24} color="red" />
+                                        </Text>
+                                    </TouchableOpacity>
+                                )}
+                            </View>
                             {article.user && !article.anonymous_publication ? (
                                 <TouchableOpacity 
                                     className="flex flex-row justify-center"
@@ -172,40 +233,40 @@ export default function VerPublicacao() {
                         <ActivityIndicator size="large" color="white" />
                     </View>
                 )}
-            </KeyboardAwareScrollView>
-
-            <View style={{ paddingBottom: bottom }} className='bg-background mt-auto border-t-2 border-t-[#1F2935] w-screen'>
-                {replyComment && (
-                    <View className="flex-row justify-between px-4 items-center pt-3">
-                        <View className="bg-[#1F2935] w-4/5 rounded-lg p-2">
-                            <Text numberOfLines={1} className="text-white">{replyComment.message}</Text>
+                
+                <View style={{ paddingBottom: bottom }} className='bg-background mt-auto border-t-2 border-t-[#1F2935] w-screen'>
+                    {replyComment && (
+                        <View className="flex-row justify-between px-4 items-center pt-3">
+                            <View className="bg-[#1F2935] w-4/5 rounded-lg p-2">
+                                <Text numberOfLines={1} className="text-white">{replyComment.message}</Text>
+                            </View>
+                            <TouchableOpacity 
+                                onPress={() => setReplyComment(null)} 
+                                className="w-8 h-8 bg-[#1F2935] rounded-full justify-center items-center"
+                            >
+                                <Text className="text-white font-700 text-lg">X</Text>
+                            </TouchableOpacity>
                         </View>
+                    )}
+                    <View className='flex-row px-4 justify-between items-center w-screen'>
+                        <TextInput
+                            style={styles.input}
+                            placeholder='Adicionar um comentário'
+                            className='h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
+                            placeholderTextColor={'white'}
+                            value={reply}
+                            onChangeText={setReply}
+                        />
                         <TouchableOpacity 
-                            onPress={() => setReplyComment(null)} 
-                            className="w-8 h-8 bg-[#1F2935] rounded-full justify-center items-center"
+                            onPress={handleComment} 
+                            activeOpacity={0.6} 
+                            className="h-9 w-9 rounded-full justify-center items-center bg-[#07acf7]"
                         >
-                            <Text className="text-white font-700 text-lg">X</Text>
+                            <Ionicons name="send" size={20} color="white" />
                         </TouchableOpacity>
                     </View>
-                )}
-                <View className='flex-row px-4 justify-between items-center w-screen'>
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Adicionar um comentário'
-                        className='h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
-                        placeholderTextColor={'white'}
-                        value={reply}
-                        onChangeText={setReply}
-                    />
-                    <TouchableOpacity 
-                        onPress={handleComment} 
-                        activeOpacity={0.6} 
-                        className="h-9 w-9 rounded-full justify-center items-center bg-[#07acf7]"
-                    >
-                        <Ionicons name="send" size={20} color="white" />
-                    </TouchableOpacity>
                 </View>
-            </View>
+            </KeyboardAwareScrollView>
         </>
     )
 }

@@ -18,11 +18,11 @@ export default function PublicarPlantao() {
   const [careUnits, setCareUnits] = useState<ICareUnit[]>({} as ICareUnit[]);
   const [careUnit, setCareUnit] = useState<string|null>(null);
   const [city, setCity] = useState<string>('');
-  const [date, setDate] = useState<Date>(new Date());
+  const [date, setDate] = useState<Date|null>(null);
   const [showDate, setShowDate] = useState<boolean>(false);
-  const [entryTime, setEntryTime] = useState<Date>(new Date());
+  const [entryTime, setEntryTime] = useState<Date|null>(null);
   const [showEntryTime, setShowEntryTime] = useState<boolean>(false);
-  const [outTime, setOutTime] = useState<Date>(new Date());
+  const [outTime, setOutTime] = useState<Date|null>(null);
   const [showOutTime, setShowOutTime] = useState<boolean>(false);
   const [value, setValue] = useState<string>('');
   const [paymentMethod, setPaymentMethod] = useState<string>('')
@@ -83,7 +83,8 @@ export default function PublicarPlantao() {
     input:{
       borderColor: 'white',
       borderWidth: 1,
-      color: 'white'
+      color: 'white',
+      borderRadius: 10,
     },
     inputD:{
       borderColor: 'white',
@@ -96,16 +97,19 @@ export default function PublicarPlantao() {
   const handleDateChange = (event: any, selectedDate: any) => {
     const currentDate = selectedDate || date;
     setDate(currentDate)
+    setShowDate(false)
   };
 
   const handleEntryTimeChange = (event: any, selectedTime: any) => {
     const currentTime = selectedTime || entryTime;
     setEntryTime(currentTime)
+    setShowEntryTime(false)
   };
 
   const handleOutTimeChange = (event: any, selectedTime: any) => {
     const currentTime = selectedTime || outTime;
     setOutTime(currentTime)
+    setShowOutTime(false)
   };
 
   const dateFormatted = moment(date).format('DD/MM/YYYY')
@@ -125,7 +129,7 @@ export default function PublicarPlantao() {
           </View>
           <View className="w-full px-2">
           
-          <SelectPicker name="Unidade *" items={careUnits} value={careUnit} setValue={setCareUnit} />
+          <SelectPicker name="Unidade *" items={careUnits} value={careUnit} setValue={setCareUnit} marginTop={-200} />
           
           <TextInput
             style={styles.input}
@@ -136,18 +140,16 @@ export default function PublicarPlantao() {
             onChangeText={setCity}
           />
 
-          <TextInput
+          <Text
             style={styles.input}
-            placeholder='Data *'
-            className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
-            placeholderTextColor={'white'}
-            value={dateFormatted}
-            onFocus={() => setShowDate(true)}
-            onBlur={() => setShowDate(false)}
-          />
+            className={`h-10 w-full rounded-xl text-sm font-400 mt-5 pt-2.5 px-4 ${showDate ? 'mb-40' : 'mb-3'} `}
+            onPress={() => setShowDate(true)}
+          >
+            { date ? dateFormatted : 'Data do plantão *' }
+          </Text>
           {showDate && (
             <DateTimePicker
-              value={date}
+              value={date ?? new Date()}
               mode="date"
               display="spinner"
               locale="pt-BR"
@@ -162,18 +164,16 @@ export default function PublicarPlantao() {
             />
           )}
 
-          <TextInput
+          <Text
             style={styles.input}
-            placeholder='Hora de Entrada *'
-            className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
-            placeholderTextColor={'white'}
-            value={entryTimeFormatted}
-            onFocus={() => setShowEntryTime(true)}
-            onBlur={() => setShowEntryTime(false)}
-          />
+            className={`h-10 w-full rounded-xl text-sm font-400 mt-5 pt-2.5 px-4 ${showEntryTime ? 'mb-40' : 'mb-3'} `}
+            onPress={() => setShowEntryTime(true)}
+          >
+            { entryTime ? entryTimeFormatted : 'Hora de Entrada *' }
+          </Text>
           {showEntryTime && (
             <DateTimePicker
-              value={entryTime}
+              value={entryTime ?? new Date()}
               mode="time"
               display="spinner"
               is24Hour={true}
@@ -189,18 +189,16 @@ export default function PublicarPlantao() {
             />
           )}
 
-          <TextInput
+          <Text
             style={styles.input}
-            placeholder='Hora de Saída *'
-            className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
-            placeholderTextColor={'white'}
-            value={outTimeFormatted}
-            onFocus={() => setShowOutTime(true)}
-            onBlur={() => setShowOutTime(false)}
-          />
+            className={`h-10 w-full rounded-xl text-sm font-400 mt-5 pt-2.5 px-4 ${showOutTime ? 'mb-40' : 'mb-3'} `}
+            onPress={() => setShowOutTime(true)}
+          >
+            { outTime ? outTimeFormatted : 'Hora de Saída *' }
+          </Text>
           {showOutTime && (
             <DateTimePicker
-              value={outTime}
+              value={outTime ?? new Date()}
               mode="time"
               display="spinner"
               is24Hour={true}

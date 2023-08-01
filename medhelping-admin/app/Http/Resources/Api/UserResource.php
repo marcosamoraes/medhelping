@@ -23,9 +23,9 @@ class UserResource extends JsonResource
             'whatsapp'              => $this->whatsapp,
             'image'                 => $this->image ? Storage::url($this->image) : null,
             'likes'                 => $this->likes,
-            'articles_shared'       => $this->articlesShared,
-            'articles_commented'    => $this->articlesCommented,
-            'quantity_articles'     => $this->quantityArticles,
+            'articles_shared'       => $this->articles_shared,
+            'articles_commented'    => $this->articles_commented,
+            'quantity_articles'     => $this->quantity_articles,
             'created_at'            => $this->created_at->format('d/m/Y H:i:s'),
             'updated_at'            => $this->updated_at->format('d/m/Y H:i:s'),
 

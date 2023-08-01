@@ -30,8 +30,7 @@ Route::get('/', function () {
 
 Route::get('app', function (Request $request) {
     $url = $request->prefix . '?path=' . $request->path . '&id=' . $request->id;
-    dd($url);
-    return redirect($url);
+    return redirect()->away($url);
 });
 
 Route::post('login', [AuthController::class, 'login']);

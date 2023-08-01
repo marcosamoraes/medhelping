@@ -3,7 +3,6 @@ import IUser from "@interfaces/IUser"
 import { api } from '@services/api'
 import { storageUserGet, storageUserSave } from "@storage/storageUser"
 import { storageTokenGet, storageTokenSave } from "@storage/storageToken"
-import { useNavigation } from "expo-router"
 import { Alert } from "react-native"
 
 type AuthContextDataProps = {
@@ -27,8 +26,6 @@ export function AuthProvider ({ children }: AuthProviderProps) {
   const [user, setUser] = useState<IUser>({} as IUser)
   const [token, setToken] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false);
-
-  const navigation = useNavigation();
 
   const activeLoading = () => {
     setLoading(true)
