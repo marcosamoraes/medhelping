@@ -38,6 +38,7 @@ export default function Shifts() {
     const fetchShifts = async (text?: string) => {
         setLoading(true)
         try {
+            console.log('text: ', text ?? search)
             const { data: { data } } = await api.get(`/shifts?search=${text ?? search}`)
             setShifts(data)
         } catch (error: any) {

@@ -146,10 +146,10 @@ export default function VerPublicacao() {
                 <Header />
                 <SideMenu />
             </SidebarProvider>
-            <KeyboardAwareScrollView className="w-screen bg-background h-full">
+            <KeyboardAwareScrollView extraScrollHeight={15} className="w-screen bg-background h-full">
                 {!loading ? (
                     <>
-                        {fileType === 'mp4' && article?.image ? (
+                        {(fileType === 'mp4' || fileType === 'mov') && article?.image ? (
                             <>
                                 {loadingVideo && (
                                     <ActivityIndicator size="large" color="white" className="h-40" />

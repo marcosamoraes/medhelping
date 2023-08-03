@@ -103,7 +103,7 @@ export default function ViewShift() {
                 <Header />
                 <SideMenu />
             </SidebarProvider>
-            <KeyboardAwareScrollView className="w-screen bg-background">
+            <KeyboardAwareScrollView extraScrollHeight={15} className="w-screen bg-background">
                 {!loading ? (
                     <>
                         <Image className="w-full h-40 object-cover" source={examBackground} />
@@ -178,40 +178,40 @@ export default function ViewShift() {
                         <ActivityIndicator size="large" color="white" />
                     </View>
                 )}
-            </KeyboardAwareScrollView>
 
-            <View style={{ paddingBottom: bottom }} className='bg-background mt-auto border-t-2 border-t-[#1F2935] w-screen'>
-                {replyComment && (
-                    <View className="flex-row justify-between px-4 items-center pt-3">
-                        <View className="bg-[#1F2935] w-4/5 rounded-lg p-2">
-                            <Text numberOfLines={1} className="text-white">{replyComment.message}</Text>
+                <View style={{ paddingBottom: bottom }} className='bg-background mt-auto border-t-2 border-t-[#1F2935] w-screen'>
+                    {replyComment && (
+                        <View className="flex-row justify-between px-4 items-center pt-3">
+                            <View className="bg-[#1F2935] w-4/5 rounded-lg p-2">
+                                <Text numberOfLines={1} className="text-white">{replyComment.message}</Text>
+                            </View>
+                            <TouchableOpacity 
+                                onPress={() => setReplyComment(null)} 
+                                className="w-8 h-8 bg-[#1F2935] rounded-full justify-center items-center"
+                            >
+                                <Text className="text-white font-700 text-lg">X</Text>
+                            </TouchableOpacity>
                         </View>
+                    )}
+                    <View className='flex-row px-4 justify-between items-center w-screen'>
+                        <TextInput
+                            style={styles.input}
+                            placeholder='Adicionar um comentário'
+                            className='h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
+                            placeholderTextColor={'white'}
+                            value={reply}
+                            onChangeText={setReply}
+                        />
                         <TouchableOpacity 
-                            onPress={() => setReplyComment(null)} 
-                            className="w-8 h-8 bg-[#1F2935] rounded-full justify-center items-center"
+                            onPress={handleComment} 
+                            activeOpacity={0.6} 
+                            className="h-9 w-9 rounded-full justify-center items-center bg-[#07acf7]"
                         >
-                            <Text className="text-white font-700 text-lg">X</Text>
+                            <Ionicons name="send" size={20} color="white" />
                         </TouchableOpacity>
                     </View>
-                )}
-                <View className='flex-row px-4 justify-between items-center w-screen'>
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Adicionar um comentário'
-                        className='h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
-                        placeholderTextColor={'white'}
-                        value={reply}
-                        onChangeText={setReply}
-                    />
-                    <TouchableOpacity 
-                        onPress={handleComment} 
-                        activeOpacity={0.6} 
-                        className="h-9 w-9 rounded-full justify-center items-center bg-[#07acf7]"
-                    >
-                        <Ionicons name="send" size={20} color="white" />
-                    </TouchableOpacity>
                 </View>
-            </View>
+            </KeyboardAwareScrollView>
         </>
     )
 }

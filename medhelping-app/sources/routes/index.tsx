@@ -34,7 +34,8 @@ export default function Routes() {
 
   const screenOptions = {
     headerShown: false,
-    animation: 'fade'
+    animation: 'fade',
+    gestureEnabled: false,
   } as NativeStackNavigationOptions
 
   const prefix = createURL("/")

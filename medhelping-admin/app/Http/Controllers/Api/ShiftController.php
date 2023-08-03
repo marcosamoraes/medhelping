@@ -18,9 +18,8 @@ class ShiftController extends Controller
     public function index(Request $request)
     {
         $shifts = Shift::when($request->search, function ($query, $search) {
-                $query->orWhere('title', 'REGEXP', $search);
                 $query->orWhere('city', 'REGEXP', $search);
-                $query->orWhereHas('users', function ($query) use ($search) {
+                $query->orWhereHas('user', function ($query) use ($search) {
                     $query->where('name', 'REGEXP', $search);
                 });
                 $query->orWhereHas('careUnit', function ($query) use ($search) {

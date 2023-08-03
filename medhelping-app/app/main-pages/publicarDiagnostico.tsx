@@ -86,7 +86,6 @@ export default function PublicarDiagnostico() {
                         'Content-Type': 'multipart/form-data'
                     }
                 })
-            
                 obj['image'] = data
             }
 
@@ -95,7 +94,7 @@ export default function PublicarDiagnostico() {
             Alert.alert('Sucesso', 'Artigo cadastrado com sucesso.', [{ text: 'OK' }])
             navigation.navigate('home')
         } catch (error: any) {
-            console.error('publicarDiagnostico->handleSubmit: ', error.response.data.error)
+            console.error('publicarDiagnostico->handleSubmit: ', error.response.data)
             const message = error.response.data.message ?? 'Ocorreu um erro, tente novamente';
             Alert.alert('Erro', message, [{ text: 'OK' }])
         } finally {
@@ -111,6 +110,7 @@ export default function PublicarDiagnostico() {
             });
         
             if (!result.canceled && result.assets[0]) {
+                console.log(result.assets[0].uri)
                 setPreview(result.assets[0].uri);
                 const type = result.assets[0].uri.split('.').pop()
                 setPreviewType(type as string)
@@ -181,7 +181,7 @@ export default function PublicarDiagnostico() {
                     {preview && (
                         <>
                             <View className="border border-1 border-white border-radius rounded-lg my-5 p-3">
-                                {previewType === 'mp4' ? (
+                                {previewType === 'mp4' || previewType === 'mov' ? (
                                     <View>
                                         <Video
                                             ref={video}

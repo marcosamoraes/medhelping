@@ -216,11 +216,12 @@ export default function PublicarPlantao() {
 
           <TextInput
             style={styles.input}
+            inputMode="decimal"
             placeholder='Valor'
             className='h-10 w-full rounded-xl text-sm font-400 my-3 px-4'
             placeholderTextColor={'white'}
             value={value}
-            onChangeText={setValue}
+            onChangeText={(value) => setValue(value.replace(',', '.'))}
           />
           <TextInput
             style={styles.input}
