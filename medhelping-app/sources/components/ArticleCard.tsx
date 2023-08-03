@@ -35,8 +35,6 @@ export default function ArticleCard({ article: { id, title, anonymous_publicatio
         }
     }
 
-    console.log(articleImage)
-
     return (<>
         <TouchableOpacity onPress={() => handleClick()} activeOpacity={0.8} style={{width: '45%'}} className="mb-6 aspect-square">
             <ImageBackground style={styles.imageBackground} className="w-full relative cover items-center justify-center" defaultSource={backgroundImage} source={articleImage}>
