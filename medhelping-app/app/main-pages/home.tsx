@@ -79,14 +79,6 @@ export default function Home() {
         fetchArticles()
     }, [route])
 
-    useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', () => {
-            fetchArticles()
-        });
-    
-        return unsubscribe;
-    }, [navigation]);
-
     return (
         <SidebarProvider>
             <TouchableBlur />
