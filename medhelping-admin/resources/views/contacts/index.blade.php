@@ -53,9 +53,13 @@
                                         {{ $contact->created_at->format('d/m/Y H:i:s') }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900 flex gap-3">
-                                        <x-danger-button href="{{ route('contacts.destroy', $contact->id) }}" data-confirm-delete="true">
-                                            <i class="fas fa-trash"></i>
-                                        </x-danger-button>
+                                        <form method="POST" action="{{ route('contacts.destroy', $contact->id) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <x-danger-button onclick="if (!confirm('Você tem certeza que quer deletar?')) return false">
+                                                <i class="fas fa-trash"></i>
+                                            </x-danger-button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

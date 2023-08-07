@@ -71,9 +71,13 @@
                                                 <i class="fas fa-edit"></i>
                                             </x-warning-button>
                                         </a>
-                                        <x-danger-button href="{{ route('shifts.destroy', $shift->id) }}" data-confirm-delete="true">
-                                            <i class="fas fa-trash"></i>
-                                        </x-danger-button>
+                                        <form method="POST" action="{{ route('shifts.destroy', $shift->id) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <x-danger-button onclick="if (!confirm('Você tem certeza que quer deletar?')) return false">
+                                                <i class="fas fa-trash"></i>
+                                            </x-danger-button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

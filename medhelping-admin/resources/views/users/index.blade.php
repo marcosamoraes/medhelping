@@ -86,6 +86,21 @@
                                                 <i class="fas fa-edit"></i>
                                             </x-warning-button>
                                         </a>
+                                        @if ($user->active)
+                                            <form method="POST" action="{{ route('users.inactive', $user->id) }}">
+                                                @csrf
+                                                <x-danger-button>
+                                                    <i class="fas fa-times"></i>
+                                                </x-danger-button>
+                                            </form>
+                                        @else
+                                            <form method="POST" action="{{ route('users.active', $user->id) }}">
+                                                @csrf
+                                                <x-primary-button>
+                                                    <i class="fas fa-check"></i>
+                                                </x-primary-button>
+                                            </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

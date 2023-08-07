@@ -47,4 +47,30 @@ class UserController extends Controller
             return back()->withInput();
         }
     }
+
+    public function active(User $user)
+    {
+        try {
+            $user->update(['active' => true]);
+            Alert::toast('Usuário ativado com sucesso.', 'success');
+            return Redirect::route('users.index');
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            Alert::toast('Erro ao ativar usuário.', 'error');
+            return back()->withInput();
+        }
+    }
+
+    public function inactive(User $user)
+    {
+        try {
+            $user->update(['active' => false]);
+            Alert::toast('Usuário desativado com sucesso.', 'success');
+            return Redirect::route('users.index');
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            Alert::toast('Erro ao desativar usuário.', 'error');
+            return back()->withInput();
+        }
+    }
 }

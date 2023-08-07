@@ -38,9 +38,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::post('/users/{user}/active', [UserController::class, 'active'])->name('users.active');
+    Route::post('/users/{user}/inactive', [UserController::class, 'inactive'])->name('users.inactive');
+    Route::resource('/users', UserController::class)->only(['index', 'edit', 'update']);
+
     Route::resource('/articles', ArticleController::class)->except(['show']);
     Route::resource('/shifts', ShiftController::class)->except(['show']);
-    Route::resource('/users', UserController::class)->only(['index', 'edit', 'update']);
     Route::resource('/categories', CategoryController::class)->except(['show']);
     Route::resource('/care-units', CareUnitController::class)->except(['show']);
     Route::resource('/contacts', ContactController::class)->only(['index', 'destroy']);
