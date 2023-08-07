@@ -27,8 +27,10 @@ import { RedirectContext } from '@contexts/Redirect';
 export default function Routes() {
   const { Navigator, Screen } = createNativeStackNavigator()
 
-  const { user } = useContext(AuthContext)
+  const { user, checkIsLogged } = useContext(AuthContext)
   const { setPath, setId } = useContext(RedirectContext)
+
+  checkIsLogged()
 
   const redirectURL = useURL()
 

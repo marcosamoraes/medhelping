@@ -14,6 +14,7 @@ type AuthContextDataProps = {
   logout: () => void
   loading: boolean
   activeLoading: () => void
+  checkIsLogged: () => Promise<void>
 }
 
 type AuthProviderProps = {
@@ -51,6 +52,21 @@ export function AuthProvider ({ children }: AuthProviderProps) {
       throw error.response.data.message ?? "Falha ao realizar cadastro."
     } finally {
       setLoading(false)
+    }
+  }
+
+  const checkIsLogged = async () => {
+    if (!token) return
+    
+    try {
+      const { data } = await api.get('/me')
+
+      if (!data.active) {
+        Alert.alert('Conta desativada', 'Sua conta foi desativada. Entre em contato com o suporte para mais informações.', [{ text: 'OK' }])
+        logout()
+      }
+    } catch (error: any) {
+      console.log(error.response.data.message)
     }
   }
 
@@ -106,7 +122,8 @@ export function AuthProvider ({ children }: AuthProviderProps) {
       loadUserData, 
       logout, 
       loading, 
-      activeLoading 
+      activeLoading,
+      checkIsLogged
     }}>
       {children}
     </AuthContext.Provider>

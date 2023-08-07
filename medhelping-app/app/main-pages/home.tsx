@@ -28,7 +28,7 @@ export default function Home() {
     const [page, setPage] = useState<number>(1);
     const [hasMore, setHasMore] = useState<boolean>(true);
 
-    const { logout } = useContext(AuthContext)
+    const { checkIsLogged } = useContext(AuthContext)
     const { path, id: pathId, deleteRedirectUrl } = useContext(RedirectContext)
 
     const navigation = useNavigation()
@@ -81,7 +81,7 @@ export default function Home() {
         } catch (error: any) {
             console.error('home: ', error.response.data.message)
             if (error.response?.data?.message === 'Unauthenticated.') {
-                logout()
+                checkIsLogged()
             }
         } finally {
             setLoading(false)
