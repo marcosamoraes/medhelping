@@ -13,7 +13,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $contacts = Contact::paginate();
+        $contacts = Contact::paginate(50);
 
         $title = 'Deletar contato';
         $text = "Você tem certeza que quer deletar esse contato?";

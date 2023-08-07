@@ -41,7 +41,12 @@
                                         {{ $contact->id }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
-                                        {{ $contact->user?->name }}
+                                        @if ($contact->user)
+                                            <a href="{{ route('users.edit', $contact->user->id) }}" target="_blank" class="text-blue-500 hover:text-blue-600">
+                                                {{ $contact->user->name }}<br />
+                                            </a>
+                                            <small>{{ $contact->user->email }}</small>
+                                        @endif
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                                         {{ $contact->title }}

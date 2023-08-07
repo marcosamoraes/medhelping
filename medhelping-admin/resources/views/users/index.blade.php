@@ -10,7 +10,14 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="overflow-hidden overflow-x-auto p-6 bg-white border-b border-gray-200">
                     <div class="min-w-full align-middle">
-                        <table class="min-w-full divide-y divide-gray-200 border">
+                        <form>
+                            <x-select-input id="sort" name="sort" type="text" class="mt-1 block w-full" required autofocus autocomplete="sort" onchange="this.form.submit()">
+                                <option value="" readonly>Ordenar por...</option>
+                                <option value="more_likes" {{ $sort === 'more_likes' ? 'selected' : false }}>Mais curtiram</option>
+                                <option value="more_comments" {{ $sort === 'more_comments' ? 'selected' : false }}>Mais comentaram</option>
+                            </x-select-input>
+                        </form>
+                        <table class="min-w-full divide-y mt-3 divide-gray-200 border">
                             <thead>
                             <tr>
                                 <th class="px-6 py-3 bg-gray-50 text-left">
@@ -20,9 +27,6 @@
                                     <span class="text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Nome</span>
                                 </th>
                                 <th class="px-6 py-3 bg-gray-50 text-left">
-                                    <span class="text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">E-mail</span>
-                                </th>
-                                <th class="px-6 py-3 bg-gray-50 text-left">
                                     <span class="text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Whatsapp</span>
                                 </th>
                                 <th class="px-6 py-3 bg-gray-50 text-left">
@@ -30,6 +34,9 @@
                                 </th>
                                 <th class="px-6 py-3 bg-gray-50 text-left">
                                     <span class="text-xs leading-4 font-medium text-center text-gray-500 uppercase tracking-wider">Likes</span>
+                                </th>
+                                <th class="px-6 py-3 bg-gray-50 text-left">
+                                    <span class="text-xs leading-4 font-medium text-center text-gray-500 uppercase tracking-wider">Comentários</span>
                                 </th>
                                 <th class="px-6 py-3 bg-gray-50 text-left">
                                     <span class="text-xs leading-4 font-medium text-center text-gray-500 uppercase tracking-wider">Status</span>
@@ -50,10 +57,8 @@
                                         {{ $user->id }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
-                                        {{ $user->name }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
-                                        {{ $user->email }}
+                                        {{ $user->name }}<br />
+                                        <small>{{ $user->email }}</small>
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                                         <a
@@ -73,6 +78,9 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap text-center text-sm leading-5 text-gray-900">
                                         {{ $user->likes }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap text-center text-sm leading-5 text-gray-900">
+                                        {{ $user->articles_commented }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap text-center text-sm leading-5 {{ $user->active ? 'text-green-500' : 'text-red-500' }}">
                                         {{ $user->active ? 'Ativo' : 'Inativo' }}

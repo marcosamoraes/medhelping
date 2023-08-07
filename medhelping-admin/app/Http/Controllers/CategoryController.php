@@ -20,7 +20,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate();
+        $categories = Category::paginate(50);
 
         $title = 'Deletar categoria';
         $text = "Você tem certeza que quer deletar esse categoria?";
@@ -48,7 +48,7 @@ class CategoryController extends Controller
             if (isset($data['image'])) {
                 $data['image'] = $request->file('image')->store('categories');
             }
-            
+
             Category::create($data);
 
             Alert::toast('Categoria cadastrado com sucesso.', 'success');
@@ -82,7 +82,7 @@ class CategoryController extends Controller
                 }
                 $data['image'] = $request->file('image')->store('categories');
             }
-            
+
             $category->update($data);
 
             Alert::toast('Categoria editada com sucesso.', 'success');

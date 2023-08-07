@@ -64,7 +64,7 @@ class User extends Authenticatable
 
     protected function likes(): Attribute
     {
-        return Attribute::make(get: fn () => $this->articles->sum('likes'));
+        return Attribute::make(get: fn () => $this->articleLikes->count());
     }
 
     protected function articlesShared(): Attribute

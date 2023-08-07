@@ -19,15 +19,34 @@ class ArticleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $articles = Article::paginate();
+        $sort = $request->sort ?? null;
+        $articles = Article::when($sort, function ($query, $sort) {
+            if ($sort === 'more_liked') {
+                $query->addSelect(['qtd_likes' => function ($query) {
+                    $query->selectRaw('count(*)')
+                        ->from('article_likes')
+                        ->whereColumn('article_likes.article_id', 'articles.id');
+                }])->orderByDesc('qtd_likes');
+            }
+            if ($sort === 'more_commented') {
+                $query->addSelect(['qtd_comments' => function ($query) {
+                    $query->selectRaw('count(*)')
+                        ->from('comments')
+                        ->whereColumn('comments.article_id', 'articles.id');
+                }])->orderByDesc('qtd_comments');
+            }
+            if ($sort === 'more_shared') {
+                $query->orderByDesc('quantity_shared');
+            }
+        })->paginate(50);
 
         $title = 'Deletar artigo';
         $text = "Você tem certeza que quer deletar esse artigo?";
         confirmDelete($title, $text);
 
-        return view('articles.index', compact('articles'));
+        return view('articles.index', compact('articles', 'sort'));
     }
 
     /**
@@ -51,11 +70,11 @@ class ArticleController extends Controller
             if (isset($data['image'])) {
                 $data['image'] = $request->file('image')->store('articles');
             }
-            
+
             $article = Article::create($data);
 
             $article->articleCategories()->create(['category_id' => $request->category1]);
-            
+
             if (isset($request->category2)) {
                 $article->articleCategories()->create(['category_id' => $request->category2]);
             }
@@ -96,13 +115,13 @@ class ArticleController extends Controller
                 }
                 $data['image'] = $request->file('image')->store('articles');
             }
-            
+
             $article->update($data);
 
             $article->articleCategories()->delete();
 
             $article->articleCategories()->create(['category_id' => $request->category1]);
-            
+
             if (isset($request->category2)) {
                 $article->articleCategories()->create(['category_id' => $request->category2]);
             }

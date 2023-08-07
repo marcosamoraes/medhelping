@@ -16,10 +16,27 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate();
-        return view('users.index', compact('users'));
+        $sort = $request->sort ?? null;
+        $users = User::when($sort, function ($query, $sort) {
+            if ($sort === 'more_likes') {
+                $query->addSelect(['qtd_likes' => function ($query) {
+                    $query->selectRaw('count(*)')
+                        ->from('article_likes')
+                        ->whereColumn('article_likes.user_id', 'users.id');
+                }])->orderByDesc('qtd_likes');
+            }
+            if ($sort === 'more_comments') {
+                $query->addSelect(['qtd_comments' => function ($query) {
+                    $query->selectRaw('count(*)')
+                        ->from('comments')
+                        ->whereColumn('comments.user_id', 'users.id');
+                }])->orderByDesc('qtd_comments');
+            }
+        })->paginate(50);
+
+        return view('users.index', compact('users', 'sort'));
     }
 
     /**

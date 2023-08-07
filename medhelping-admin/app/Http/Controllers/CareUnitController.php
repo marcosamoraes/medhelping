@@ -19,7 +19,7 @@ class CareUnitController extends Controller
      */
     public function index()
     {
-        $careUnits = CareUnit::paginate();
+        $careUnits = CareUnit::paginate(50);
 
         $title = 'Deletar unidade';
         $text = "Você tem certeza que quer deletar esse unidade?";

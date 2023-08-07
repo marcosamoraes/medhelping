@@ -21,7 +21,7 @@ class ShiftController extends Controller
      */
     public function index()
     {
-        $shifts = Shift::paginate();
+        $shifts = Shift::paginate(50);
 
         $title = 'Deletar plantão';
         $text = "Você tem certeza que quer deletar esse plantão?";
@@ -48,7 +48,7 @@ class ShiftController extends Controller
             $data = $request->validated();
             $data['anonymous_publication'] = true;
             Shift::create($data);
-    
+
             Alert::toast('Plantão cadastrado com sucesso.', 'success');
             return Redirect::route('shifts.index');
         } catch (Exception $e) {
