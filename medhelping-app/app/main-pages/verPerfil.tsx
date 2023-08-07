@@ -15,7 +15,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const doctoraliaImg = require('../../assets/images/doctoralia.png');
-const avatarImg = require('../../assets/images/avatar-template.jpg');
+const avatarImg = require('../../assets/images/user.png');
 
 export default function VerPerfil() {
     const route = useRoute();
@@ -133,7 +133,7 @@ export default function VerPerfil() {
                         <ImageBackground blurRadius={10} className="w-full" style={styles.imageBackground} source={avatar} defaultSource={avatarImg}>
                         <View className="w-full bg-[#505050b1]">
                             <View className="my-4 relative mx-auto">
-                                <Image source={avatar} className="h-28 w-28 object-cover rounded-full" />
+                                <Image source={avatar} defaultSource={avatarImg} className="h-28 w-28 object-cover rounded-full" />
                                 {(!id || id === user.id) && (
                                     <TouchableOpacity
                                         activeOpacity={0.7} 

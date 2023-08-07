@@ -5,31 +5,36 @@ import { api } from "@services/api";
 import IComment from "@interfaces/IComment";
 import { useNavigation } from "expo-router";
 
-const avatarTemplate = require("../../assets/images/avatar-template.jpg")
+const avatarTemplate = require("../../assets/images/user.png")
 
 type ArticleCommentProps = {
     comment: IComment
     setReplyComment: (comment: IComment) => void
     canReply?: boolean
     handleRefetch: () => void
+    setLoading: (value: boolean) => void
 }
 
-export default function ArticleComment({ comment, setReplyComment, handleRefetch, canReply = false }: ArticleCommentProps) {
+export default function ArticleComment({ comment, setReplyComment, handleRefetch, canReply = false, setLoading }: ArticleCommentProps) {
     const { id, user, anonymous_publication, message, is_the_owner, quantity_likes, user_liked } = comment;
 
     const navigation = useNavigation();
 
     const handleDelete = async () => {
+        setLoading(true)
         try {
             await api.delete(`/comments/${id}`)
             handleRefetch()
         } catch (error: any) {
             const message = error.response.data.message ?? 'Ocorreu um erro, tente novamente';
             Alert.alert('Erro', message, [{ text: 'OK' }])
+        } finally {
+            setLoading(false)
         }
     }
 
     const handleLike = async () => {
+        setLoading(true)
         try {
             await api.post(`/comments/${id}/like`)
             handleRefetch()
@@ -37,6 +42,8 @@ export default function ArticleComment({ comment, setReplyComment, handleRefetch
             console.error('articleComment: ', error.response.data.error)
             const message = error.response.data.message ?? 'Ocorreu um erro, tente novamente';
             Alert.alert('Erro', message, [{ text: 'OK' }])
+        } finally {
+            setLoading(false)
         }
     }
 

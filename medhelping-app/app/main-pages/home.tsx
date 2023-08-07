@@ -25,6 +25,8 @@ export default function Home() {
     const [loading, setLoading] = useState<boolean>(false)
     const [search, setSearch] = useState<string>('')
     const [category, setCategory] = useState<ICategory>({} as ICategory)
+    const [page, setPage] = useState<number>(1);
+    const [hasMore, setHasMore] = useState<boolean>(true);
 
     const { logout } = useContext(AuthContext)
     const { path, id: pathId, deleteRedirectUrl } = useContext(RedirectContext)
@@ -56,8 +58,19 @@ export default function Home() {
     const fetchArticles = async (text?: string) => {
         setLoading(true)
         try {
-            const { data: { data } } = await api.get(`/articles?category=${id}&search=${text ?? search}`)
-            setArticles(data)
+            const { data: { data } } = await api.get(`/articles?per_page=16&page=${page}&category=${id}&search=${text ?? search}`)
+
+            if (articles.length > 0) {
+                const newArticles = data.filter((article: IArticle) => !articles.find((a: IArticle) => a.id === article.id))
+
+                if (newArticles.length === 0) {
+                    setHasMore(false)
+                }
+
+                setArticles([...articles, ...newArticles])
+            } else {
+                setArticles(data)
+            } 
 
             if (id) {
                 const { data: { category } } = await api.get(`/categories/${id}`)
@@ -75,9 +88,19 @@ export default function Home() {
         }
     }
 
+    const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}: any) => {
+        const paddingToBottom = 20;
+        return layoutMeasurement.height + contentOffset.y >= contentSize.height - paddingToBottom;
+    };
+
+    const fetchNewPageArticles = () => {
+        if (!hasMore || loading) return
+        setPage(prev => prev + 1)
+    }
+
     useEffect(() => {
         fetchArticles()
-    }, [route])
+    }, [route, page])
 
     return (
         <SidebarProvider>
@@ -85,7 +108,15 @@ export default function Home() {
             <Header />
             <SideMenu />
 
-            <KeyboardAwareScrollView className="w-screen py-6 px-6 bg-background">
+            <KeyboardAwareScrollView 
+                className="w-screen py-6 px-6 bg-background" 
+                onScroll={({nativeEvent}) => {
+                    if (isCloseToBottom(nativeEvent)) {
+                        fetchNewPageArticles();
+                    }
+                }}
+                scrollEventThrottle={400}
+            >
                 {id ? (
                     <TextInput
                         placeholder='Busque pelo título ou autor'

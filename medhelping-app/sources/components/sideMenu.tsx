@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { SidebarContext } from "@contexts/Sidebar";
 import { AuthContext } from "@contexts/Auth";
 
-const avatarTemplate = require("../../assets/images/avatar-template.jpg")
+const avatarTemplate = require("../../assets/images/user.png")
 
 export default function SideMenu() {
     const { logout, user } = useContext(AuthContext);

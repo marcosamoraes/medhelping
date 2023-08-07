@@ -11,7 +11,7 @@ import { useContext, useEffect, useState } from "react";
 import { ActivityIndicator, Alert, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-const avatarImg = require("../../assets/images/avatar-template.jpg")
+const avatarImg = require("../../assets/images/user.png")
 
 export default function EditarPerfil() {
     const [loading, setLoading] = useState(false);
