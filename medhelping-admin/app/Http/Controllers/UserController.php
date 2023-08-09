@@ -82,6 +82,7 @@ class UserController extends Controller
     {
         try {
             $user->update(['active' => false]);
+
             Alert::toast('Usuário desativado com sucesso.', 'success');
             return Redirect::route('users.index');
         } catch (Exception $e) {

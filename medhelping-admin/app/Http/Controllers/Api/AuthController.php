@@ -75,7 +75,11 @@ class AuthController extends Controller
     {
         try {
             $user = $request->user();
-            $user->update(['active' => 0]);
+            $user->update(['active' => false]);
+            $user->articles()->delete();
+            $user->articleLikes()->delete();
+            $user->comments()->delete();
+            $user->commentLikes()->delete();
 
             return response()->json([
                 'message' => 'Conta excluída com sucesso.',

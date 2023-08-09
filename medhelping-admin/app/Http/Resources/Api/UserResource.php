@@ -26,6 +26,7 @@ class UserResource extends JsonResource
             'articles_shared'       => $this->articles_shared,
             'articles_commented'    => $this->articles_commented,
             'quantity_articles'     => $this->quantity_articles,
+            'active'                => $this->active,
             'created_at'            => $this->created_at->format('d/m/Y H:i:s'),
             'updated_at'            => $this->updated_at->format('d/m/Y H:i:s'),
 
