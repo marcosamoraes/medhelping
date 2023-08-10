@@ -86,6 +86,7 @@ export default function Home() {
         const unsubscribe = navigation.addListener('focus', () => {
             setFirstFetchFinished(false)
             setArticles([])
+            setHasMore(true)
             fetchArticles()
         });
 
@@ -108,7 +109,7 @@ export default function Home() {
                 scrollEventThrottle={400}
                 ref={scrollViewRef}
                 onContentSizeChange={() => {
-                    if (firstFetchFinished && articles.length > 16) {
+                    if (firstFetchFinished) {
                         if (scrollViewRef.current) {
                             scrollViewRef.current.scrollToPosition(0, (articles.length / 2) * 100 - 250, true)
                         }

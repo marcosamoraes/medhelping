@@ -79,8 +79,8 @@ export default function Articles() {
             } 
 
             if (id) {
-                const { data: { category } } = await api.get(`/categories/${id}`)
-                setCategory(category)
+                const { data } = await api.get(`/categories/${id}`)
+                setCategory(data.category[0])
             } else {
                 setCategory({} as ICategory)
             }

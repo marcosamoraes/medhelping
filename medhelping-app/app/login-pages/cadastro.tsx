@@ -65,7 +65,7 @@ export default function Cadastro() {
       />
       <TextInput
         style={styles.input}
-        placeholder='Nome'
+        placeholder='Nome Completo'
         className='mx-auto h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
         placeholderTextColor={'white'}
         value={name}

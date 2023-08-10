@@ -27,10 +27,15 @@ export default function ViewShift() {
     const [replyAnonymous, setReplyAnonymous] = useState<boolean>(false)
     const [replyComment, setReplyComment] = useState<IComment|null>(null)
     const [loading, setLoading] = useState<boolean>(false)
+    const [loadingComment, setLoadingComment] = useState<boolean>(false)
 
     const navigation = useNavigation();
 
-    const handleRefetch = () => setRefetch(prev => prev + 1)
+    const handleRefetch = () => {
+        setRefetch(prev => prev + 1)
+        setLoading(false)
+        setLoadingComment(false)
+    }
 
     const fetchShift = async () => {
         setLoading(true)
@@ -51,6 +56,7 @@ export default function ViewShift() {
     }, [refetch])
 
     const handleComment = async () => {
+        setLoadingComment(true)
         try {
             const data: any = { message: reply, anonymous_publication: false }
 
@@ -162,11 +168,11 @@ export default function ViewShift() {
                         </View>
                         {shift.comments?.map(comment => (
                             <View key={comment.id} className="w-full">
-                                <ArticleComment comment={comment} setReplyComment={setReplyComment} handleRefetch={handleRefetch} canReply />
+                                <ArticleComment comment={comment} setReplyComment={setReplyComment} handleRefetch={handleRefetch} setLoading={setLoading} canReply />
                                 {comment.nodeComments && (
                                     <View className="ml-6 mb-4 border-l border-l-[#1F2935]">
                                         {comment.nodeComments?.map(nodeComment => (
-                                            <ArticleComment key={nodeComment.id} comment={nodeComment} setReplyComment={setReplyComment} handleRefetch={handleRefetch} />
+                                            <ArticleComment key={nodeComment.id} comment={nodeComment} setReplyComment={setReplyComment} setLoading={setLoading} handleRefetch={handleRefetch} />
                                         ))}
                                     </View>
                                 )}
@@ -205,9 +211,14 @@ export default function ViewShift() {
                         <TouchableOpacity 
                             onPress={handleComment} 
                             activeOpacity={0.6} 
+                            disabled={loadingComment}
                             className="h-9 w-9 rounded-full justify-center items-center bg-[#07acf7]"
                         >
-                            <Ionicons name="send" size={20} color="white" />
+                            {loadingComment ? (
+                                <ActivityIndicator size="small" color="white" />
+                            ) : (
+                                <Ionicons name="send" size={20} color="white" />
+                            )}
                         </TouchableOpacity>
                     </View>
                 </View>
