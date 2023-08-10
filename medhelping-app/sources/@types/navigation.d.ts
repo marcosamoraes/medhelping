@@ -5,7 +5,8 @@ export declare global {
       register: undefined
       forgotPassword: undefined
 
-      home: {id: int} | undefined
+      home: undefined
+      articles: {id: int} | undefined
       updatePassword: undefined
       settings: undefined
       editProfile: undefined

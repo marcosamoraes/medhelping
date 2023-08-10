@@ -13,7 +13,7 @@ export default function CategoriaCard({ category: { id, name, image } }:Categori
     const navigation = useNavigation();
 
     function handleClick(){
-        navigation.navigate("home", {id})
+        navigation.navigate("articles", {id})
     }
     
     return (

@@ -45,6 +45,12 @@ export default function PublicarDiagnostico() {
 
     const handleSubmit = async () => {
         setLoading(true)
+
+        if (!category) {
+            Alert.alert('Erro', 'Selecione pelo menos uma categoria.', [{ text: 'OK' }])
+            setLoading(false)
+            return
+        }
         
         try {
             const obj = {
