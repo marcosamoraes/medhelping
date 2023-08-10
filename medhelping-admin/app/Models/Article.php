@@ -75,7 +75,7 @@ class Article extends Model
      */
     public function categories(): HasManyThrough
     {
-        return $this->hasManyThrough(Category::class, ArticleCategory::class, 'article_id', 'id', 'id', 'category_id');
+        return $this->hasManyThrough(Category::class, ArticleCategory::class, 'article_id', 'id', 'id', 'category_id')->withTrashedParents();
     }
 
     /**

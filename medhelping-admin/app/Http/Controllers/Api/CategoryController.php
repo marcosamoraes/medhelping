@@ -28,6 +28,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        $category = Category::withTrashed()->find($category);
         return response()->json([
             'category' => new CategoryResource($category),
         ], 200);
