@@ -22,7 +22,7 @@ export default function Home() {
     const [articles, setArticles] = useState<IArticle[]>({} as IArticle[])
     const [loading, setLoading] = useState<boolean>(false)
     const [page, setPage] = useState<number>(1)
-    const [hasMore, setHasMore] = useState<boolean>(true)
+    const [hasMore, setHasMore] = useState<boolean>(false)
     const [firstFetchFinished, setFirstFetchFinished] = useState<boolean>(false)
 
     const { checkIsLogged } = useContext(AuthContext)
@@ -42,7 +42,7 @@ export default function Home() {
     const fetchArticles = async () => {
         setLoading(true)
         try {
-            const { data: { data } } = await api.get(`/articles?per_page=16&page=${page}`)
+            const { data: { data } } = await api.get(`/articles?per_page=1000&page=${page}`)
 
             if (articles.length > 0) {
                 const newArticles = data.filter((article: IArticle) => !articles.find((a: IArticle) => a.id === article.id))
