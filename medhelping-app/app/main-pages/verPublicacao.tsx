@@ -60,7 +60,7 @@ export default function VerPublicacao() {
 
     useEffect(() => {
         fetchArticle()
-    }, [refetch])
+    }, [refetch, route])
 
     const handleLike = async () => {
         await api.post(`/articles/${id}/like`)

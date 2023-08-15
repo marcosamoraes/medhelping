@@ -53,7 +53,7 @@ export default function ViewShift() {
 
     useEffect(() => {
         fetchShift()
-    }, [refetch])
+    }, [refetch, route])
 
     const handleComment = async () => {
         setLoadingComment(true)
