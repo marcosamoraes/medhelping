@@ -225,7 +225,7 @@ export default function VerPublicacao() {
                             <View key={comment.id} className="w-full">
                                 <ArticleComment comment={comment} setReplyComment={setReplyComment} handleRefetch={handleRefetch} setLoading={setLoading} canReply />
                                 {comment.nodeComments && (
-                                    <View className="ml-6 mb-4 border-l border-l-[#1F2935]">
+                                    <View className="pl-6 mb-4 border-l border-l-[#1F2935]">
                                         {comment.nodeComments?.map(nodeComment => (
                                             <ArticleComment key={nodeComment.id} comment={nodeComment} setReplyComment={setReplyComment} setLoading={setLoading} handleRefetch={handleRefetch} />
                                         ))}

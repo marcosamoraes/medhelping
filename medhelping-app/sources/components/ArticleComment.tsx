@@ -52,25 +52,25 @@ export default function ArticleComment({ comment, setReplyComment, handleRefetch
     return (
         <>
             <View className="flex-row justify-between w-full px-6 my-3">
-                <View className="flex-row">
+                <View className="flex-row w-10/12">
                     <Image className="w-10 h-10 object-cover rounded-full" source={commentImage} />
                     <View className="px-6">
                         {user && !comment.anonymous_publication ? (
                             <TouchableOpacity 
                                 onPress={() => navigation.navigate('viewProfile', {id: user.id})}
                             >
-                                <Text className="text-blue-500 font-900 text-sn">{user.name}</Text>
+                                <Text className="text-blue-500 font-900 text-sm">{user.name}</Text>
                             </TouchableOpacity>
                         ) : (
-                            <Text className="text-white font-900 text-sn">
+                            <Text className="text-white font-900 text-sm">
                                 Anônimo
                             </Text>
                         )}
                         
-                        <Text className="text-white font-500 text-sn">{message}</Text>
+                        <Text className="text-white font-500 text-sm">{message}</Text>
                     </View>
                 </View>
-                <TouchableOpacity className="items-center my-auto">
+                <TouchableOpacity className="items-center my-auto w-1/12">
                     {is_the_owner ? (
                         <TouchableOpacity onPress={handleDelete}>
                             <Feather name="trash-2" size={20} color="red" />
