@@ -9,6 +9,8 @@ const logo = require('../../assets/images/medhelping_logo.png');
 
 export default function Cadastro() {
   const [name, setName] = useState('');
+  const [crm, setCrm] = useState('');
+  const [state, setState] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
@@ -26,7 +28,7 @@ export default function Cadastro() {
     activeLoading()
 
     try {
-      await register(name, email, password, passwordConfirmation)
+      await register(name, email, crm, state, password, passwordConfirmation)
     } catch (error: any) {
       Alert.alert('Erro', error, [{ text: 'OK' }])
     }
@@ -78,6 +80,22 @@ export default function Cadastro() {
         placeholderTextColor={'white'}
         value={email}
         onChangeText={setEmail}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder='CRM'
+        className='mx-auto h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
+        placeholderTextColor={'white'}
+        value={crm}
+        onChangeText={setCrm}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder='Estado (UF)'
+        className='mx-auto h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
+        placeholderTextColor={'white'}
+        value={state}
+        onChangeText={setState}
       />
       <TextInput
         style={styles.input}

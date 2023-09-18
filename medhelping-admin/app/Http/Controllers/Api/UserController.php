@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\UserUpdateAddressRequest;
 use App\Http\Requests\Api\UserUpdatePasswordRequest;
 use App\Http\Requests\Api\UserUpdateProfileRequest;
 use App\Http\Requests\Api\UserUpdateRequest;

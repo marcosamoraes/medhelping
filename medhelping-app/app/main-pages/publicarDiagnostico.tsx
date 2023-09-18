@@ -25,6 +25,10 @@ export default function PublicarDiagnostico() {
     const [anonymousPublication, setAnonymousPublication] = useState<boolean>(false)
     const [preview, setPreview] = useState<string|null>(null)
     const [previewType, setPreviewType] = useState<string|null>(null)
+    const [preview2, setPreview2] = useState<string|null>(null)
+    const [previewType2, setPreviewType2] = useState<string|null>(null)
+    const [preview3, setPreview3] = useState<string|null>(null)
+    const [previewType3, setPreviewType3] = useState<string|null>(null)
 
     const video = useRef<any>(null);
 
@@ -95,6 +99,68 @@ export default function PublicarDiagnostico() {
                 obj['image'] = data
             }
 
+            if (preview2) {
+                const uploadFormData = new FormData()
+
+                let uri = ''
+                let name = ''
+                let type = ''
+                if (previewType2 === 'mp4') {
+                    const source = await video.current.getStatusAsync()
+                    uri = source.uri
+                    name = uri.split('/').pop() as string
+                    type = 'video/mp4'
+                } else {
+                    uri = preview2
+                    name = uri.split('/').pop() as string
+                    type = 'image/jpg'
+                }
+
+                uploadFormData.append('file', {
+                    uri: uri,
+                    name: name,
+                    type: type
+                } as any)
+
+                const { data } = await api.post('/upload/articles', uploadFormData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                obj['image2'] = data
+            }
+
+            if (preview3) {
+                const uploadFormData = new FormData()
+
+                let uri = ''
+                let name = ''
+                let type = ''
+                if (previewType3 === 'mp4') {
+                    const source = await video.current.getStatusAsync()
+                    uri = source.uri
+                    name = uri.split('/').pop() as string
+                    type = 'video/mp4'
+                } else {
+                    uri = preview3
+                    name = uri.split('/').pop() as string
+                    type = 'image/jpg'
+                }
+
+                uploadFormData.append('file', {
+                    uri: uri,
+                    name: name,
+                    type: type
+                } as any)
+
+                const { data } = await api.post('/upload/articles', uploadFormData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                obj['image3'] = data
+            }
+
             await api.post('/articles', obj)
 
             Alert.alert('Sucesso', 'Artigo cadastrado com sucesso.', [{ text: 'OK' }])
@@ -128,6 +194,50 @@ export default function PublicarDiagnostico() {
 
     const deleteImage = () => {
         setPreview(null)
+    }
+
+    const pickImage2 = async () => {
+        try {
+            const result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                quality: 1,
+            });
+        
+            if (!result.canceled && result.assets[0]) {
+                console.log(result.assets[0].uri)
+                setPreview2(result.assets[0].uri);
+                const type = result.assets[0].uri.split('.').pop()
+                setPreviewType2(type as string)
+            }
+        } catch (error: any) {
+            console.error('publicarDiagnostico->pickImage: ', error);
+        }
+    };
+
+    const deleteImage2 = () => {
+        setPreview2(null)
+    }
+
+    const pickImage3 = async () => {
+        try {
+            const result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                quality: 1,
+            });
+        
+            if (!result.canceled && result.assets[0]) {
+                console.log(result.assets[0].uri)
+                setPreview3(result.assets[0].uri);
+                const type = result.assets[0].uri.split('.').pop()
+                setPreviewType3(type as string)
+            }
+        } catch (error: any) {
+            console.error('publicarDiagnostico->pickImage: ', error);
+        }
+    };
+
+    const deleteImage3 = () => {
+        setPreview3(null)
     }
 
     const styles = StyleSheet.create({
@@ -207,6 +317,84 @@ export default function PublicarDiagnostico() {
                                 activeOpacity={0.8} 
                                 className="flex-row w-full bg-red-500 justify-center py-2 rounded-xl my-3 items-center"
                                 onPress={deleteImage}
+                            >
+                                <Feather name="trash" size={18} color="white" />
+                                <Text className="text-white font-700 text-sm ml-2">Deletar imagem ou vídeo</Text>
+                            </TouchableOpacity>
+                        </>
+                    )}
+
+                    <TouchableOpacity 
+                        activeOpacity={0.8} 
+                        className="flex-row w-full bg-primary justify-center py-2 rounded-xl my-3 items-center"
+                        onPress={pickImage2}
+                    >
+                        <Feather name="paperclip" size={18} color="white" />
+                        <Text className="text-white font-700 text-sm ml-2">Enviar imagem ou vídeo</Text>
+                    </TouchableOpacity>
+
+                    {preview2 && (
+                        <>
+                            <View className="border border-1 border-white border-radius rounded-lg my-5 p-3">
+                                {previewType2 === 'mp4' || previewType2 === 'mov' ? (
+                                    <View>
+                                        <Video
+                                            ref={video}
+                                            className="w-full h-60"
+                                            source={{
+                                            uri: preview2,
+                                            }}
+                                            useNativeControls
+                                            resizeMode={ResizeMode.CONTAIN}
+                                        />
+                                    </View>
+                                ) : (
+                                    <Image source={{ uri: preview2 }} className="w-full h-40" />
+                                )}
+                            </View>
+                            <TouchableOpacity 
+                                activeOpacity={0.8} 
+                                className="flex-row w-full bg-red-500 justify-center py-2 rounded-xl my-3 items-center"
+                                onPress={deleteImage2}
+                            >
+                                <Feather name="trash" size={18} color="white" />
+                                <Text className="text-white font-700 text-sm ml-2">Deletar imagem ou vídeo</Text>
+                            </TouchableOpacity>
+                        </>
+                    )}
+
+                    <TouchableOpacity 
+                        activeOpacity={0.8} 
+                        className="flex-row w-full bg-primary justify-center py-2 rounded-xl my-3 items-center"
+                        onPress={pickImage3}
+                    >
+                        <Feather name="paperclip" size={18} color="white" />
+                        <Text className="text-white font-700 text-sm ml-2">Enviar imagem ou vídeo</Text>
+                    </TouchableOpacity>
+
+                    {preview3 && (
+                        <>
+                            <View className="border border-1 border-white border-radius rounded-lg my-5 p-3">
+                                {previewType3 === 'mp4' || previewType3 === 'mov' ? (
+                                    <View>
+                                        <Video
+                                            ref={video}
+                                            className="w-full h-60"
+                                            source={{
+                                            uri: preview3,
+                                            }}
+                                            useNativeControls
+                                            resizeMode={ResizeMode.CONTAIN}
+                                        />
+                                    </View>
+                                ) : (
+                                    <Image source={{ uri: preview3 }} className="w-full h-40" />
+                                )}
+                            </View>
+                            <TouchableOpacity 
+                                activeOpacity={0.8} 
+                                className="flex-row w-full bg-red-500 justify-center py-2 rounded-xl my-3 items-center"
+                                onPress={deleteImage3}
                             >
                                 <Feather name="trash" size={18} color="white" />
                                 <Text className="text-white font-700 text-sm ml-2">Deletar imagem ou vídeo</Text>

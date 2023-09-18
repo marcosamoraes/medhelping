@@ -8,7 +8,7 @@ import { Alert } from "react-native"
 type AuthContextDataProps = {
   user: IUser
   updateUser: (user: IUser) => void
-  register: (name: string, email: string, password: string, passwordConfirmation: string) => Promise<void>
+  register: (name: string, crm: string, state: string, email: string, password: string, passwordConfirmation: string) => Promise<void>
   signIn: (email: string, password: string) => Promise<void>
   loadUserData: () => Promise<void>
   logout: () => void
@@ -37,9 +37,18 @@ export function AuthProvider ({ children }: AuthProviderProps) {
     storageUserSave(user)
   }
 
-  const register = async (name: string, email: string, password: string, passwordConfirmation: string) => {
+  const register = async (name: string, email: string, crm: string, state: string, password: string, passwordConfirmation: string) => {
     try {
-      const { data } = await api.post('/register', { name, email, password, password_confirmation: passwordConfirmation })
+      const registerData = {
+        name,
+        email,
+        password,
+        password_confirmation: passwordConfirmation,
+        infos: {crm},
+        address: {state},
+      }
+      console.log(registerData)
+      const { data } = await api.post('/register', registerData)
       
       if (data.user) {
         setUser(data.user)
@@ -49,6 +58,7 @@ export function AuthProvider ({ children }: AuthProviderProps) {
         Alert.alert('Sucesso', 'Cadastro criado com êxito', [{ text: 'OK' }])
       }
     } catch (error: any) {
+      console.log(error)
       throw error.response.data.message ?? "Falha ao realizar cadastro."
     } finally {
       setLoading(false)

@@ -17,6 +17,8 @@ class ArticleStoreRequest extends FormRequest
             'title'                 => ['string', 'max:255'],
             'description'           => ['nullable', 'string'],
             'image'                 => ['nullable', 'string'],
+            'image2'                => ['nullable', 'string'],
+            'image3'                => ['nullable', 'string'],
             'categories'            => ['required', 'array', 'min:1', 'max:3'],
             'categories.*'          => ['nullable', 'integer', 'exists:categories,id'],
             'anonymous_publication' => ['required', 'boolean'],

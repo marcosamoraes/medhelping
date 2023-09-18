@@ -8,6 +8,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -21,9 +22,19 @@ class AuthController extends Controller
                 'name' => 'required|string',
                 'email' => 'required|unique:users,email',
                 'password' => 'required|confirmed',
+                'infos.crm' => 'required|string',
+                'address.state' => 'required|string',
             ]);
 
+            DB::beginTransaction();
+
             $user = User::create($validated);
+
+            $user->infos()->create($validated['infos']);
+            $user->address()->create($validated['address']);
+
+            DB::commit();
+
             $token = $this->createToken($user);
 
             return response()->json([
@@ -31,6 +42,7 @@ class AuthController extends Controller
                 'token' => $token,
             ], 201);
         } catch (Exception $e) {
+            DB::rollBack();
             return response()->json([
                 'message' => 'Falha ao cadastrar nova conta, tente novamente mais tarde.',
                 'error' => $e->getMessage(),

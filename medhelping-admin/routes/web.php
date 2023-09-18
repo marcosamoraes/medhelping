@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/users/{user}/active', [UserController::class, 'active'])->name('users.active');
     Route::post('/users/{user}/inactive', [UserController::class, 'inactive'])->name('users.inactive');
+    Route::get('/users/export', [UserController::class, 'export'])->name('users.export');
     Route::resource('/users', UserController::class)->only(['index', 'edit', 'update']);
 
     Route::resource('/articles', ArticleController::class)->except(['show']);

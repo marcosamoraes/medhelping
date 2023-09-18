@@ -189,13 +189,13 @@ export default function VerPerfil() {
                                     <Image source={doctoraliaImg} className="w-5 h-5 object-cover"/>
                                 </TouchableOpacity>
                             </View>
-                            </View>
+                        </View>
                         </ImageBackground>
                         <View className="px-6 flex-row justify-between py-3 border-b border-b-[#1F2935]">
                             <View>
                                 <Text className="font-700 mb-1 text-white">Localização</Text>
                                 <Text className="font-700 text-[#03DADB]">
-                                    { userData.address ? `${userData.address.city} - ${userData.address.state}` : 'Não informado' }
+                                    { userData.address ? `${userData.address.city ? `${userData.address.city} - ` : ''}${userData.address.state}` : 'Não informado' }
                                 </Text>
                             </View>
                             <View>

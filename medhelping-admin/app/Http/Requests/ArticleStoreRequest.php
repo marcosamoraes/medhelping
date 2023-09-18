@@ -20,6 +20,8 @@ class ArticleStoreRequest extends FormRequest
             'category3'     => ['nullable', 'int', 'exists:categories,id'],
             'description'   => ['nullable', 'string'],
             'image'         => ['nullable', 'file'],
+            'image2'        => ['nullable', 'file'],
+            'image3'        => ['nullable', 'file'],
         ];
     }
 }

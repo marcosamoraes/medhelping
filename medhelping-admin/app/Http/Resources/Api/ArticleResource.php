@@ -21,6 +21,8 @@ class ArticleResource extends JsonResource
             'anonymous_publication' => $this->anonymous_publication,
             'title'                 => $this->title,
             'image'                 => $this->image ? Storage::url($this->image) : null,
+            'image2'                => $this->image2 ? Storage::url($this->image2) : null,
+            'image3'                => $this->image3 ? Storage::url($this->image3) : null,
             'description'           => $this->description,
             'quantity_shared'       => $this->quantity_shared,
             'likes'                 => $this->likes,

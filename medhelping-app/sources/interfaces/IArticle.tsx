@@ -6,6 +6,8 @@ interface IArticle {
   id: number,
   title: string,
   image?: string,
+  image2?: string,
+  image3?: string,
   categories: ICategory[],
   description: string,
   anonymous_publication: boolean,

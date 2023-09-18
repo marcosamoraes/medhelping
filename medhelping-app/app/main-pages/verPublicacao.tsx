@@ -1,4 +1,4 @@
-import { Image, ScrollView, View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Share, ActivityIndicator, Pressable } from "react-native";
+import { Image, View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Share, ActivityIndicator, Pressable, Dimensions } from "react-native";
 import Header from "@components/header";
 import { FontAwesome5, Feather } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
@@ -11,13 +11,13 @@ import { useEffect, useRef, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import { api } from "@services/api";
 import IArticle from "@interfaces/IArticle";
-import Checkbox from "expo-checkbox";
 import { useNavigation } from "expo-router";
 import ArticleComment from '../../sources/components/ArticleComment';
 import IComment from "@interfaces/IComment";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { createURL } from "expo-linking";
 import { ResizeMode, Video } from "expo-av";
+import Carousel from 'react-native-reanimated-carousel';
 
 const examBackground = require("../../assets/images/img-fundo-exame.png");
 
@@ -113,6 +113,18 @@ export default function VerPublicacao() {
         navigation.navigate('viewPublicationImage', { image: article.image })
     }
 
+    const showImageFull2 = () => {
+        if (!article.image2) return
+        
+        navigation.navigate('viewPublicationImage', { image: article.image2 })
+    }
+
+    const showImageFull3 = () => {
+        if (!article.image3) return
+        
+        navigation.navigate('viewPublicationImage', { image: article.image3 })
+    }
+
     const handleDelete = () => {
         Alert.alert('Atenção', 'Deseja realmente excluir esta publicação?', [
             { text: 'Não' },
@@ -139,10 +151,40 @@ export default function VerPublicacao() {
     })
 
     const fileType = article?.image?.split('.').pop()?.toLowerCase()
+    const fileType2 = article?.image2?.split('.').pop()?.toLowerCase()
+    const fileType3 = article?.image3?.split('.').pop()?.toLowerCase()
 
     let articleFile = examBackground
     if (article?.image) {
         articleFile = { uri: article?.image }
+    }
+
+    const width = Dimensions.get('window').width;
+
+    let carouselData = []
+
+    if (article?.image) {
+        carouselData.push({
+            file: article?.image,
+            fileType: fileType,
+            fullFile: showImageFull
+        })
+    }
+
+    if (article?.image2) {
+        carouselData.push({
+            file: article?.image2,
+            fileType: fileType2,
+            fullFile: showImageFull2
+        })
+    }
+
+    if (article?.image3) {
+        carouselData.push({
+            file: article?.image3,
+            fileType: fileType3,
+            fullFile: showImageFull3
+        })
     }
 
     return (
@@ -155,25 +197,39 @@ export default function VerPublicacao() {
             <KeyboardAwareScrollView extraScrollHeight={15} className="w-screen bg-background h-full">
                 {!loading ? (
                     <>
-                        {(fileType === 'mp4' || fileType === 'mov') && article?.image ? (
-                            <>
-                                {loadingVideo && (
-                                    <ActivityIndicator size="large" color="white" className="h-40" />
+                        <View style={{ flex: 1 }}>
+                            <Carousel
+                                loop
+                                width={width}
+                                height={width / 2}
+                                autoPlay={true}
+                                data={carouselData}
+                                scrollAnimationDuration={2000}
+                                renderItem={({ item: { file, fileType, fullFile }, index }: any) => (
+                                    <View>
+                                        {(fileType === 'mp4' || fileType === 'mov') ? (
+                                            <>
+                                                {loadingVideo && (
+                                                    <ActivityIndicator size="large" color="white" className="h-40" />
+                                                )}
+                                                <Video
+                                                    ref={video}
+                                                    className={`w-full ${!loadingVideo ? 'h-60' : ''}`}
+                                                    source={file}
+                                                    onPlaybackStatusUpdate={(status: any) => status.isLoaded && setLoadingVideo(false)}
+                                                    useNativeControls
+                                                    resizeMode={ResizeMode.CONTAIN}
+                                                />
+                                            </>
+                                        ) : (
+                                            <Pressable onPress={fullFile}>
+                                                <Image className="w-full h-40 object-cover" source={{ uri: file }} defaultSource={examBackground} />
+                                            </Pressable>
+                                        )}
+                                    </View>
                                 )}
-                                <Video
-                                    ref={video}
-                                    className={`w-full ${!loadingVideo ? 'h-60' : ''}`}
-                                    source={articleFile}
-                                    onPlaybackStatusUpdate={(status: any) => status.isLoaded && setLoadingVideo(false)}
-                                    useNativeControls
-                                    resizeMode={ResizeMode.CONTAIN}
-                                />
-                            </>
-                        ): (
-                            <Pressable onPress={showImageFull}>
-                                <Image className="w-full h-40 object-cover" source={articleFile} defaultSource={examBackground} />
-                            </Pressable>
-                        )}
+                            />
+                        </View>
                         <View className="p-4 border-b mb-4 border-b-[#1F2935]">
                             <View className="w-full">
                                 <Text className="text-white text-center font-900 text-xl py-2">
@@ -255,14 +311,18 @@ export default function VerPublicacao() {
                         </View>
                     )}
                     <View className='flex-row px-4 justify-between items-center w-screen'>
-                        <TextInput
-                            style={styles.input}
-                            placeholder='Adicionar um comentário'
-                            className='h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
-                            placeholderTextColor={'white'}
-                            value={reply}
-                            onChangeText={setReply}
-                        />
+                        <View className="flex flex-col w-4/5">
+                            <TextInput
+                                style={styles.input}
+                                placeholder='Adicionar um comentário'
+                                className='h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
+                                placeholderTextColor={'white'}
+                                value={reply}
+                                onChangeText={setReply}
+                                maxLength={255}
+                            />
+                            <Text className={`pb-5 pl-2 ${reply.length == 255 ? 'text-red-500' : 'text-white'}`}>{reply.length}/255 caracteres</Text>
+                        </View>
                         <TouchableOpacity 
                             onPress={handleComment} 
                             activeOpacity={0.6} 

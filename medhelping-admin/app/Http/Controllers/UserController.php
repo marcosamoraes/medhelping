@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Exception;
@@ -9,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
+use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
@@ -90,5 +92,13 @@ class UserController extends Controller
             Alert::toast('Erro ao desativar usuário.', 'error');
             return back()->withInput();
         }
+    }
+
+    /**
+     * Export the resources from storage to xlsx.
+     */
+    public function export()
+    {
+        return Excel::download(new UsersExport, 'users.xlsx');
     }
 }

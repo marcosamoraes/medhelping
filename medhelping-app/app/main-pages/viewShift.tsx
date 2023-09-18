@@ -200,14 +200,18 @@ export default function ViewShift() {
                         </View>
                     )}
                     <View className='flex-row px-4 justify-between items-center w-screen'>
-                        <TextInput
-                            style={styles.input}
-                            placeholder='Adicionar um comentário'
-                            className='h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
-                            placeholderTextColor={'white'}
-                            value={reply}
-                            onChangeText={setReply}
-                        />
+                        <View className="flex flex-col w-4/5">
+                            <TextInput
+                                style={styles.input}
+                                placeholder='Adicionar um comentário'
+                                className='h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
+                                placeholderTextColor={'white'}
+                                value={reply}
+                                onChangeText={setReply}
+                                maxLength={255}
+                            />
+                            <Text className={`pb-5 pl-2 ${reply.length == 255 ? 'text-red-500' : 'text-white'}`}>{reply.length}/255 caracteres</Text>
+                        </View>
                         <TouchableOpacity 
                             onPress={handleComment} 
                             activeOpacity={0.6} 

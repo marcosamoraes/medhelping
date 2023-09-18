@@ -22,6 +22,8 @@ class Article extends Model
         'anonymous_publication',
         'title',
         'image',
+        'image2',
+        'image3',
         'description',
         'active',
         'quantity_shared',
