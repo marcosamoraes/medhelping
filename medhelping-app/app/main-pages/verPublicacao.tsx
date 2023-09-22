@@ -202,7 +202,7 @@ export default function VerPublicacao() {
                                 loop
                                 width={width}
                                 height={width / 2}
-                                autoPlay={true}
+                                autoPlay={carouselData.length > 1}
                                 data={carouselData}
                                 scrollAnimationDuration={2000}
                                 renderItem={({ item: { file, fileType, fullFile }, index }: any) => (
