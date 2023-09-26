@@ -285,13 +285,17 @@ export default function PublicarDiagnostico() {
                         onChangeText={setDescription}
                     />
 
+                    <View className="w-full py-2">
+                        <Text className="font-700 text-white text-lg text-center">Envie até 3 mídias</Text>
+                    </View>
+
                     <TouchableOpacity 
                         activeOpacity={0.8} 
                         className="flex-row w-full bg-primary justify-center py-2 rounded-xl my-3 items-center"
                         onPress={pickImage}
                     >
                         <Feather name="paperclip" size={18} color="white" />
-                        <Text className="text-white font-700 text-sm ml-2">Enviar imagem ou vídeo</Text>
+                        <Text className="text-white font-700 text-sm ml-2">Enviar imagem ou vídeo 1</Text>
                     </TouchableOpacity>
 
                     {preview && (
@@ -330,7 +334,7 @@ export default function PublicarDiagnostico() {
                         onPress={pickImage2}
                     >
                         <Feather name="paperclip" size={18} color="white" />
-                        <Text className="text-white font-700 text-sm ml-2">Enviar imagem ou vídeo</Text>
+                        <Text className="text-white font-700 text-sm ml-2">Enviar imagem ou vídeo 2</Text>
                     </TouchableOpacity>
 
                     {preview2 && (
@@ -369,7 +373,7 @@ export default function PublicarDiagnostico() {
                         onPress={pickImage3}
                     >
                         <Feather name="paperclip" size={18} color="white" />
-                        <Text className="text-white font-700 text-sm ml-2">Enviar imagem ou vídeo</Text>
+                        <Text className="text-white font-700 text-sm ml-2">Enviar imagem ou vídeo 3</Text>
                     </TouchableOpacity>
 
                     {preview3 && (

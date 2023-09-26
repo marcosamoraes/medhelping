@@ -118,8 +118,8 @@ android {
         applicationId 'br.com.medhelping'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 16
-        versionName "2.0.19"
+        versionCode 17
+        versionName "2.0.20"
     }
 
     splits {

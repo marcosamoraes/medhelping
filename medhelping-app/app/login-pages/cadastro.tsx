@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Link, useNavigation } from "expo-router";
 import { AuthContext } from '@contexts/Auth';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import SelectPicker from '@components/SelectPicker';
 
 const logo = require('../../assets/images/medhelping_logo.png');
 
@@ -54,6 +55,36 @@ export default function Cadastro() {
     }
   });
 
+  const states = [
+    { id: 'AC', name: 'Acre' },
+    { id: 'AL', name: 'Alagoas' },
+    { id: 'AP', name: 'Amapá' },
+    { id: 'AM', name: 'Amazonas' },
+    { id: 'BA', name: 'Bahia' },
+    { id: 'CE', name: 'Ceará' },
+    { id: 'DF', name: 'Distrito Federal' },
+    { id: 'ES', name: 'Espírito Santo' },
+    { id: 'GO', name: 'Goiás' },
+    { id: 'MA', name: 'Maranhão' },
+    { id: 'MT', name: 'Mato Grosso' },
+    { id: 'MS', name: 'Mato Grosso do Sul' },
+    { id: 'MG', name: 'Minas Gerais' },
+    { id: 'PA', name: 'Pará' },
+    { id: 'PB', name: 'Paraíba' },
+    { id: 'PR', name: 'Paraná' },
+    { id: 'PE', name: 'Pernambuco' },
+    { id: 'PI', name: 'Piauí' },
+    { id: 'RJ', name: 'Rio de Janeiro' },
+    { id: 'RN', name: 'Rio Grande do Norte' },
+    { id: 'RS', name: 'Rio Grande do Sul' },
+    { id: 'RO', name: 'Rondônia' },
+    { id: 'RR', name: 'Roraima' },
+    { id: 'SC', name: 'Santa Catarina' },
+    { id: 'SP', name: 'São Paulo' },
+    { id: 'SE', name: 'Sergipe' },
+    { id: 'TO', name: 'Tocantins' },
+  ]
+
   return (
     <KeyboardAwareScrollView className="bg-background flex-1">
       <Image style={styles.logo}
@@ -89,14 +120,9 @@ export default function Cadastro() {
         value={crm}
         onChangeText={setCrm}
       />
-      <TextInput
-        style={styles.input}
-        placeholder='Estado (UF)'
-        className='mx-auto h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
-        placeholderTextColor={'white'}
-        value={state}
-        onChangeText={setState}
-      />
+      <View className='mx-auto w-4/5 rounded-xl text-sm font-400' style={{ marginTop: -10 }}>
+        <SelectPicker name="Estado" items={states} value={state} setValue={setState} marginTop={-350} placeholder='Estado (UF)' />
+      </View>
       <TextInput
         style={styles.input}
         placeholder='Senha'

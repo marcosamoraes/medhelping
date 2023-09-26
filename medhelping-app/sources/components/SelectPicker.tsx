@@ -3,7 +3,7 @@ import { Picker } from '@react-native-picker/picker';
 import { useState } from "react";
 
 type Item = {
-  id: number;
+  id: number|string;
   name: string;
 }
 
@@ -13,9 +13,10 @@ type SelectPickerProps = {
   value: string|null;
   setValue: (value: any) => void;
   marginTop?: number;
+  placeholder?: string;
 }
 
-export default function SelectPicker({ name, value, setValue, items, marginTop = -150 } : SelectPickerProps) {
+export default function SelectPicker({ name, value, setValue, items, marginTop = -150, placeholder = 'Selecione...' } : SelectPickerProps) {
   const [ isOpen, setIsOpen ] = useState<boolean>(false)
   const [ inputValue, setInputValue ] = useState<string>('')
 
@@ -36,7 +37,9 @@ export default function SelectPicker({ name, value, setValue, items, marginTop =
 
   return (
     <>
-      <Text className="pt-3 text-white">{ name }</Text>
+      {placeholder === 'Selecione...' && (
+        <Text className="pt-3 text-white">{ name }</Text>
+      )}
       {Platform.OS === 'ios' ? (
         <>
           <Text
@@ -44,7 +47,7 @@ export default function SelectPicker({ name, value, setValue, items, marginTop =
             className={`h-10 w-full rounded-xl text-sm font-400 mt-5 pt-2.5 px-4 ${isOpen ? 'mb-40' : 'mb-3'} `}
             onPress={() => setIsOpen(true)}
           >
-            { inputValue !== '' ? inputValue : 'Selecione...' }
+            { inputValue !== '' ? inputValue : placeholder }
           </Text>
 
           {isOpen && (
@@ -59,7 +62,7 @@ export default function SelectPicker({ name, value, setValue, items, marginTop =
                 selectedValue={value}
                 onValueChange={(itemValue, itemIndex) => handleValueChange(itemValue)}
               >
-                <Picker.Item label="Selecione..." value={null} />
+                <Picker.Item label={placeholder} value={null} />
                 {items.length > 0 && items.map((item, index) => (
                   <Picker.Item key={index} label={item.name} value={item.id} />
                 ))}
