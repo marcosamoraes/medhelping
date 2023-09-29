@@ -327,7 +327,7 @@ export default function VerPublicacao() {
                             onPress={handleComment} 
                             activeOpacity={0.6} 
                             disabled={loadingComment}
-                            className="h-9 w-9 mb-10 rounded-full justify-center items-center bg-[#07acf7]"
+                            className="h-9 w-9 mb-5 rounded-full justify-center items-center bg-[#07acf7]"
                         >
                             {loadingComment ? (
                                 <ActivityIndicator size="small" color="white" />
