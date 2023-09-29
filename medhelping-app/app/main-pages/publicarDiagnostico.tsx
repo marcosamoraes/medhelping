@@ -285,8 +285,8 @@ export default function PublicarDiagnostico() {
                         onChangeText={setDescription}
                     />
 
-                    <View className="w-full py-2">
-                        <Text className="font-700 text-white text-lg text-center">Envie até 3 mídias</Text>
+                    <View className="w-full p-4 rounded-xl bg-yellow-300">
+                        <Text className="font-700 text-yellow-900 text-center">Envie até 3 mídias</Text>
                     </View>
 
                     <TouchableOpacity 

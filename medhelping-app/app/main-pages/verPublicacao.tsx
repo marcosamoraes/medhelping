@@ -215,7 +215,7 @@ export default function VerPublicacao() {
                                                 <Video
                                                     ref={video}
                                                     className={`w-full ${!loadingVideo ? 'h-60' : ''}`}
-                                                    source={file}
+                                                    source={{ uri: file }}
                                                     onPlaybackStatusUpdate={(status: any) => status.isLoaded && setLoadingVideo(false)}
                                                     useNativeControls
                                                     resizeMode={ResizeMode.CONTAIN}
@@ -310,24 +310,24 @@ export default function VerPublicacao() {
                             </TouchableOpacity>
                         </View>
                     )}
-                    <View className='flex-row px-4 justify-between items-center w-screen'>
+                    <View className='flex-row px-4 justify-between items-start py-3 w-screen'>
                         <View className="flex flex-col w-4/5">
                             <TextInput
                                 style={styles.input}
                                 placeholder='Adicionar um comentário'
-                                className='h-10 w-4/5 rounded-xl text-sm font-400 my-3 px-4'
+                                className='h-10 w-4/5 rounded-xl text-sm font-400 px-4'
                                 placeholderTextColor={'white'}
                                 value={reply}
                                 onChangeText={setReply}
                                 maxLength={255}
                             />
-                            <Text className={`pb-5 pl-2 ${reply.length == 255 ? 'text-red-500' : 'text-white'}`}>{reply.length}/255 caracteres</Text>
+                            <Text className={`pb-10 pl-2 ${reply.length == 255 ? 'text-red-500' : 'text-white'}`}>{reply.length}/255 caracteres</Text>
                         </View>
                         <TouchableOpacity 
                             onPress={handleComment} 
                             activeOpacity={0.6} 
                             disabled={loadingComment}
-                            className="h-9 w-9 rounded-full justify-center items-center bg-[#07acf7]"
+                            className="h-9 w-9 mb-10 rounded-full justify-center items-center bg-[#07acf7]"
                         >
                             {loadingComment ? (
                                 <ActivityIndicator size="small" color="white" />
