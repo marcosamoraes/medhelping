@@ -34,6 +34,9 @@
                                     <span class="text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Cidade</span>
                                 </th>
                                 <th class="px-6 py-3 bg-gray-50 text-left">
+                                    <span class="text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">CRM</span>
+                                </th>
+                                <th class="px-6 py-3 bg-gray-50 text-left">
                                     <span class="text-xs leading-4 font-medium text-center text-gray-500 uppercase tracking-wider">Likes</span>
                                 </th>
                                 <th class="px-6 py-3 bg-gray-50 text-left">
@@ -73,6 +76,13 @@
                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                                         @if ($user->address)
                                             {{ $user->address->city . '/' . $user->address->state }}
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
+                                        @if ($user->infos)
+                                            {{ $user->infos->crm }}
                                         @else
                                             -
                                         @endif
