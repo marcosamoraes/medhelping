@@ -1,4 +1,4 @@
-package br.com.medhelping;
+package br.com.medhelping.android;
 
 import android.app.Application;
 import android.content.res.Configuration;

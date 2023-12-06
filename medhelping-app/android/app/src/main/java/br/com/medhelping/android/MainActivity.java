@@ -1,4 +1,4 @@
-package br.com.medhelping;
+package br.com.medhelping.android;
 
 import android.os.Build;
 import android.os.Bundle;
