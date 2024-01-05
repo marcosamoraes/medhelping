@@ -50,13 +50,13 @@ CFLAGS_OBJC_Debug :=
 CFLAGS_OBJCC_Debug :=
 
 INCS_Debug := \
-	-I/var/folders/x2/jswf3r216l37_ntn300pht6m0000gn/T/prebuild/node/18.18.1/include/node \
-	-I/var/folders/x2/jswf3r216l37_ntn300pht6m0000gn/T/prebuild/node/18.18.1/src \
-	-I/var/folders/x2/jswf3r216l37_ntn300pht6m0000gn/T/prebuild/node/18.18.1/deps/openssl/config \
-	-I/var/folders/x2/jswf3r216l37_ntn300pht6m0000gn/T/prebuild/node/18.18.1/deps/openssl/openssl/include \
-	-I/var/folders/x2/jswf3r216l37_ntn300pht6m0000gn/T/prebuild/node/18.18.1/deps/uv/include \
-	-I/var/folders/x2/jswf3r216l37_ntn300pht6m0000gn/T/prebuild/node/18.18.1/deps/zlib \
-	-I/var/folders/x2/jswf3r216l37_ntn300pht6m0000gn/T/prebuild/node/18.18.1/deps/v8/include
+	-I/Users/estica/Library/Caches/node-gyp/18.18.1/include/node \
+	-I/Users/estica/Library/Caches/node-gyp/18.18.1/src \
+	-I/Users/estica/Library/Caches/node-gyp/18.18.1/deps/openssl/config \
+	-I/Users/estica/Library/Caches/node-gyp/18.18.1/deps/openssl/openssl/include \
+	-I/Users/estica/Library/Caches/node-gyp/18.18.1/deps/uv/include \
+	-I/Users/estica/Library/Caches/node-gyp/18.18.1/deps/zlib \
+	-I/Users/estica/Library/Caches/node-gyp/18.18.1/deps/v8/include
 
 DEFS_Release := \
 	'-DNODE_GYP_MODULE_NAME=binding' \
@@ -103,13 +103,13 @@ CFLAGS_OBJC_Release :=
 CFLAGS_OBJCC_Release :=
 
 INCS_Release := \
-	-I/var/folders/x2/jswf3r216l37_ntn300pht6m0000gn/T/prebuild/node/18.18.1/include/node \
-	-I/var/folders/x2/jswf3r216l37_ntn300pht6m0000gn/T/prebuild/node/18.18.1/src \
-	-I/var/folders/x2/jswf3r216l37_ntn300pht6m0000gn/T/prebuild/node/18.18.1/deps/openssl/config \
-	-I/var/folders/x2/jswf3r216l37_ntn300pht6m0000gn/T/prebuild/node/18.18.1/deps/openssl/openssl/include \
-	-I/var/folders/x2/jswf3r216l37_ntn300pht6m0000gn/T/prebuild/node/18.18.1/deps/uv/include \
-	-I/var/folders/x2/jswf3r216l37_ntn300pht6m0000gn/T/prebuild/node/18.18.1/deps/zlib \
-	-I/var/folders/x2/jswf3r216l37_ntn300pht6m0000gn/T/prebuild/node/18.18.1/deps/v8/include
+	-I/Users/estica/Library/Caches/node-gyp/18.18.1/include/node \
+	-I/Users/estica/Library/Caches/node-gyp/18.18.1/src \
+	-I/Users/estica/Library/Caches/node-gyp/18.18.1/deps/openssl/config \
+	-I/Users/estica/Library/Caches/node-gyp/18.18.1/deps/openssl/openssl/include \
+	-I/Users/estica/Library/Caches/node-gyp/18.18.1/deps/uv/include \
+	-I/Users/estica/Library/Caches/node-gyp/18.18.1/deps/zlib \
+	-I/Users/estica/Library/Caches/node-gyp/18.18.1/deps/v8/include
 
 OBJS :=
 

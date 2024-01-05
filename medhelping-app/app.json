@@ -3,7 +3,7 @@
     "name": "Med Helping",
     "slug": "medhelping-app",
     "scheme": "medhelping",
-    "version": "2.1.2",
+    "version": "2.1.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -18,7 +18,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.medhelping",
-      "buildNumber": "2.1.2"
+      "buildNumber": "2.1.3"
     },
     "android": {
       "adaptiveIcon": {
@@ -26,7 +26,7 @@
         "backgroundColor": "#01061C"
       },
       "package": "br.com.medhelping.android",
-      "versionCode": 2
+      "versionCode": 3
     },
     "extra": {
       "eas": {
